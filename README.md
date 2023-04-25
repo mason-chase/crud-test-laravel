@@ -1,7 +1,4 @@
-# crud-test-laravel
-Laravel CRUD Test Assignment
-
-# CRUD Code Test 
+# Laravel CRUD Test Assignment
 
 Please read each note very carefully!
 Feel free to add/change project structure to a clean architecture to your view.
