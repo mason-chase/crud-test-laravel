@@ -40,8 +40,9 @@ Customer {
 
 ### Delivery (Must)
 - Please clone this repository in a new github repository in private mode and share with ID: `mason-chase` in private mode on github.com, make sure you do not erase my commits and then create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (code review).
+- Docker-compose project that loads database service automatically with `docker-compose up`
 
-## Nice to do:
+## Presentation (Must)
 - Web UI.
 - Swagger
-- Docker-compose project that loads database service automatically which `docker-compose up`
+
