@@ -22,6 +22,7 @@ Customer {
 - [Clean architecture](https://github.com/jasontaylordev/CleanArchitecture)
 - [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation#Command_query_responsibility_separation) pattern ([Event sourcing](https://en.wikipedia.org/wiki/Domain-driven_design#Event_sourcing)).
 - Clean git commits that shows your work progress.
+- Use PHP 8.2.x only
 
 ### Validations (Must)
 
