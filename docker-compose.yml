@@ -1,0 +1,43 @@
+version: "3"
+services:
+  chase_web: 
+    build: 
+      context: .
+      dockerfile: php.Dockerfile
+    ports: 
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    links:
+      - chase_db
+    networks:
+      - default
+  
+  chase_db:
+    image: mariadb
+    container_name: chase_db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: mc_crud_test
+      MYSQL_USER: chase
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - ./storage/database:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - default
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: chase_db_admin
+    links:
+      - chase_db
+    environment:
+      PMA_HOST: chase_db
+      PMA_PORT: 3306 
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - "3307:80"
+  
