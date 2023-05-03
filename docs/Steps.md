@@ -22,3 +22,6 @@ In this **story** i only try to model and program a minimum viable product (MVP)
 ## 3. customer model and factory
 In this step we create a basic eloquent model for the customer and a decent factory. then seed the database for further inspections. 
 - **Note**: I never use ```repository design pattern``` along side of Laravel, I am totally against it and have very good reasons for that. 
+
+## 4. Test what ever is done up until this stage
+Some unit test for Customer database is devised to check if every thing is fine up until now. 

@@ -1,5 +1,15 @@
 # Task Requirements
 
+## Practices and patterns (Must):
+| # 	| Description                                      	| Status 	|
+|---	|--------------------------------------------------	|--------	|
+| 1 	| TDD                                              	| On Going ❌ 	|
+| 2 	| DDD                                              	| On Going ❌ 	|
+| 3 	| BDD                                              	| On Going ❌ 	|
+| 4 	| Clean architecture                               	| On Going ❌ 	|
+| 5 	| CQRS pattern (Event sourcing).                   	| On Going ❌ 	|
+| 6 	| Clean git commits that shows your work progress. 	| On Going ❌ 	|
+| 7 	| Use PHP 8.2.x only                               	| Done ✅ 	|
 
 ## Validations (Must)
 | # 	| Description                                                                                     	| Status 	|
