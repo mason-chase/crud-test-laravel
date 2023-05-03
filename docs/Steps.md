@@ -1,6 +1,20 @@
 # Steps to fullfil the task
 
-## Dockerize the project 
+## 1. Dockerize the project 
 Because it is a test project, I didn't separate docker files from the actual project, but in a real world scenario, I put all the code inside ```src``` directory and outside of that I dockerize the project. 
 
 **Why mariadb**: due to lots of trouble Oracle posed on programmers in Iran, I prefer to use mariaDb which is an open source fork of the mysql. 
+
+**Git note**: based on what was described in the project I created the repo. But unlike my daily routing I don't use multiple branches to finish the job (all changes would be on one branch only)
+
+**Usage**: you may find needed info for running the project in the [usage.md](./usage.md)
+
+
+## 2. customer database table
+In this **story** i only try to model and program a minimum viable product (MVP) that meets project requirements very loosely. So based on that every thing would be very minimalistic for now (**No event sourcing would be modeled in this stage** ).
+
+- Also to be in consistent with **database naming conventions** I will use all lowercase for column and table names and to separate words with an underscore ("_"). see the community and [brainstation](https://brainstation.io/learn/sql/naming-conventions) for more info. 
+  - here are some examples ```Firstname``` would be ```first_name```, ```DateOfBirth``` would be ```data_of_birth``` and so on. 
+
+- Note that lots of consideration were taken into account that you can see in the [todos.md](./todos.md) in the **MUST** and **Notes** sections.
+
