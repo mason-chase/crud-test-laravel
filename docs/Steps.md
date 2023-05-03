@@ -18,3 +18,7 @@ In this **story** i only try to model and program a minimum viable product (MVP)
 
 - Note that lots of consideration were taken into account that you can see in the [todos.md](./todos.md) in the **MUST** and **Notes** sections.
 
+
+## 3. customer model and factory
+In this step we create a basic eloquent model for the customer and a decent factory. then seed the database for further inspections. 
+- **Note**: I never use ```repository design pattern``` along side of Laravel, I am totally against it and have very good reasons for that. 
