@@ -5,9 +5,19 @@ namespace Src\Common\Infrastructure\Laravel\Kernel;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Src\Common\Presentation\CLI\CreateDomainCmd;
 
 class Console extends ConsoleKernel
 {
+    /**
+     * The Artisan commands provided by the application.
+     *
+     * @var array
+     */
+    protected $commands = [
+        CreateDomainCmd::class,
+    ];
+
     /**
      * Define the application's command schedule.
      */
@@ -21,8 +31,6 @@ class Console extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }
