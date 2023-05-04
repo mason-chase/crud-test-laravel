@@ -1,0 +1,48 @@
+openapi: '3.0.2'
+info:
+  title: Laravel CRUD Test
+  description: |-
+    In this document we try to present customers specifications.
+    
+  version: '1.0'
+  contact:
+    email: tofighatwork@gmail.com
+servers:
+  - url: http://localhost/public/
+tags:
+  - name: Customer
+    description: |-
+      Customer/s APIs in the test project. Note that you should be logged in 
+      as ```user``` to use this group of URIs.
+paths:
+  /api/customers:
+    get:
+      tags:
+        - "Customer"
+      summary: get the list of all customers in a json format
+      security:
+        - BearerAuth: [admin]
+      responses:
+          '406':
+            description: Out of the scope of the project
+            content:
+              application.json:
+                schema: 
+                  $ref: '#/components/schemas/CustomerErrors/properties/outOfScope'
+
+ 
+components:
+  schemas:
+    CustomerErrors:
+      type: object
+      properties:
+        outOfScope:
+          properties:
+            errors:
+              type: string
+              example: Not in the scope of the current project
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

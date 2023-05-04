@@ -39,3 +39,9 @@
       # generate the key
       php artisan key:generate
       ```
+
+## Documents
+The three types of documentations are presented in the project are as below:
+- In code docs: this docs are following ```phpDoc``` conventions and libraries.
+- ```.md``` files: like the current document, provide users with some good info about how the project is fulfilled and how you may use it.
+- An ```OpenApi``` file with the extension of ```.yml```.  The document can be found in [api.yml](./api.yml). To work with it you may install proper extensions in your code editor, or you may paste the content in the [swagger editor](https://editor.swagger.io/).

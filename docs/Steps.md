@@ -25,3 +25,10 @@ In this step we create a basic eloquent model for the customer and a decent fact
 
 ## 4. Test what ever is done up until this stage
 Some unit test for Customer database is devised to check if every thing is fine up until now. 
+
+## 5. Customer controller and associated APIs
+A basic customer controller along side with a ```ResponseBuilder``` class is devised to represent results in a json format. Note that I am intended to completely separate the backend project from the future front-end.
+* please note that instead of working with the UI, I always use ```unit tests``` and ```tinker``` to interact with the APIs and models.
+* please note in this stage I began to document api using ```OpenAPI 3```. The document can be found in [api.yml](./api.yml). To work with it you may install proper extensions in your code editor, or you may paste the content in the [swagger editor](https://editor.swagger.io/).
+
+1. index method and needed tests

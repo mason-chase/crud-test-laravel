@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/login', function(){
+    return response()->json(['errors' => 'Not in the scope of the current project'], Response::HTTP_NOT_ACCEPTABLE);
+})->name('login');
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
 });

@@ -36,3 +36,12 @@
 |---	|-----------------------------------------------------------------------------------------------	|--------	|
 | 1 	| Docker-compose project that loads database service automatically with ```docker-compose up``` 	| Done ✅ 	|
 
+
+
+## Presentation (Must)
+| # 	| Description 	| Status 	|
+|---	|-------------	|--------	|
+| 1 	| Web UI      	| On Going ❌ 	|
+| 2 	| Swagger     	| On Going ❌ 	|
+
+**Note** that ```OpenApi 3``` is used to document the api.
