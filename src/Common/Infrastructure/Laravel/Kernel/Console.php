@@ -7,6 +7,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Src\Common\Presentation\CLI\CreateControllerCmd;
 use Src\Common\Presentation\CLI\CreateDomainCmd;
+use Src\Common\Presentation\CLI\CreateRoutesCmd;
 
 class Console extends ConsoleKernel
 {
@@ -17,7 +18,8 @@ class Console extends ConsoleKernel
      */
     protected $commands = [
         CreateDomainCmd::class,
-        CreateControllerCmd::class
+        CreateControllerCmd::class,
+        CreateRoutesCmd::class
     ];
 
     /**
