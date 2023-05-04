@@ -29,7 +29,12 @@ paths:
               application.json:
                 schema: 
                   $ref: '#/components/schemas/CustomerErrors/properties/outOfScope'
-
+          '200':
+            description: The list of all customers
+            content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomersList'
  
 components:
   schemas:
@@ -41,7 +46,50 @@ components:
             errors:
               type: string
               example: Not in the scope of the current project
-
+    CustomerItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 26
+        first_name:
+          type: string
+          example: Ali Asghar
+        last_name:
+          type: string
+          example: Tofighian
+        date_of_birth:
+          type: string
+          format: date
+          example: 2008-02-23
+        phone_number:
+          type: string
+          example: +1.616.391.8930
+        email:
+          type: string
+          example: tofighatwork@gmail.com
+        bank_account_number:
+          type: string
+          example: 4189-4276-8000-9580
+        create_at:
+          type: string
+          format: date-time
+          example: 2023-05-04T07:06:53.000000Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2023-05-04T07:06:53.000000Z          
+    CustomersList:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/CustomerItem'
+        message:
+          type: string
+          example: ""
+        "errors":
+          type: array
+          example: null
   securitySchemes:
     BearerAuth:
       type: http
