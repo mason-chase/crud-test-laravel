@@ -31,7 +31,7 @@ class CreateRoutesCmd extends Command
     {
         $domainName = $this->argument('domainName');
 
-        $path = "src/{$domainName}/Presentation/Routs/api.php";
+        $path = "src/{$domainName}/Presentation/Routes/api.php";
 
         if (!File::exists("src/{$domainName}")) {
             $this->alert("The {$domainName} domain has not created.");

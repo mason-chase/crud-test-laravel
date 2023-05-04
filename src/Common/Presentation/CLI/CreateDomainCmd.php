@@ -108,7 +108,7 @@ class CreateDomainCmd extends Command
     protected function makePresentationDirs()
     {
         $presentationStructure = [
-            'Routes/api',
+            'Routes',
             'Middlewares',
             'Requests',
             'Controllers'
