@@ -33,24 +33,31 @@ class CreateControllerCmd extends Command
 
         $path = "src/{$domainName}/Presentation/Controllers/{$domainName}Controller.php";
 
+        if (!File::exists("src/{$domainName}")) {
+            $this->alert("The {$domainName} domain has not created.");
+
+            return Command::FAILURE;
+        }
+
+        $stub = File::get('./stubs/controller.stub');
+
+        $stubReplace = [
+            '**Domain**' => $domainName,
+            '**domain_lc**' => Str::snake($domainName),
+        ];
+
         if (!File::exists($path)) {
-            $stub = File::get('./stubs/controller.stub');
-
-            $stubReplace = [
-                '**Domain**' => $domainName,
-                '**domain_lc**' => Str::snake($domainName),
-            ];
-
             $file = strtr($stub, $stubReplace);
 
             File::put($path, $file);
         } else {
-            $this->alert("{$domainName}Controller exists.");
+            $this->alert("The {$domainName}Controller already created.");
         }
 
         return Command::SUCCESS;
     }
 }
+
 {
 
 }
