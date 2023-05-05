@@ -52,7 +52,7 @@ class StoreCustomerRequest extends FormRequest
             'last_name' => ['required', 'string', 'min:2'],
             'date_of_birth' => ['required', 'date', 'date_format:Y-m-d'],
             'phone_number' => ['required', 'string', 'min:2', new PhoneNumberRule('IR')],
-            'email' => ['required', 'email', Rule::unique('customers', 'email')],
+            'email' => ['required', 'email:rfc,dns', Rule::unique('customers', 'email')],
             'bank_account_number' => ['required']
         ];
     }
