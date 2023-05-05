@@ -14,9 +14,9 @@
 ## Validations (Must)
 | # 	| Description                                                                                     	| Status 	|
 |---	|-------------------------------------------------------------------------------------------------	|--------	|
-| 1 	| During Create; validate the phone number to be a valid mobile number only                       	| On Going ❌ 	|
-| 2 	| Use Google LibPhoneNumber to validate number at the backend                                     	| On Going ❌ 	|
-| 3 	| A Valid email and a valid bank account number must be checked before submitting the form        	| On Going ❌ 	|
+| 1 	| During Create; validate the phone number to be a valid mobile number only                       	| Done ✅ 	|
+| 2 	| Use Google LibPhoneNumber to validate number at the backend                                     	| Done ✅ 	|
+| 3 	| A Valid email and a valid bank account number must be checked before submitting the form        	| Done ✅ 	|
 | 4 	| Customers must be unique in database: By ```Firstname```, ```Lastname``` and ```DateOfBirth```. 	| Done ✅ 	|
 | 5 	| Email must be unique in the database.                                                           	| Done ✅ 	|
 

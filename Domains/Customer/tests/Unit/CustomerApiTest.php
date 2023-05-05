@@ -259,4 +259,80 @@ class CustomerApiTest extends TestCase
         $response = $this->getJson(route('customer.show', ['id'=> 1]));
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
+
+    // test phone number ================================================
+    public function test_international_phone_number(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $validInternationalPhone = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $response = $this->postJson(route('customer.store'), $validInternationalPhone);
+        $response->assertStatus(Response::HTTP_CREATED);
+        $inValidInternationalPhone = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2009-02-23',
+            'phone_number' => '+1 a256 886 8178',
+            'email' => 'tofigh@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $response = $this->postJson(route('customer.store'), $inValidInternationalPhone);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $inValidInternationalPhone['phone_number'] = '+97 256 886 8178 1';
+        $response = $this->postJson(route('customer.store'), $inValidInternationalPhone);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_domestic_phone_number(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $validDomesticPhone = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '09123686694',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $response = $this->postJson(route('customer.store'), $validDomesticPhone);
+        $response->assertStatus(Response::HTTP_CREATED);
+        $inValidDomesticPhone = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2009-02-23',
+            'phone_number' => '091236866944',
+            'email' => 'tofigh@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $response = $this->postJson(route('customer.store'), $inValidDomesticPhone);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $inValidDomesticPhone['phone_number'] = '021 443 888 912 912';
+        $response = $this->postJson(route('customer.store'), $inValidDomesticPhone);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_invalid_phone_number_error_message(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $inValidInternationalPhone = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2009-02-23',
+            'phone_number' => '+1 a256 886 8178',
+            'email' => 'tofigh@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $response = $this->postJson(route('customer.store'), $inValidInternationalPhone);
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has('errors.phone_number')->etc()
+        );
+    }
 }

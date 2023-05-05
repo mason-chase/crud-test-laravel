@@ -54,4 +54,16 @@ How ever it is an over-kill for this project, but it is a good practice to separ
 ### 6.2. Migrating to domain driven design
 Again I think, ```DDD``` for this project is a mere overkill. But because, In my experience applications will grow very fast in no time, DDD could be a good choice for future needs. 
 
+### 6.3 Postponed Validations
+1. Valid phone number
+
+
+### 7. Out of time
+The results of all test can be seen below
+
+![](./test_results.png)
+
+This week I was busy as hell, and unfortunately I am out of time for the task. But If I had time I would do the remaining sub tasks as follow:
+- I could design a ```SPA``` using ```VueJs``` or ```ReactJs```(preferabely). And because the whole back and front projects are separated the time consuming part would be only the UI design which I normally use ```Bootstrap``` bu I am capable of using ```Tailwind``` framework.
+- For the **event sourcing**, again I think it is an overkill but I could use an spatie package hosted in [github](https://github.com/spatie/laravel-event-sourcing). 
 
