@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Domains\Customer\Http\Controllers;
 
-use App\Http\Requests\DeleteCustomerRequest;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
-use App\Services\CustomerService;
+use App\Http\Controllers\Controller;
+use Domains\Customer\Http\Requests\DeleteCustomerRequest;
+use Domains\Customer\Http\Requests\StoreCustomerRequest;
+use Domains\Customer\Http\Requests\UpdateCustomerRequest;
+use Domains\Customer\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 
 class CustomerController extends Controller

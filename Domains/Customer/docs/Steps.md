@@ -49,5 +49,9 @@ How ever it is an over-kill for this project, but it is a good practice to separ
 - All tests should be passed in the same way that they passed in previous version.
 - After this step the code is entitled to pass **Clean architecture** requirement.
 
-* Note: I would not use repository dp along side with laravel. 
+* Note: I would not use repository dp along side with the Laravel. 
+
+### 6.2. Migrating to domain driven design
+Again I think, ```DDD``` for this project is a mere overkill. But because, In my experience applications will grow very fast in no time, DDD could be a good choice for future needs. 
+
 

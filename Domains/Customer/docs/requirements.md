@@ -4,7 +4,7 @@
 | # 	| Description                                      	| Status 	|
 |---	|--------------------------------------------------	|--------	|
 | 1 	| TDD                                              	| Done ✅ 	|
-| 2 	| DDD                                              	| On Going ❌ 	|
+| 2 	| DDD                                              	| Done ✅ 	|
 | 3 	| BDD                                              	| Done ✅ 	|
 | 4 	| Clean architecture                               	| Done ✅ 	|
 | 5 	| CQRS pattern (Event sourcing).                   	| On Going ❌ 	|

@@ -1,11 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Domains\Customer\Tests\Unit;
 
-use App\Models\Customer;
 use App\Models\User;
+use Domains\Customer\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
@@ -124,7 +123,7 @@ class CustomerApiTest extends TestCase
         $response = $this->postJson(route('customer.store'), $customerData);
         $response->assertStatus(Response::HTTP_CREATED);
         // check for correct localization
-        $response->assertJsonPath('message', __('messages.customers.success.stored'));
+        $response->assertJsonPath('message', __('customer::messages.customers.success.stored'));
     }
 
     // test update ======================================================
@@ -242,7 +241,7 @@ class CustomerApiTest extends TestCase
         $customer = Customer::factory()->create();
         $response = $this->deleteJson(route('customer.delete', ['id'=> $customer->id]));
         $response->assertStatus(Response::HTTP_ACCEPTED);
-        $response->assertJsonPath('message', __('messages.customers.success.deleted', ['id'=> $customer->id]));
+        $response->assertJsonPath('message', __('customer::messages.customers.success.deleted', ['id'=> $customer->id]));
     }
 
     // test show ======================================================

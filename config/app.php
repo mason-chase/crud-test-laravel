@@ -168,6 +168,15 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /**
+         * ===================================================
+         *          DOMAINS SERVICE PROVIDERS
+         * ===================================================
+         */
+        
+        // base domain service provider
+        Domains\Customer\Providers\CustomerServiceProvider::class,
     ])->toArray(),
 
     /*

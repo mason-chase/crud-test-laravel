@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Domains\Customer\Tests\Unit;
 
-use App\Models\Customer;
+use Domains\Customer\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

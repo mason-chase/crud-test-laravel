@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace Domains\Customer\Services;
 
 use App\Helper\ResponseBuilder;
-use App\Models\Customer;
+use Domains\Customer\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -11,12 +11,12 @@ class CustomerService {
   public function index(): JsonResponse
   {
     $items = Customer::all()->toArray();
-    return $this->res( $items, "", Response::HTTP_OK);
+    return $this->res( $items, __('customer::messages.customers.success.stored'), Response::HTTP_OK);
   }
   public function store(array $customerData): JsonResponse
   {
     $items = Customer::create($customerData)->toArray();
-    return $this->res( $items, __('messages.customers.success.stored'), Response::HTTP_CREATED);
+    return $this->res( $items, __('customer::messages.customers.success.stored'), Response::HTTP_CREATED);
   }
   public function show(int $customerId): JsonResponse
   {
@@ -27,12 +27,12 @@ class CustomerService {
   {
     Customer::where('id', $id)->update($customerData);
     $items = Customer::find($id)->first()->toArray();
-    return $this->res( $items, __('messages.customers.success.updated', ['id' => $id]), Response::HTTP_ACCEPTED);
+    return $this->res( $items, __('customer::messages.customers.success.updated', ['id' => $id]), Response::HTTP_ACCEPTED);
   }
   public function destroy(int $id): JsonResponse
   {
     Customer::where('id', $id)->delete();
-    return $this->res( [], __('messages.customers.success.deleted', ['id' => $id]), Response::HTTP_ACCEPTED);
+    return $this->res( [], __('customer::messages.customers.success.deleted', ['id' => $id]), Response::HTTP_ACCEPTED);
   }
   private function res($items, $message, $status){
     return ResponseBuilder
