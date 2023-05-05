@@ -22,7 +22,7 @@ return [
      * Projectors can be registered in this array or a service provider.
      */
     'projectors' => [
-        // App\Projectors\YourProjector::class
+        Src\Customer\Domain\Projectors\CustomerProjector::class
     ],
 
     /*
