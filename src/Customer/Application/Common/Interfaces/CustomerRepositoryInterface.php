@@ -11,4 +11,6 @@ interface CustomerRepositoryInterface
     public function store(CustomerEntity $customerEntity);
 
     public function update(CustomerEntity $customerData, $customerResource);
+
+    public function delete($customerResource);
 }

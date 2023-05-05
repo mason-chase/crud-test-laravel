@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 use Src\Customer\Domain\Events\CustomerCreatedEvent;
+use Src\Customer\Domain\Events\CustomerDeletedEvent;
 use Src\Customer\Domain\Events\CustomerUpdatedEvent;
 
 class CustomerModel extends Model
@@ -38,6 +39,13 @@ class CustomerModel extends Model
         event(new CustomerUpdatedEvent($attributes, $customerResource->uuid));
 
         return static::uuid($attributes->uuid);
+    }
+
+    public static function deleteCustomer($customer)
+    {
+        event(new CustomerDeletedEvent($customer));
+
+        return true;
     }
 
     public static function uuid(string $uuid): ?self

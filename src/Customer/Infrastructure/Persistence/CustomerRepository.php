@@ -29,5 +29,10 @@ class CustomerRepository implements CustomerRepositoryInterface
         return $customerResource->update($customerDataArr);
     }
 
+    public function delete($customerResource)
+    {
+        CustomerModel::deleteCustomer($customerResource);
 
+        return $customerResource->delete();
+    }
 }

@@ -9,4 +9,6 @@ interface CustomerServiceInterface
     public function save(array $data);
 
     public function update(array $customerData, int $customerId);
+
+    public function delete(int $customerId);
 }
