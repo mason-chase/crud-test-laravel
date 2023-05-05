@@ -30,3 +30,4 @@
   - Based on more researches the best data type for ```email``` and ```bank_account_number``` are also laravel ```string``` of sizes 120 and 32 respectively. 
 
 ## FURTHER IMPROVEMENTS AND OPTIMIZATIONS
+- Separate calculations form the controller 

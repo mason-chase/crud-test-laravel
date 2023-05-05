@@ -37,3 +37,8 @@ A basic customer controller along side with a ```ResponseBuilder``` class is dev
 3. store method, tests, and request class (validation and data cleansing).
 4. delete method, tests, and documentation.
 5. show method, tests, and documentations. 
+
+## **😊 MileStone**: Minimum Viable Product (Backend)
+At this stage a **MVP** for the backend is presentable to the product owner. I tested multiple aspects of the project and design in a way that front and backend project can be separated. Before continuing to the next level some documents are updated and tests are reviewed.
+
+## 6. Optimizations

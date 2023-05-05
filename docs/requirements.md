@@ -3,12 +3,12 @@
 ## Practices and patterns (Must):
 | # 	| Description                                      	| Status 	|
 |---	|--------------------------------------------------	|--------	|
-| 1 	| TDD                                              	| On Going ❌ 	|
+| 1 	| TDD                                              	| Done ✅ 	|
 | 2 	| DDD                                              	| On Going ❌ 	|
-| 3 	| BDD                                              	| On Going ❌ 	|
+| 3 	| BDD                                              	| Done ✅ 	|
 | 4 	| Clean architecture                               	| On Going ❌ 	|
 | 5 	| CQRS pattern (Event sourcing).                   	| On Going ❌ 	|
-| 6 	| Clean git commits that shows your work progress. 	| On Going ❌ 	|
+| 6 	| Clean git commits that shows your work progress. 	| Done ✅ 	|
 | 7 	| Use PHP 8.2.x only                               	| Done ✅ 	|
 
 ## Validations (Must)
@@ -19,6 +19,14 @@
 | 3 	| A Valid email and a valid bank account number must be checked before submitting the form        	| On Going ❌ 	|
 | 4 	| Customers must be unique in database: By ```Firstname```, ```Lastname``` and ```DateOfBirth```. 	| Done ✅ 	|
 | 5 	| Email must be unique in the database.                                                           	| Done ✅ 	|
+
+
+## Storage (Must)
+| # 	| Description                                                                                     	| Status 	|
+|---	|-------------------------------------------------------------------------------------------------	|--------	|
+| 1 	| Store the phone number in a database with minimized space storage                               	| Done ✅ 	|
+
+* Some extensive researches are made to find the best choices for today and tomorrow needs. You may see the references in the **NOTES** section of [todos](./todos.md). 
 
 ## Delivery (Must)
 
@@ -42,6 +50,6 @@
 | # 	| Description 	| Status 	|
 |---	|-------------	|--------	|
 | 1 	| Web UI      	| On Going ❌ 	|
-| 2 	| Swagger     	| On Going ❌ 	|
+| 2 	| Swagger     	| Done ✅ 	|
 
 **Note** that ```OpenApi 3``` is used to document the api.
