@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\ResponseBuilder;
 use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class CustomerController extends Controller
         return ResponseBuilder
         ::items($item->toArray())
         ::message(__('messages.customers.success.stored'))
-        ::statusCode(Response::HTTP_OK)
+        ::statusCode(Response::HTTP_CREATED)
         ::json();
     }
 
@@ -47,9 +48,15 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCustomerRequest $request, string $id)
     {
-        //
+        Customer::where('id', $id)->update($request->all());
+        $item = Customer::find($id)->first();
+        return ResponseBuilder
+        ::items($item->toArray())
+        ::message(__('messages.customers.success.updated', ['id' => $id]))
+        ::statusCode(Response::HTTP_ACCEPTED)
+        ::json();
     }
 
     /**

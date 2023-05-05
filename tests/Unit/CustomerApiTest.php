@@ -46,7 +46,7 @@ class CustomerApiTest extends TestCase
         $response->assertJsonCount($numOfCustomers, 'items');
     }
 
-    // test store
+    // test store ======================================================
     public function test_guests_cant_store_customer(): void
     {
         $response = $this->postJson(route('customer.store'), []);
@@ -122,8 +122,106 @@ class CustomerApiTest extends TestCase
             'bank_account_number' => '6037997211111111',
         ];
         $response = $this->postJson(route('customer.store'), $customerData);
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_CREATED);
         // check for correct localization
         $response->assertJsonPath('message', __('messages.customers.success.stored'));
+    }
+
+    // test update ======================================================
+    public function test_update_on_invalid_id(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerData = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $garbageIds = [-1, 0, 1]; // when db is empty non should work
+        foreach ($garbageIds as $id) {
+            $response = $this->putJson(route('customer.update', ['id'=> $id]), $customerData);
+            $response->assertJsonPath('errors.id', [__('validation.exists', ['attribute'=> 'id'])]);
+        }
+    }
+
+    public function test_customer_retakes_his_email(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerData = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $customer = Customer::create($customerData);
+        $response = $this->putJson(route('customer.update', ['id'=> $customer->id]), $customerData);
+        $response->assertStatus(Response::HTTP_ACCEPTED);
+    }
+    public function test_taking_existing_email(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerDataOne = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $customerDataTwo = [
+            'first_name' => 'Ali',
+            'last_name' => 'Tofigh',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 356 886 8178',
+            'email' => 'tofigh@gmail.com',
+            'bank_account_number' => '6037997211111112',
+        ];
+        Customer::create($customerDataOne);
+        $customerTwo = Customer::create($customerDataTwo);
+        // customer two tries to get customer one's email
+        $response = $this->putJson(route('customer.update', ['id'=> $customerTwo->id]), $customerDataOne);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonPath('errors.email', [__('validation.unique', ['attribute'=> 'email'])]);
+    }
+    /**
+     * Test the compound unique key ASAP
+     */
+    public function todo_test_combination_of_firstname_lastname_and_birthday() : void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerDataOne = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $customerDataTwo = [
+            'first_name' => 'Ali Asghar 1',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+98 56 886 8178',
+            'email' => 'tofigh1@gmail.com',
+            'bank_account_number' => '6037997233333333',
+        ];
+
+        $requestData = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+97 56 886 8178',
+            'email' => 'tofigh2@gmail.com',
+            'bank_account_number' => '6037997244444444',
+        ];
+
+        $customerOne = Customer::create($customerDataOne);
+        Customer::create($customerDataTwo);
+
+        $response = $this->putJson(route('customer.update', ['id'=> $customerOne->id]), $requestData);
     }
 }

@@ -15,6 +15,35 @@ tags:
       Customer/s APIs in the test project. Note that you should be logged in 
       as ```user``` to use this group of URIs.
 paths:
+  /api/customers/{id}:
+    put:
+      tags:
+        - "Customer"
+      summary: Updating and existing customer
+      security:
+        - BrearerAuth: [admin]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: The Id of a customer that you may update his/her info
+      requestBody:
+        content:
+          application.json:
+            schema:
+              $ref: '#/components/schemas/CustomerStoreRequestBody'
+      responses:
+        '202': 
+          description: Customer updated successfully
+          content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerStoreResponseBody'
+        '422':
+          description: Validation errors
   /api/customers:
     post:
       tags: 
@@ -29,12 +58,12 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerStoreRequestBody'
       responses:
-        '200':
-            description: The list of all customers
+        '201':
+            description: The customer is added successfully
             content:
               application.json:
                 schema:
-                  $ref: '#/components/schemas/CustomersList'
+                  $ref: '#/components/schemas/CustomerStoreResponseBody'
         '422':
             description: Validation errors
     get:
@@ -67,6 +96,20 @@ components:
             errors:
               type: string
               example: Not in the scope of the current project
+    CustomerUpdateResponseBody:
+      type: object
+      properties:
+        items:
+          type: object
+          properties:
+            items:
+              $ref: '#/components/schemas/CustomerItem'
+            message:
+              type: string
+              example: "Congratulations ! the customer with the ID of XXX, updated successfully!"
+            errors:
+              type: array
+              example: null
     CustomerStoreResponseBody:
       type: object
       properties:

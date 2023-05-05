@@ -1,6 +1,9 @@
 # To Dos
 
 ## MUST
+- Add validation rules and test for:
+  - phone numbers
+  - compound uniqueness of ```first_name```, ```last_name```, and ```date_of_birth```.
 - You must consult with product owner about the required unique key stated as below:
   ```md
   Customers must be unique in database: By ```Firstname```, ```Lastname``` and ```DateOfBirth```.

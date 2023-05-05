@@ -22,4 +22,5 @@ Route::get('/login', function(){
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
     Route::post('/customers', [CustomerController::class, 'store'])->name('customer.store');
+    Route::put('/customers/{id}', [CustomerController::class, 'update'])->name('customer.update');
 });
