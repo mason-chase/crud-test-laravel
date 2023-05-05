@@ -16,6 +16,27 @@ tags:
       as ```user``` to use this group of URIs.
 paths:
   /api/customers:
+    post:
+      tags: 
+        - "Customer"
+      summary: |- 
+        store a brand new customer you may see validation in StoreCustomerRequest
+      security:
+        - BearerAuth: [admin]
+      requestBody:
+        content:
+          application.json:
+            schema:
+              $ref: '#/components/schemas/CustomerStoreRequestBody'
+      responses:
+        '200':
+            description: The list of all customers
+            content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomersList'
+        '422':
+            description: Validation errors
     get:
       tags:
         - "Customer"
@@ -46,6 +67,43 @@ components:
             errors:
               type: string
               example: Not in the scope of the current project
+    CustomerStoreResponseBody:
+      type: object
+      properties:
+        items:
+          type: object
+          properties:
+            items:
+              $ref: '#/components/schemas/CustomerItem'
+            message:
+              type: string
+              example: "Congratulations ! the customer stored successfully!"
+            errors:
+              type: array
+              example: null
+            
+    CustomerStoreRequestBody:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Ali Asghar
+        last_name:
+          type: string
+          example: Tofighian
+        date_of_birth:
+          type: string
+          format: date
+          example: 2008-02-23
+        phone_number:
+          type: string
+          example: +1.616.391.8930
+        email:
+          type: string
+          example: tofighatwork@gmail.com
+        bank_account_number:
+          type: string
+          example: 4189-4276-8000-9580
     CustomerItem:
       type: object
       properties:
@@ -78,7 +136,7 @@ components:
         updated_at:
           type: string
           format: date-time
-          example: 2023-05-04T07:06:53.000000Z          
+          example: 2023-05-04T07:06:53.000000Z
     CustomersList:
       type: object
       properties:
@@ -87,7 +145,7 @@ components:
         message:
           type: string
           example: ""
-        "errors":
+        errors:
           type: array
           example: null
   securitySchemes:

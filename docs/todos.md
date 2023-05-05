@@ -7,6 +7,7 @@
   ```
   because it seen very wrong. for example **Lee** is the most frequent last name in the world, and odds are very high that we have multiple **John Lee**s with the same birthday in our customers. The better one is put unique on our phone number, and email.
 ## SHOULD
+- Validation errors should be modeled more precisely in the ```openapi``` document.
 
 ## BETTER TO DO
 
