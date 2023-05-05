@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Src\Customer\Presentation\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-require_once 'src/Customer/Presentation/Routes/api.php';
+//require_once ('src/Customer/Presentation/Routes/api.php');
+
+Route::prefix('customers')
+    ->name('customers.')
+    ->group(function () {
+        Route::resource('', CustomerController::class);
+    });
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
