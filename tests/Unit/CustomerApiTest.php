@@ -45,4 +45,85 @@ class CustomerApiTest extends TestCase
         $response = $this->getJson(route('customers'));
         $response->assertJsonCount($numOfCustomers, 'items');
     }
+
+    // test store
+    public function test_guests_cant_store_customer(): void
+    {
+        $response = $this->postJson(route('customer.store'), []);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
+
+    public function test_store_empty_customer(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $response = $this->postJson(route('customer.store'), []);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_store_customer_first_name_validation(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerData = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $garbageData = $customerData;
+
+        // 1) numeric name provided
+        $garbageData["first_name"] = 123;
+        $response = $this->postJson(route('customer.store'), $garbageData);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has('errors.first_name')->etc()
+        );
+        // 2) long name provided
+        $garbageData["first_name"] = 'Ali Asghar Ali Asghar Ali Asghar Ali Asghar Ali Asghar Ali Asghar';
+        $response = $this->postJson(route('customer.store'), $garbageData);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has('errors.first_name')->etc()
+        );
+        // last name is omitted (no need to check)
+    }
+
+    public function test_store_customer_email_validation(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerData = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        Customer::create($customerData);
+        //  the same email should not be accepted
+        $response = $this->postJson(route('customer.store'), $customerData);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has('errors.email')->etc()
+        );
+    }
+
+    public function test_store_customer_successfully(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customerData = [
+            'first_name' => 'Ali Asghar',
+            'last_name' => 'Tofighian',
+            'date_of_birth' => '2008-02-23',
+            'phone_number' => '+1 256 886 8178',
+            'email' => 'tofighatwork@gmail.com',
+            'bank_account_number' => '6037997211111111',
+        ];
+        $response = $this->postJson(route('customer.store'), $customerData);
+        $response->assertStatus(Response::HTTP_OK);
+        // check for correct localization
+        $response->assertJsonPath('message', __('messages.customers.success.stored'));
+    }
 }

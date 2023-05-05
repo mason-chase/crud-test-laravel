@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\ResponseBuilder;
+use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,9 +26,14 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
-        //
+        $item = Customer::create($request->all());
+        return ResponseBuilder
+        ::items($item->toArray())
+        ::message(__('messages.customers.success.stored'))
+        ::statusCode(Response::HTTP_OK)
+        ::json();
     }
 
     /**

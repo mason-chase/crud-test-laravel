@@ -32,3 +32,5 @@ A basic customer controller along side with a ```ResponseBuilder``` class is dev
 * please note in this stage I began to document api using ```OpenAPI 3```. The document can be found in [api.yml](./api.yml). To work with it you may install proper extensions in your code editor, or you may paste the content in the [swagger editor](https://editor.swagger.io/).
 
 1. index method and needed tests
+2. store method, tests, and request class (validation and data cleansing).
+   1. adding localization directories and files
