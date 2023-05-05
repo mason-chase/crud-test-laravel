@@ -4,10 +4,16 @@ namespace Src\Customer\Presentation\Controllers;
 
 use Src\Common\Presentation\Controllers\Controller;
 use Illuminate\Http\Request;
+use Src\Customer\Application\Common\Interfaces\CustomerServiceInterface;
+use Src\Customer\Application\Items\Commands\CreateCustomerCommand;
 use Src\Customer\Presentation\Requests\StoreCustomerRequest;
 
 class CustomerController extends Controller
 {
+    public function __construct(protected CustomerServiceInterface $customerService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +35,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        dd($request->all());
+        return $this->customerService->save($request->safe()->all());
     }
 
     /**

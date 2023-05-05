@@ -5,12 +5,12 @@ namespace Src\Customer\Domain\Entities;
 class CustomerEntity
 {
     public function __construct(
-        public string $firstName,
-        public string $lastName,
-        public string $dateOfBirth,
-        public string $phoneNumber,
+        public string $first_name,
+        public string $last_name,
+        public string $date_of_birth,
+        public string $phone_number,
         public string $email,
-        public string $bankAccountNumber
+        public string $bank_account_number
     )
     {
 
@@ -19,12 +19,12 @@ class CustomerEntity
     public static function make(array $customerData)
     {
         return new static(
-            firstName: $customerData['first_name'],
-            lastName: $customerData['last_name'],
-            dateOfBirth: $customerData['date_of_birth'],
-            phoneNumber: $customerData['phone_number'],
+            first_name: $customerData['first_name'],
+            last_name: $customerData['last_name'],
+            date_of_birth: $customerData['date_of_birth'],
+            phone_number: $customerData['phone_number'],
             email: $customerData['email'],
-            bankAccountNumber: $customerData['bank_account_number']
+            bank_account_number: $customerData['bank_account_number']
         );
     }
 }

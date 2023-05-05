@@ -4,6 +4,7 @@ namespace Src\Customer\Presentation\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Src\Customer\Application\Common\Interfaces\CustomerServiceInterface;
 use Src\Customer\Application\Rules\PhoneNumberRule;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,11 @@ class StoreCustomerRequest extends FormRequest
             'date_of_birth' => $this->input('date_of_birth')
         ]);
 
-        abort_if($isExists, Response::HTTP_UNPROCESSABLE_ENTITY, 'Customer exists!');
+        if ($isExists) {
+            throw ValidationException::withMessages([
+                'customer_exists' => 'Customer exists!!',
+            ]);
+        }
     }
 
     public function __construct(protected CustomerServiceInterface $customerService)

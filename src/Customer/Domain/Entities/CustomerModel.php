@@ -23,12 +23,12 @@ class CustomerModel extends Model
         'bank_account_number',
     ];
 
-    public static function createWithAttributes($attributes): static
+    public static function createWithAttributes($attributes)
     {
         $attributes->uuid = (string) Uuid::uuid4();
 
         event(new CustomerCreatedEvent($attributes));
 
-        return static::uuid($attributes->uuid);
+        return $attributes->uuid;
     }
 }
