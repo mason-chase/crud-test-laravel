@@ -16,7 +16,7 @@ class CustomerService implements CustomerServiceInterface
 {
 
     public function __construct(
-        protected CreateCustomerCommand $createCommand,
+        protected CreateCustomerCommand $createCustomerCommand,
         protected FindCustomerByIdQuery $findCustomerByIdQuery,
         protected UpdateCustomerCommand $updateCustomerCommand,
         protected DeleteCustomerCommand $deleteCustomerCommand
@@ -32,7 +32,7 @@ class CustomerService implements CustomerServiceInterface
     public function save(array $data)
     {
         try {
-            $this->createCommand->handle($data);
+            $this->createCustomerCommand->handle($data);
 
             $message = 'Customer created.';
 

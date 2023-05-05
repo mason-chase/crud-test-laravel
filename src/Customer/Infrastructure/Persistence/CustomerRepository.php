@@ -15,7 +15,9 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function store(CustomerEntity $customerEntity)
     {
-        return CustomerModel::createWithAttributes($customerEntity);
+        CustomerModel::createWithAttributes($customerEntity);
+
+        return CustomerModel::create((array) $customerEntity);
     }
 
     public function update(CustomerEntity $customerData, $customerResource)
