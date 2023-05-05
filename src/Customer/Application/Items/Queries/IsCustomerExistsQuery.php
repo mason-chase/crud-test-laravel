@@ -6,8 +6,8 @@ use Src\Customer\Domain\Entities\CustomerModel;
 
 class IsCustomerExistsQuery
 {
-    public function handle(array $field)
+    public static function handle(array $field)
     {
-        return CustomerModel::where($field)->exist();
+        return CustomerModel::where($field)->exists();
     }
 }
