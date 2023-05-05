@@ -66,4 +66,8 @@ The results of all test can be seen below
 This week I was busy as hell, and unfortunately I am out of time for the task. But If I had time I would do the remaining sub tasks as follow:
 - I could design a ```SPA``` using ```VueJs``` or ```ReactJs```(preferabely). And because the whole back and front projects are separated the time consuming part would be only the UI design which I normally use ```Bootstrap``` bu I am capable of using ```Tailwind``` framework.
 - For the **event sourcing**, again I think it is an overkill but I could use an spatie package hosted in [github](https://github.com/spatie/laravel-event-sourcing). 
+- I could document my code using ```phpDocs``` if I had time
+- In the DDD part I should use new branches, but because the project was a trivial one, I didn't do it. 
 
+Thats about it, I hope I could present my skills 
+Regards, Ali

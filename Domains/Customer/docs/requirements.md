@@ -7,7 +7,7 @@
 | 2 	| DDD                                              	| Done ✅ 	|
 | 3 	| BDD                                              	| Done ✅ 	|
 | 4 	| Clean architecture                               	| Done ✅ 	|
-| 5 	| CQRS pattern (Event sourcing).                   	| On Going ❌ 	|
+| 5 	| CQRS pattern (Event sourcing).                   	| UnResolved 😐 	|
 | 6 	| Clean git commits that shows your work progress. 	| Done ✅ 	|
 | 7 	| Use PHP 8.2.x only                               	| Done ✅ 	|
 
@@ -36,7 +36,7 @@
 | 1 	| clone the repository in a new github repository in private mode 	| Done ✅     	|
 | 2 	| share with ID: ```mason-chase``` in private mode on github.com  	| Done ✅     	|
 | 3 	| make sure you do not erase my commits and then                  	| Done ✅     	|
-| 4 	| create a pull request (code review)                             	| On Going ❌ 	|
+| 4 	| create a pull request (code review)                             	| Done ✅ 	|
 
 
 **PART 2**
@@ -49,7 +49,7 @@
 ## Presentation (Must)
 | # 	| Description 	| Status 	|
 |---	|-------------	|--------	|
-| 1 	| Web UI      	| On Going ❌ 	|
+| 1 	| Web UI      	| UnResolved 😐 	|
 | 2 	| Swagger     	| Done ✅ 	|
 
 **Note** that ```OpenApi 3``` is used to document the api.
