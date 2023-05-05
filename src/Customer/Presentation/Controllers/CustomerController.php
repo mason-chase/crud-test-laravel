@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Src\Customer\Application\Common\Interfaces\CustomerServiceInterface;
 use Src\Customer\Application\Items\Commands\CreateCustomerCommand;
 use Src\Customer\Presentation\Requests\StoreCustomerRequest;
+use Src\Customer\Presentation\Requests\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -57,9 +58,9 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCustomerRequest $request, $id)
     {
-        //
+        return $this->customerService->update($request->all(), $id);
     }
 
     /**

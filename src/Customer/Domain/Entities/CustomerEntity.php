@@ -10,7 +10,8 @@ class CustomerEntity
         public string $date_of_birth,
         public string $phone_number,
         public string $email,
-        public string $bank_account_number
+        public string $bank_account_number,
+        public ?string $uuid
     )
     {
 
@@ -24,7 +25,8 @@ class CustomerEntity
             date_of_birth: $customerData['date_of_birth'],
             phone_number: $customerData['phone_number'],
             email: $customerData['email'],
-            bank_account_number: $customerData['bank_account_number']
+            bank_account_number: $customerData['bank_account_number'],
+            uuid: $customerData['uuid'] ?? null
         );
     }
 }

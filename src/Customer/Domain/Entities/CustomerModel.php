@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 use Src\Customer\Domain\Events\CustomerCreatedEvent;
+use Src\Customer\Domain\Events\CustomerUpdatedEvent;
 
 class CustomerModel extends Model
 {
@@ -29,6 +30,18 @@ class CustomerModel extends Model
 
         event(new CustomerCreatedEvent($attributes));
 
-        return $attributes->uuid;
+        return static::uuid($attributes->uuid);
+    }
+
+    public static function updateWithAttributes($attributes, $customerResource)
+    {
+        event(new CustomerUpdatedEvent($attributes, $customerResource->uuid));
+
+        return static::uuid($attributes->uuid);
+    }
+
+    public static function uuid(string $uuid): ?self
+    {
+        return static::where('uuid', $uuid)->first();
     }
 }

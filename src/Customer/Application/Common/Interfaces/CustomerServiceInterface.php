@@ -7,4 +7,6 @@ interface CustomerServiceInterface
     public function checkExistenceByFields(array $fields);
 
     public function save(array $data);
+
+    public function update(array $customerData, int $customerId);
 }

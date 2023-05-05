@@ -9,4 +9,6 @@ interface CustomerRepositoryInterface
     public function isCustomerExists(array $fields): bool;
 
     public function store(CustomerEntity $customerEntity);
+
+    public function update(CustomerEntity $customerData, $customerResource);
 }

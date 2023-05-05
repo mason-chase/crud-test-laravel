@@ -17,10 +17,9 @@ use Src\Customer\Presentation\Controllers\CustomerController;
 
 //require_once ('src/Customer/Presentation/Routes/api.php');
 
-Route::prefix('customers')
-    ->name('customers.')
+Route::name('customers.')
     ->group(function () {
-        Route::resource('', CustomerController::class)
+        Route::resource('customers', CustomerController::class)
             ->except(['create', 'edit']);
     });
 
