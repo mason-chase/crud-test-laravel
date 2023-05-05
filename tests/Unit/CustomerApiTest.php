@@ -244,4 +244,20 @@ class CustomerApiTest extends TestCase
         $response->assertStatus(Response::HTTP_ACCEPTED);
         $response->assertJsonPath('message', __('messages.customers.success.deleted', ['id'=> $customer->id]));
     }
+
+    // test show ======================================================
+    public function test_show_existing_customer(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customer = Customer::factory()->create();
+        $response = $this->getJson(route('customer.show', ['id'=> $customer->id]));
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_show_none_existing_customer(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $response = $this->getJson(route('customer.show', ['id'=> 1]));
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+    }
 }

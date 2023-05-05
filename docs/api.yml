@@ -16,10 +16,34 @@ tags:
       as ```user``` to use this group of URIs.
 paths:
   /api/customers/{id}:
+    get:
+      tags:
+        - "Customer"
+      summary: Showing an existing customer
+      security:
+        - BrearerAuth: [admin]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: The Id of a customer that you may show his/her info
+      responses:
+        '200': 
+          description: Customer deleted successfully
+          content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerShowResponseBody'
+        '404':
+          description: Not found
+
     delete:
       tags:
         - "Customer"
-      summary: Deleting and existing customer
+      summary: Deleting an existing customer
       security:
         - BrearerAuth: [admin]
       parameters:
@@ -42,7 +66,7 @@ paths:
     put:
       tags:
         - "Customer"
-      summary: Updating and existing customer
+      summary: Updating an existing customer
       security:
         - BrearerAuth: [admin]
       parameters:
@@ -119,6 +143,17 @@ components:
             errors:
               type: string
               example: Not in the scope of the current project
+    CustomerShowResponseBody:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/CustomerItem'
+        message:
+          type: string
+          example: null
+        errors:
+          type: array
+          example: null
     CustomerDeleteResponseBody:
       type: object
       properties:

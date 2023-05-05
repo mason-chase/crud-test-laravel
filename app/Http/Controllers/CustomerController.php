@@ -41,9 +41,14 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        $item = Customer::where('id', $id)->firstOrFail();
+        return ResponseBuilder
+        ::items($item->toArray())
+        ::message()
+        ::statusCode(Response::HTTP_OK)
+        ::json();
     }
 
     /**
