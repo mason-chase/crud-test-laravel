@@ -42,3 +42,12 @@ A basic customer controller along side with a ```ResponseBuilder``` class is dev
 At this stage a **MVP** for the backend is presentable to the product owner. I tested multiple aspects of the project and design in a way that front and backend project can be separated. Before continuing to the next level some documents are updated and tests are reviewed.
 
 ## 6. Optimizations
+
+### 6.1. Separating calculations from controller: 
+How ever it is an over-kill for this project, but it is a good practice to separate the calculation from the controller using ```Services``` and ```Actions```. It makes the code more readable, and maintainable. The structure of the project is also would be cleaner.
+- the only instance that may not consider and over-kill is in ```update``` method that some calculations other than basic eloquent models is made. 
+- All tests should be passed in the same way that they passed in previous version.
+- After this step the code is entitled to pass **Clean architecture** requirement.
+
+* Note: I would not use repository dp along side with laravel. 
+

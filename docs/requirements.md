@@ -6,7 +6,7 @@
 | 1 	| TDD                                              	| Done ✅ 	|
 | 2 	| DDD                                              	| On Going ❌ 	|
 | 3 	| BDD                                              	| Done ✅ 	|
-| 4 	| Clean architecture                               	| On Going ❌ 	|
+| 4 	| Clean architecture                               	| Done ✅ 	|
 | 5 	| CQRS pattern (Event sourcing).                   	| On Going ❌ 	|
 | 6 	| Clean git commits that shows your work progress. 	| Done ✅ 	|
 | 7 	| Use PHP 8.2.x only                               	| Done ✅ 	|
