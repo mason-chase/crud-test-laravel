@@ -188,7 +188,7 @@ class CustomerApiTest extends TestCase
         $response->assertJsonPath('errors.email', [__('validation.unique', ['attribute'=> 'email'])]);
     }
     /**
-     * Test the compound unique key ASAP
+     * @TODO: Test the compound unique key ASAP
      */
     public function todo_test_combination_of_firstname_lastname_and_birthday() : void
     {
@@ -223,5 +223,25 @@ class CustomerApiTest extends TestCase
         Customer::create($customerDataTwo);
 
         $response = $this->putJson(route('customer.update', ['id'=> $customerOne->id]), $requestData);
+    }
+
+    // test delete ======================================================
+    public function test_delete_on_invalid_id(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $garbageIds = [-1, 0, 1]; // when db is empty non should work
+        foreach ($garbageIds as $id) {
+            $response = $this->deleteJson(route('customer.delete', ['id'=> $id]));
+            $response->assertJsonPath('errors.id', [__('validation.exists', ['attribute'=> 'id'])]);
+        }
+    }
+
+    public function test_delete_on_valid_id(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $customer = Customer::factory()->create();
+        $response = $this->deleteJson(route('customer.delete', ['id'=> $customer->id]));
+        $response->assertStatus(Response::HTTP_ACCEPTED);
+        $response->assertJsonPath('message', __('messages.customers.success.deleted', ['id'=> $customer->id]));
     }
 }

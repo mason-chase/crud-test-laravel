@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\ResponseBuilder;
+use App\Http\Requests\DeleteCustomerRequest;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
@@ -27,7 +28,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCustomerRequest $request)
+    public function store(StoreCustomerRequest $request): JsonResponse
     {
         $item = Customer::create($request->all());
         return ResponseBuilder
@@ -48,7 +49,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, string $id)
+    public function update(UpdateCustomerRequest $request, string $id): JsonResponse
     {
         Customer::where('id', $id)->update($request->all());
         $item = Customer::find($id)->first();
@@ -62,8 +63,14 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DeleteCustomerRequest $request, string $id): JsonResponse
     {
-        //
+        // not found (error 404 has been addressed in DeleteCustomerRequest so no need to check)
+        Customer::where('id', $id)->delete();
+        return ResponseBuilder
+        ::items()
+        ::message(__('messages.customers.success.deleted', ['id' => $id]))
+        ::statusCode(Response::HTTP_ACCEPTED)
+        ::json();
     }
 }

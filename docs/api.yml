@@ -16,6 +16,29 @@ tags:
       as ```user``` to use this group of URIs.
 paths:
   /api/customers/{id}:
+    delete:
+      tags:
+        - "Customer"
+      summary: Deleting and existing customer
+      security:
+        - BrearerAuth: [admin]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: The Id of a customer that you may delete his/her info (Irreversible)
+      responses:
+        '202': 
+          description: Customer deleted successfully
+          content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerDeleteResponseBody'
+        '422':
+          description: Validation errors
     put:
       tags:
         - "Customer"
@@ -96,6 +119,18 @@ components:
             errors:
               type: string
               example: Not in the scope of the current project
+    CustomerDeleteResponseBody:
+      type: object
+      properties:
+        items:
+          type: object
+          example: []
+        message:
+          type: string
+          example: "The customer with the ID of XXX, has been deleted successfully!"
+        errors:
+          type: array
+          example: null
     CustomerUpdateResponseBody:
       type: object
       properties:
@@ -106,7 +141,7 @@ components:
               $ref: '#/components/schemas/CustomerItem'
             message:
               type: string
-              example: "Congratulations ! the customer with the ID of XXX, updated successfully!"
+              example: "Congratulations ! the customer with the ID of XXX, has been updated successfully!"
             errors:
               type: array
               example: null
@@ -114,16 +149,13 @@ components:
       type: object
       properties:
         items:
-          type: object
-          properties:
-            items:
-              $ref: '#/components/schemas/CustomerItem'
-            message:
-              type: string
-              example: "Congratulations ! the customer stored successfully!"
-            errors:
-              type: array
-              example: null
+          $ref: '#/components/schemas/CustomerItem'
+        message:
+          type: string
+          example: "Congratulations ! the customer stored successfully!"
+        errors:
+          type: array
+          example: null
             
     CustomerStoreRequestBody:
       type: object

@@ -34,3 +34,5 @@ A basic customer controller along side with a ```ResponseBuilder``` class is dev
 1. index method and needed tests
 2. store method, tests, and request class (validation and data cleansing).
    1. adding localization directories and files
+3. store method, tests, and request class (validation and data cleansing).
+4. delete method, tests, and documentation.
