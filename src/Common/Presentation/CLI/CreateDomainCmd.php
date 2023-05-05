@@ -69,8 +69,6 @@ class CreateDomainCmd extends Command
             'Items/Commands',
             'List/Queries',
             'List/Commands',
-            'Events',
-            'Exceptions',
             'Providers',
         ];
 
