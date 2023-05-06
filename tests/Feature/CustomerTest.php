@@ -245,7 +245,7 @@ class CustomerTest extends TestCase
     public function test_customer_delete(): void
     {
         $customer = Customer::factory()->create();
-        $this->assertDatabaseHas(Customer::COL_UUID, [
+        $this->assertDatabaseHas(Customer::TABLE_NAME, [
             'uuid' => $customer->uuid,
         ]);
         //add by factory with save

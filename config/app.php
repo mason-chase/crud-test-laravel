@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Domain\Customer\CustomersServiceProvider::class,
         /*
          * Application Service Providers...
          */
