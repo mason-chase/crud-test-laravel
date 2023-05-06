@@ -1,0 +1,264 @@
+openapi: '3.0.2'
+info:
+  title: Laravel CRUD Test
+  description: |-
+    In this document we try to present customers specifications.
+    
+  version: '1.0'
+  contact:
+    email: tofighatwork@gmail.com
+servers:
+  - url: http://localhost/public/
+tags:
+  - name: Customer
+    description: |-
+      Customer/s APIs in the test project. Note that you should be logged in 
+      as ```user``` to use this group of URIs.
+paths:
+  /api/customers/{id}:
+    get:
+      tags:
+        - "Customer"
+      summary: Showing an existing customer
+      security:
+        - BrearerAuth: [admin]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: The Id of a customer that you may show his/her info
+      responses:
+        '200': 
+          description: Customer deleted successfully
+          content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerShowResponseBody'
+        '404':
+          description: Not found
+
+    delete:
+      tags:
+        - "Customer"
+      summary: Deleting an existing customer
+      security:
+        - BrearerAuth: [admin]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: The Id of a customer that you may delete his/her info (Irreversible)
+      responses:
+        '202': 
+          description: Customer deleted successfully
+          content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerDeleteResponseBody'
+        '422':
+          description: Validation errors
+    put:
+      tags:
+        - "Customer"
+      summary: Updating an existing customer
+      security:
+        - BrearerAuth: [admin]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            default: 1
+          required: true
+          description: The Id of a customer that you may update his/her info
+      requestBody:
+        content:
+          application.json:
+            schema:
+              $ref: '#/components/schemas/CustomerStoreRequestBody'
+      responses:
+        '202': 
+          description: Customer updated successfully
+          content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerStoreResponseBody'
+        '422':
+          description: Validation errors
+  /api/customers:
+    post:
+      tags: 
+        - "Customer"
+      summary: |- 
+        store a brand new customer you may see validation in StoreCustomerRequest
+      security:
+        - BearerAuth: [admin]
+      requestBody:
+        content:
+          application.json:
+            schema:
+              $ref: '#/components/schemas/CustomerStoreRequestBody'
+      responses:
+        '201':
+            description: The customer is added successfully
+            content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomerStoreResponseBody'
+        '422':
+            description: Validation errors
+    get:
+      tags:
+        - "Customer"
+      summary: get the list of all customers in a json format
+      security:
+        - BearerAuth: [admin]
+      responses:
+          '406':
+            description: Out of the scope of the project
+            content:
+              application.json:
+                schema: 
+                  $ref: '#/components/schemas/CustomerErrors/properties/outOfScope'
+          '200':
+            description: The list of all customers
+            content:
+              application.json:
+                schema:
+                  $ref: '#/components/schemas/CustomersList'
+ 
+components:
+  schemas:
+    CustomerErrors:
+      type: object
+      properties:
+        outOfScope:
+          properties:
+            errors:
+              type: string
+              example: Not in the scope of the current project
+    CustomerShowResponseBody:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/CustomerItem'
+        message:
+          type: string
+          example: null
+        errors:
+          type: array
+          example: null
+    CustomerDeleteResponseBody:
+      type: object
+      properties:
+        items:
+          type: object
+          example: []
+        message:
+          type: string
+          example: "The customer with the ID of XXX, has been deleted successfully!"
+        errors:
+          type: array
+          example: null
+    CustomerUpdateResponseBody:
+      type: object
+      properties:
+        items:
+          type: object
+          properties:
+            items:
+              $ref: '#/components/schemas/CustomerItem'
+            message:
+              type: string
+              example: "Congratulations ! the customer with the ID of XXX, has been updated successfully!"
+            errors:
+              type: array
+              example: null
+    CustomerStoreResponseBody:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/CustomerItem'
+        message:
+          type: string
+          example: "Congratulations ! the customer stored successfully!"
+        errors:
+          type: array
+          example: null
+            
+    CustomerStoreRequestBody:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Ali Asghar
+        last_name:
+          type: string
+          example: Tofighian
+        date_of_birth:
+          type: string
+          format: date
+          example: 2008-02-23
+        phone_number:
+          type: string
+          example: +1.616.391.8930
+        email:
+          type: string
+          example: tofighatwork@gmail.com
+        bank_account_number:
+          type: string
+          example: 4189-4276-8000-9580
+    CustomerItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 26
+        first_name:
+          type: string
+          example: Ali Asghar
+        last_name:
+          type: string
+          example: Tofighian
+        date_of_birth:
+          type: string
+          format: date
+          example: 2008-02-23
+        phone_number:
+          type: string
+          example: +1.616.391.8930
+        email:
+          type: string
+          example: tofighatwork@gmail.com
+        bank_account_number:
+          type: string
+          example: 4189-4276-8000-9580
+        create_at:
+          type: string
+          format: date-time
+          example: 2023-05-04T07:06:53.000000Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2023-05-04T07:06:53.000000Z
+    CustomersList:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/CustomerItem'
+        message:
+          type: string
+          example: ""
+        errors:
+          type: array
+          example: null
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
