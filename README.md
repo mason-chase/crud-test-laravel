@@ -49,7 +49,6 @@ But for short you can follow below commands to run the project:
   # then run up -d run containers in a dispatched mode
   docker-compose up -d
 ```
-* It is obvious that you need docker installed on your machine.
 
 ## Services and specifications
 As was required in the project, ```php 8.2``` is used as programming language. Also ```mariadb``` is applied as the database. 
