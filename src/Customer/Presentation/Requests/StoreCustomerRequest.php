@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Src\Customer\Application\Common\Interfaces\CustomerServiceInterface;
+use Src\Customer\Application\Rules\BankAccountRule;
 use Src\Customer\Application\Rules\PhoneNumberRule;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -53,7 +54,7 @@ class StoreCustomerRequest extends FormRequest
             'date_of_birth' => ['required', 'date', 'date_format:Y-m-d'],
             'phone_number' => ['required', 'string', 'min:2', new PhoneNumberRule('IR')],
             'email' => ['required', 'email:rfc,dns', Rule::unique('customers', 'email')],
-            'bank_account_number' => ['required', "numeric"]
+            'bank_account_number' => ['required', "numeric", new BankAccountRule]
         ];
     }
 }
