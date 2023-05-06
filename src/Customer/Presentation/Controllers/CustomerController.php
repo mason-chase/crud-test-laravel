@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return $this->customerService->list();
     }
 
     /**

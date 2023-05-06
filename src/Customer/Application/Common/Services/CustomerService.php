@@ -10,6 +10,7 @@ use Src\Customer\Application\Items\Commands\DeleteCustomerCommand;
 use Src\Customer\Application\Items\Commands\UpdateCustomerCommand;
 use Src\Customer\Application\Items\Queries\FindCustomerByIdQuery;
 use Src\Customer\Application\Items\Queries\IsCustomerExistsQuery;
+use Src\Customer\Application\List\Queries\GetCustomersListQuery;
 use Src\Customer\Presentation\Resources\CustomerResource;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,7 +21,8 @@ class CustomerService implements CustomerServiceInterface
         protected CreateCustomerCommand $createCustomerCommand,
         protected FindCustomerByIdQuery $findCustomerByIdQuery,
         protected UpdateCustomerCommand $updateCustomerCommand,
-        protected DeleteCustomerCommand $deleteCustomerCommand
+        protected DeleteCustomerCommand $deleteCustomerCommand,
+        protected GetCustomersListQuery $getCustomersListQuery
     )
     {
     }
@@ -129,6 +131,13 @@ class CustomerService implements CustomerServiceInterface
                 ],
                 $statusCode
             );
+    }
+
+    public function list()
+    {
+        $customer = $this->getCustomersListQuery->handle();
+
+        return response()->json(['data' => CustomerResource::collection($customer)]);
     }
 
 }

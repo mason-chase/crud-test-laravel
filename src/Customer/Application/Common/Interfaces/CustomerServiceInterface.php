@@ -13,4 +13,6 @@ interface CustomerServiceInterface
     public function delete(int $customerId);
 
     public function findCustomerById(int $id);
+
+    public function list();
 }

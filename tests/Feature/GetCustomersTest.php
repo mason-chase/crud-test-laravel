@@ -50,4 +50,18 @@ class GetCustomersTest extends TestCase
             ->assertStatus(Response::HTTP_OK);
 
     }
+
+    public function test_get_customers_list(): void
+    {
+        CustomerModel::factory()->count(3)->create();
+
+        $response = $this->get(route('customers.index'));
+
+        $response->assertJson(
+            fn(AssertableJson $json) => $json
+                ->has('data', 3)
+        )
+            ->assertStatus(Response::HTTP_OK);
+
+    }
 }
