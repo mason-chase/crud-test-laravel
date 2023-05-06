@@ -11,6 +11,7 @@ use Tests\TestCase;
 
 class UpdateCustomerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      */
