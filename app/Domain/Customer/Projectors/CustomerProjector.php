@@ -6,6 +6,7 @@ use App\Domain\Customer\Events\CustomerCreated;
 use App\Domain\Customer\Events\CustomerDeleted;
 use App\Domain\Customer\Events\CustomerUpdated;
 use App\Domain\Customer\Models\Customer;
+use App\Domain\Customer\Repositories\CustomerRepository;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class CustomerProjector extends Projector
@@ -14,21 +15,22 @@ class CustomerProjector extends Projector
     {
         $data = $event->data;
         $data['uuid'] = $event->uuid;
-
-        Customer::query()->create($data);
+        $repository = new CustomerRepository(app());
+        $repository->create($data);
     }
 
     public function onCustomerUpdated(CustomerUpdated $event)
     {
-        Customer::query()
-            ->where(Customer::COL_UUID, $event->uuid)
-            ->update($event->data);
+        $this->repository()->update($event->data, $event->uuid);
     }
 
     public function onCustomerDeleted(CustomerDeleted $event)
     {
-        Customer::query()
-            ->where(Customer::COL_UUID, $event->uuid)
-            ->delete();
+        $this->repository()->delete($event->uuid);
+    }
+
+    private function repository()
+    {
+        return new CustomerRepository(app());
     }
 }

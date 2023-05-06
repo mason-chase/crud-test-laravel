@@ -5,6 +5,7 @@ namespace App\Domain\Customer\Http\Controllers;
 use App\Domain\Customer\CustomerAggregateRoot;
 use App\Domain\Customer\Http\Requests\CustomerRequest;
 use App\Domain\Customer\Http\Requests\UpdateCustomerRequest;
+use App\Domain\Customer\Repositories\CustomerRepository;
 use App\Http\Controllers\Controller;
 use App\Domain\Customer\Http\Resources\CustomerResource;
 use App\Domain\Customer\Models\Customer;
@@ -13,9 +14,19 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
+    /**
+     * @var CustomerRepository
+     */
+    protected ?CustomerRepository $repository;
+
+
+    public function __construct(CustomerRepository $repository){
+        $this->repository = $repository;
+    }
+
     public function index()
     {
-        $customers = Customer::query()->get();
+        $customers = $this->repository->all();
 
         return CustomerResource::collection($customers);
     }

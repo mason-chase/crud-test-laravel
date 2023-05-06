@@ -160,6 +160,7 @@ return [
          * Package Service Providers...
          */
         App\Domain\Customer\CustomersServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
         /*
          * Application Service Providers...
          */
