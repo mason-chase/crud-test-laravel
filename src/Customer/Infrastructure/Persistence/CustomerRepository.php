@@ -8,21 +8,25 @@ use Src\Customer\Domain\Entities\CustomerModel;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {
+    public function __construct(protected CustomerModel $model)
+    {
+    }
+
     public function isCustomerExists(array $fields): bool
     {
-        return CustomerModel::where($fields)->exists();
+        return $this->model->where($fields)->exists();
     }
 
     public function store(CustomerEntity $customerEntity)
     {
-        CustomerModel::createWithAttributes($customerEntity);
+        $this->model::createWithAttributes($customerEntity);
 
-        return CustomerModel::create((array) $customerEntity);
+        return $this->model::create((array) $customerEntity);
     }
 
     public function update(CustomerEntity $customerData, $customerResource)
     {
-        CustomerModel::updateWithAttributes($customerData, $customerResource);
+        $this->model::updateWithAttributes($customerData, $customerResource);
 
         $customerDataArr = (array) $customerData;
 
@@ -33,8 +37,23 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function delete($customerResource)
     {
-        CustomerModel::deleteCustomer($customerResource);
+        $this->model::deleteCustomer($customerResource);
 
         return $customerResource->delete();
+    }
+
+    public function getCustomersList()
+    {
+        return $this->model->paginate(3);
+    }
+
+    public function findOrFail($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    public function checkCustomerExistence(array $fields)
+    {
+        return $this->model->where($fields)->exists();
     }
 }

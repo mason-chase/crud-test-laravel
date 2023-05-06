@@ -13,4 +13,10 @@ interface CustomerRepositoryInterface
     public function update(CustomerEntity $customerData, $customerResource);
 
     public function delete($customerResource);
+
+    public function getCustomersList();
+
+    public function findOrFail($id);
+
+    public function checkCustomerExistence(array $fields);
 }

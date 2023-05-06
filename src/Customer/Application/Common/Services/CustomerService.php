@@ -22,14 +22,15 @@ class CustomerService implements CustomerServiceInterface
         protected FindCustomerByIdQuery $findCustomerByIdQuery,
         protected UpdateCustomerCommand $updateCustomerCommand,
         protected DeleteCustomerCommand $deleteCustomerCommand,
-        protected GetCustomersListQuery $getCustomersListQuery
+        protected GetCustomersListQuery $getCustomersListQuery,
+        protected IsCustomerExistsQuery $isCustomerExistsQuery
     )
     {
     }
 
     public function checkExistenceByFields(array $fields)
     {
-        return IsCustomerExistsQuery::handle($fields);
+        return $this->isCustomerExistsQuery->handle($fields);
     }
 
     public function save(array $data)
@@ -135,9 +136,9 @@ class CustomerService implements CustomerServiceInterface
 
     public function list()
     {
-        $customer = $this->getCustomersListQuery->handle();
+        $customers = $this->getCustomersListQuery->handle();
 
-        return response()->json(['data' => CustomerResource::collection($customer)]);
+        return response()->json(['data' => CustomerResource::collection($customers)]);
     }
 
 }

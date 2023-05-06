@@ -2,12 +2,18 @@
 
 namespace Src\Customer\Application\Items\Queries;
 
+use Src\Customer\Application\Common\Interfaces\CustomerRepositoryInterface;
 use Src\Customer\Domain\Entities\CustomerModel;
 
 class IsCustomerExistsQuery
 {
-    public static function handle(array $field)
+
+    public function __construct(protected CustomerRepositoryInterface $customerRepository)
     {
-        return CustomerModel::where($field)->exists();
+    }
+
+    public function handle(array $field)
+    {
+        return $this->customerRepository->checkCustomerExistence($field);
     }
 }
