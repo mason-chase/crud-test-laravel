@@ -8,7 +8,9 @@ services:
         restart: always
         volumes:
             - ./:/home/app/simple_crud:Z
-#            - ./Docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./Docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./Docker/php/php.ini:/usr/local/etc/php/php.ini-development
+            - ./Docker/php/php.ini:/usr/local/etc/php/php.ini-production
         links:
             - mysql_simple_crud
         working_dir: /home/app/simple_crud
@@ -56,5 +58,9 @@ services:
             - /sessions
         links:
             - mysql_simple_crud
+
+    redis_simple_crud:
+        image: redis:alpine
+        container_name: redis_simple_crud
 volumes:
     composer-cache:
