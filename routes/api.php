@@ -17,11 +17,8 @@ use Src\Customer\Presentation\Controllers\CustomerController;
 
 //require_once ('src/Customer/Presentation/Routes/api.php');
 
-Route::name('customers.')
-    ->group(function () {
-        Route::resource('customers', CustomerController::class)
-            ->except(['create', 'edit']);
-    });
+Route::resource('customers', CustomerController::class)
+    ->except(['create', 'edit']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -2,6 +2,8 @@
 
 namespace Src\Customer\Domain\Entities;
 
+use Database\Factories\CustomerFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -51,5 +53,13 @@ class CustomerModel extends Model
     public static function uuid(string $uuid): ?self
     {
         return static::where('uuid', $uuid)->first();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): Factory
+    {
+        return CustomerFactory::new();
     }
 }
