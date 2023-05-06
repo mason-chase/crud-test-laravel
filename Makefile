@@ -17,10 +17,13 @@ define modify_uid_gid
 
 
     @docker-compose -f $(COMPOSE_FILES) exec php_simple_crud sh -c 'usermod $(USER) -u $(CURRENT_UID) && groupmod $(GROUP) -og $(CURRENT_GID)'
+    @docker-compose -f $(COMPOSE_FILES) exec php_simple_crud sh -c 'chmod 777 -R storage/logs/*'
+    @docker-compose -f $(COMPOSE_FILES) exec php_simple_crud sh -c 'chmod 777 -R storage/framework/*'
 endef
 
 build:
 	docker-compose -f $(COMPOSE_FILES) up -d --build
+	$(modify_uid_gid)
 up:
 	docker-compose -f $(COMPOSE_FILES) up -d
 	$(modify_uid_gid)
@@ -36,5 +39,6 @@ shell:
 shell-as-root:
 	docker-compose -f $(COMPOSE_FILES) exec php_simple_crud zsh
 
-update-simple_crud:
+update:
 	docker-compose -f $(COMPOSE_FILES) exec --user=$(USER) php_simple_crud 'composer update'
+	docker-compose -f $(COMPOSE_FILES) exec --user=$(USER) php_simple_crud 'php artisan migrate'
