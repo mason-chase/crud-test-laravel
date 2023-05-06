@@ -1,0 +1,197 @@
+openapi: 3.0.3
+info:
+  title: Laravel CRUD Task
+  contact:
+    email: fsohrabi047@gmail.com
+  version: 1.0.11
+servers:
+  - url: http:localhost:8006
+tags:
+  - name: Customer
+    description: Customer crud operations
+paths:
+  /api/customers:
+    post:
+      tags:
+        - customer
+      summary: Create customer
+      description: Create a brand-new customer.
+      operationId: createCustomer
+      requestBody:
+        description: Created customer object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        default:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    get:
+      tags:
+        - customer
+      summary: Display a paginated list of customers
+      description: Display a paginated list of customers
+      operationId: customersList
+      parameters: [ ]
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        "404":
+          description: no customer
+  /api/customers/{id}:
+    get:
+      tags:
+        - customer
+      summary: Get the specified customer
+      description: Get the specified customer
+      operationId: showCustomer
+      parameters:
+        - name: id
+          in: path
+          description: 'The customer id'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+    patch:
+      tags:
+        - customer
+      summary: Update customer
+      description: Update the specified customer
+      operationId: updateCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - customer
+      summary: Delete customer
+      description: Customer deletion
+      operationId: deleteCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Customer not found
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        first_name:
+          type: string
+          example: Farshid
+        last_name:
+          type: string
+          example: Sohrabiani
+        date_of_birth:
+          type: string
+          example: "1992-05-15"
+        phone_number:
+          type: string
+          example: "+989163675575"
+        email:
+          type: string
+          example: "fsohrabi047@gmail.com"
+        account_number:
+          type: string
+          example: 984516545615
+      xml:
+        name: customer
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        errors:
+          type: array
+        message:
+          type: string
+      xml:
+        name: '##default'
+  requestBodies:
+    Customer:
+      description: Customer object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Customer'
+    CustomerArray:
+      description: List of Customers object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer'
