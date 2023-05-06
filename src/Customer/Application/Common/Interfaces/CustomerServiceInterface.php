@@ -11,4 +11,6 @@ interface CustomerServiceInterface
     public function update(array $customerData, int $customerId);
 
     public function delete(int $customerId);
+
+    public function findCustomerById(int $id);
 }

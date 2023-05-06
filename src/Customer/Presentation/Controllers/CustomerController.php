@@ -3,9 +3,7 @@
 namespace Src\Customer\Presentation\Controllers;
 
 use Src\Common\Presentation\Controllers\Controller;
-use Illuminate\Http\Request;
 use Src\Customer\Application\Common\Interfaces\CustomerServiceInterface;
-use Src\Customer\Application\Items\Commands\CreateCustomerCommand;
 use Src\Customer\Presentation\Requests\StoreCustomerRequest;
 use Src\Customer\Presentation\Requests\UpdateCustomerRequest;
 
@@ -42,9 +40,9 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        return $this->customerService->findCustomerById($id);
     }
 
     /**

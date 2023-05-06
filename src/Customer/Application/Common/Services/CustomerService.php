@@ -10,6 +10,7 @@ use Src\Customer\Application\Items\Commands\DeleteCustomerCommand;
 use Src\Customer\Application\Items\Commands\UpdateCustomerCommand;
 use Src\Customer\Application\Items\Queries\FindCustomerByIdQuery;
 use Src\Customer\Application\Items\Queries\IsCustomerExistsQuery;
+use Src\Customer\Presentation\Resources\CustomerResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class CustomerService implements CustomerServiceInterface
@@ -103,5 +104,31 @@ class CustomerService implements CustomerServiceInterface
         return response()->json(['message' => $message], $statusCode);
     }
 
+    public function findCustomerById(int $id)
+    {
+        try {
+            $customer = $this->findCustomerByIdQuery->handle($id);
+
+            $statusCode = Response::HTTP_OK;
+
+            $message = 'Find customer successfully';
+
+        } catch (ModelNotFoundException $exception) {
+            $message = $exception->getMessage();
+
+            $statusCode = Response::HTTP_NOT_FOUND;
+
+            $customer = null;
+        }
+
+        return response()
+            ->json(
+                [
+                    'message' => $message,
+                    'data' => CustomerResource::make($customer)
+                ],
+                $statusCode
+            );
+    }
 
 }
