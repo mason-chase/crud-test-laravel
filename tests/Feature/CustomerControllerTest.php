@@ -20,6 +20,6 @@ class CustomerControllerTest extends TestCase
 		)->post( '/api/v1/customer', $data );
 		$this->assertDatabaseHas( Customer::class, $data );
 
-		$response->assertStatus( 200 );
+		$response->assertStatus( 201 );
 	}
 }
