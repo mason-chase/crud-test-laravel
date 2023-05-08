@@ -5,12 +5,61 @@ namespace App\Http\Controllers\V1\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreRequest;
 use App\Jobs\Customer\StoreJob;
-use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public  function  store(StoreRequest $request)
+	/**
+	 * @OA\Post(
+	 *     path="/api/v1/customer",
+	 *     summary="create new customer",
+	 *       tags={"customers"},
+	 * @OA\RequestBody(
+	 *         @OA\MediaType(
+	 *             mediaType="application/json",
+	 *             @OA\Schema(
+	 *                 @OA\Property(
+	 *                     property="firstName",
+	 *                     type="string"
+	 *                 ),
+	 * 					@OA\Property(
+	 *                     property="lastName",
+	 *                     type="string"
+	 *                 ),
+	 * 					@OA\Property(
+	 *                     property="dateOfBirth",
+	 *                     type="string"
+	 *                 ),
+	 * 					@OA\Property(
+	 *                     property="phoneNumber",
+	 *                     type="string"
+	 *                 ),
+	 *                    @OA\Property(
+	 *                     property="email",
+	 *                     type="string"
+	 *                 ),
+	 *                    @OA\Property(
+	 *                     property="bankAccountNumber",
+	 *                     type="string"
+	 *                 ),
+	 *                 example={ "firstName":"your_first_name", "lastName": "your_last_name","dateOfBirth"
+	 *                 :"2011/12/12" , "phoneNumber":"989114321212", "email":"a@a.com","bankAccountNumber":"1234" }
+	 *             )
+	 *         )
+	 *     ),
+	 * @OA\Response(
+	 *         response=200,
+	 *         description="OK!",
+	 *         @OA\JsonContent(
+	 *             @OA\Examples(example="success", summary="An result object."),
+	 *         )
+	 *     ),@OA\Response(
+	 *         response=422,
+	 *         description="invalid payload!."
+	 *     )
+	 * )
+	 */
+	public function store( StoreRequest $request )
 	{
-		$result = dispatch_sync(new StoreJob($request->validated()));
+		return dispatch_sync( new StoreJob( $request->validated() ) );
 	}
 }

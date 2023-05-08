@@ -5,6 +5,70 @@
         "version": "1.0"
     },
     "paths": {
-        "/api/v1": {}
+        "/api/v1": {},
+        "/api/v1/customer": {
+            "post": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "create new customer",
+                "operationId": "0c7dfb46b3e19021647fc813d19467bb",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "bankAccountNumber": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "firstName": "your_first_name",
+                                    "lastName": "your_last_name",
+                                    "dateOfBirth": "2011/12/12",
+                                    "phoneNumber": "989114321212",
+                                    "email": "a@a.com",
+                                    "bankAccountNumber": "1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "An result object."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "invalid payload!."
+                    }
+                }
+            }
+        }
     }
 }
