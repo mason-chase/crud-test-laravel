@@ -37,11 +37,12 @@ class CustomerControllerTest extends TestCase
 
 	public  function  test_single()
 	{
+		$id = Customer::first()->id;
 		$response = $this->withHeaders(
 			[
 				'accept' => 'application/json',
 			]
-		)->get( '/api/v1/customer/2' );
-		$response->assertJson(Customer::find(2)->toArray());
+		)->get( '/api/v1/customer/'.$id );
+		$response->assertJson(Customer::find($id)->toArray());
 	}
 }
