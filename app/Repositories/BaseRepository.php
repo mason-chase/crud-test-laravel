@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Exceptions\ModelNotSetInRepositoryException;
+use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository
 {
@@ -14,7 +15,7 @@ class BaseRepository
 	 * @return mixed
 	 * @throws ModelNotSetInRepositoryException
 	 */
-	public  function getModel()
+	public  function getModel():Model
 	{
 		if (is_null($this->model))
 		{
