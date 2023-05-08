@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreRequest;
 use App\Jobs\Customer\IndexJob;
+use App\Jobs\Customer\SingleJob;
 use App\Jobs\Customer\StoreJob;
 
 class CustomerController extends Controller
@@ -82,4 +83,38 @@ class CustomerController extends Controller
 	{
 		return dispatch_sync( new IndexJob());
 	}
+
+	/**
+	 * @OA\Get(
+	 *     path="/api/v1/customer/{id}",
+	 *     summary="paginate customers",
+	 *     tags={"customers"},
+	 *  @OA\Parameter(
+	 *      name="id",
+	 *      description="Customer ID",
+	 *      example=1,
+	 *      required=true,
+	 *      in="path",
+	 *      @OA\Schema(
+	 *          type="integer"
+	 *      )
+	 *  ),
+	 * @OA\Response(
+	 *         response=200,
+	 *         description="OK!",
+	 *         @OA\JsonContent(
+	 *             @OA\Examples(example="success", summary="pages of customer rows."),
+	 *         ),
+	 *     ),@OA\Response(
+	 *         response=404,
+	 *         description="customer not found!."
+	 *     )
+	 * )
+	 * )
+	 */
+	public  function single($id)
+	{
+		return dispatch_sync( new SingleJob($id));
+	}
+
 }
