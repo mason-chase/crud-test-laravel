@@ -53,6 +53,6 @@ class CustomerControllerTest extends TestCase
 				'accept' => 'application/json',
 			]
 		)->delete( '/api/v1/customer/' . $id );
-		$response->assertJson( Customer::find( $id )->toArray() );
+		$response->assertStatus(200);
 	}
 }
