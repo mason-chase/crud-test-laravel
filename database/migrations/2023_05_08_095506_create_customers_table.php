@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->string('firstName');
 			$table->string('lastName');
-			$table->string('dateOfBirth');
+			$table->dateTime('dateOfBirth');
 			$table->bigInteger('phoneNumber'); // will save ~3 bytes
 			$table->string('email')->unique();
 			$table->string('bankAccountNumber');
