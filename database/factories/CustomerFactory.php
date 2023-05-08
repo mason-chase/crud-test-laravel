@@ -22,21 +22,10 @@ class CustomerFactory extends Factory
 			'firstName'         => fake()->firstName(),
 			'lastName'          => fake()->lastName(),
 			'dateOfBirth'       => fake()->date(),
-			'phoneNumber'       => $this->number(),
+			'phoneNumber'       => '98912123'.rand(1111,9999),
 			'email'             => fake()->email(),
 			'bankAccountNumber' => fake()->numberBetween( 111111, 99999 ),
 		];
 	}
-
-	private function number() {
-		$number = str_replace('.','',fake()->phoneNumber());
-		$number = str_replace('+','',$number);
-		$number = str_replace('-','',$number);
-		$number = str_replace('(','',$number);
-		$number = str_replace(')','',$number);
-		$number = str_replace(' ','',$number);
-		return $number;
-	}
-
 
 }
