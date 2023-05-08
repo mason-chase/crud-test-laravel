@@ -7,6 +7,28 @@
     "paths": {
         "/api/v1": {},
         "/api/v1/customer": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "paginate customers",
+                "operationId": "88dc0243880a8ea93f2b80f868353e55",
+                "responses": {
+                    "200": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "pages of customer rows."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "customers"
@@ -51,7 +73,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "OK!",
                         "content": {
                             "application/json": {

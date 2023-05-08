@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreRequest;
+use App\Jobs\Customer\IndexJob;
 use App\Jobs\Customer\StoreJob;
 
 class CustomerController extends Controller
@@ -12,7 +13,7 @@ class CustomerController extends Controller
 	 * @OA\Post(
 	 *     path="/api/v1/customer",
 	 *     summary="create new customer",
-	 *       tags={"customers"},
+	 *     tags={"customers"},
 	 * @OA\RequestBody(
 	 *         @OA\MediaType(
 	 *             mediaType="application/json",
@@ -47,7 +48,7 @@ class CustomerController extends Controller
 	 *         )
 	 *     ),
 	 * @OA\Response(
-	 *         response=200,
+	 *         response=201,
 	 *         description="OK!",
 	 *         @OA\JsonContent(
 	 *             @OA\Examples(example="success", summary="An result object."),
@@ -61,5 +62,24 @@ class CustomerController extends Controller
 	public function store( StoreRequest $request )
 	{
 		return dispatch_sync( new StoreJob( $request->validated() ) );
+	}
+
+	/**
+	 * @OA\Get(
+	 *     path="/api/v1/customer",
+	 *     summary="paginate customers",
+	 *     tags={"customers"},
+	 * @OA\Response(
+	 *         response=200,
+	 *         description="OK!",
+	 *         @OA\JsonContent(
+	 *             @OA\Examples(example="success", summary="pages of customer rows."),
+	 *         )
+	 * )
+	 * )
+	 */
+	public function index()
+	{
+		return dispatch_sync( new IndexJob());
 	}
 }

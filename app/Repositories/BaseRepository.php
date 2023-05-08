@@ -27,4 +27,10 @@ class BaseRepository
 		}
 		return $this->model;
 	}
+
+	public function paginate()
+	{
+		return $this->getModel()->paginate();
+	}
+
 }
