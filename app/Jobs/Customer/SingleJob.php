@@ -27,6 +27,6 @@ class SingleJob
      */
     public function handle()
     {
-        return $this->customerRepository->getModel()->findOrFail($this->id);
+        return $this->customerRepository->findOrFail($this->id);
     }
 }

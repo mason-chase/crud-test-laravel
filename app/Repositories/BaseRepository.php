@@ -33,4 +33,8 @@ class BaseRepository
 		return $this->getModel()->paginate();
 	}
 
+	public function findOrFail($id){
+		return $this->getModel()->findOrFail($id);
+	}
+
 }
