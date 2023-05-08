@@ -1,0 +1,246 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Customer Service",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1": {},
+        "/api/v1/customer": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "paginate customers",
+                "operationId": "88dc0243880a8ea93f2b80f868353e55",
+                "responses": {
+                    "200": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "pages of customer rows."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "create new customer",
+                "operationId": "0c7dfb46b3e19021647fc813d19467bb",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "bankAccountNumber": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "firstName": "your_first_name",
+                                    "lastName": "your_last_name",
+                                    "dateOfBirth": "2011/12/12",
+                                    "phoneNumber": "989114321212",
+                                    "email": "a@a.com",
+                                    "bankAccountNumber": "1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "An result object."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "invalid payload!."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "create new customer",
+                "operationId": "be16835e153f21849af05cb425750240",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "dateOfBirth": {
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "bankAccountNumber": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "firstName": "your_first_name",
+                                    "lastName": "your_last_name",
+                                    "dateOfBirth": "2011/12/12",
+                                    "phoneNumber": "989114321212",
+                                    "email": "a@a.com",
+                                    "bankAccountNumber": "1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "An result object."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "invalid payload!."
+                    }
+                }
+            }
+        },
+        "/api/v1/customer/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "single customer",
+                "operationId": "6724f95b432b05c7d3052087be27ea2f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "customer single."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "customer not found!."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "delete customer",
+                "operationId": "6708de9bc3be78c16d3f6dba7c6247a9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK!",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "success": {
+                                        "summary": "customer deleted."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "customer not found!."
+                    }
+                }
+            }
+        }
+    }
+}
