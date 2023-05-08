@@ -47,12 +47,28 @@ class CustomerControllerTest extends TestCase
 
 	public function test_delete()
 	{
+		$this->test_store();
+
 		$id       = Customer::first()->id;
 		$response = $this->withHeaders(
 			[
 				'accept' => 'application/json',
 			]
 		)->delete( '/api/v1/customer/' . $id );
+		$response->assertStatus(200);
+	}
+
+	public function test_update()
+	{
+		$this->test_store();
+		$customer = Customer::first();
+		$id       = $customer->id;
+		$data = $customer->toArray();
+		$response = $this->withHeaders(
+			[
+				'accept' => 'application/json',
+			]
+		)->patch( '/api/v1/customer/' . $id ,$data);
 		$response->assertStatus(200);
 	}
 }

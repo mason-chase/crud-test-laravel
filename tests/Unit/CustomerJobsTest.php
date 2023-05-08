@@ -6,6 +6,7 @@ use App\Jobs\Customer\DeleteJob;
 use App\Jobs\Customer\IndexJob;
 use App\Jobs\Customer\SingleJob;
 use App\Jobs\Customer\StoreJob;
+use App\Jobs\Customer\UpdateJob;
 use App\Models\Customer;
 use Database\Factories\CustomerFactory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -52,6 +53,22 @@ class CustomerJobsTest extends TestCase
 		$customer = clone Customer::first();
 		$single = dispatch_sync( new DeleteJob($customer->id) );
 		$this->assertDatabaseCount('customers',0);
+	}
+
+	public function test_update_job(): void
+	{
+		$customerData = ( new ( CustomerFactory::class )() )->definition();
+		dispatch_sync( new StoreJob( $customerData ) );
+		$customer = Customer::first();
+		$single = dispatch_sync( new SingleJob($customer->id) );
+		$this->assertEquals($single,$customer);
+
+		$customerData = ( new ( CustomerFactory::class )() )->definition();
+		dispatch_sync( new UpdateJob($customer->id, $customerData ) );
+		$customer = Customer::first();
+		$single = dispatch_sync( new SingleJob($customer->id) );
+		$this->assertEquals($single,$customer);
+
 	}
 
 }

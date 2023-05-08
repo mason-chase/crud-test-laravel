@@ -36,5 +36,7 @@ class BaseRepository
 	public function findOrFail($id){
 		return $this->getModel()->findOrFail($id);
 	}
-
+	public function updateById($id,$data){
+		return $this->getModel()->findOrFail($id)->update($data);
+	}
 }

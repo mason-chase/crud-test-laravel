@@ -4,6 +4,7 @@ namespace App\Http\Requests\Customer;
 
 use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -27,7 +28,7 @@ class StoreRequest extends FormRequest
 			'lastName'          => [ 'required', 'max:32' ],
 			'dateOfBirth'       => [ 'required', 'date' ],
 			'phoneNumber'       => [ 'required', new PhoneNumber() ],
-			'email'             => [ 'required', 'unique:customers,email' ],
+			'email'             => [ 'required', Rule::unique('customers','email')->ignore(request()->id,'id') ],
 			'bankAccountNumber' => [ 'required' ],
 		];
 	}
