@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Customer;
 
+use App\Events\Customer\UpdateEvent;
 use App\Repositories\ICustomerRepository;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,10 +28,17 @@ class UpdateJob
 	 */
 	public function handle()
 	{
-		return $this->customerRepository->updateById
+		$result = $this->customerRepository->updateById
 		(
 			$this->id,
 			$this->data
 		);
+
+		if ( $result )
+		{
+			event( new UpdateEvent( $this->id, $this->data ) );
+		}
+		return $result;
+
 	}
 }
