@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Jobs\Customer\SingleJob;
 use App\Models\Customer;
 use Cassandra\Custom;
 use Tests\TestCase;
@@ -32,5 +33,15 @@ class CustomerControllerTest extends TestCase
 			]
 		)->get( '/api/v1/customer' );
 		$response->assertJsonCount(1,"data");
+	}
+
+	public  function  test_single()
+	{
+		$response = $this->withHeaders(
+			[
+				'accept' => 'application/json',
+			]
+		)->get( '/api/v1/customer/2' );
+		$response->assertJson(Customer::find(2)->toArray());
 	}
 }
