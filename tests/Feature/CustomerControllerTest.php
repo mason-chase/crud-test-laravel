@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use Cassandra\Custom;
 use Tests\TestCase;
 
 class CustomerControllerTest extends TestCase
@@ -21,5 +22,15 @@ class CustomerControllerTest extends TestCase
 		$this->assertDatabaseHas( Customer::class, $data );
 
 		$response->assertStatus( 201 );
+	}
+
+	public  function  test_index()
+	{
+		$response = $this->withHeaders(
+			[
+				'accept' => 'application/json',
+			]
+		)->get( '/api/v1/customer' );
+		$response->assertJsonCount(1,"data");
 	}
 }
