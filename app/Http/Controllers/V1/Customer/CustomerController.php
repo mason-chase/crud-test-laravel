@@ -4,9 +4,11 @@ namespace App\Http\Controllers\V1\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\StoreRequest;
+use App\Jobs\Customer\DeleteJob;
 use App\Jobs\Customer\IndexJob;
 use App\Jobs\Customer\SingleJob;
 use App\Jobs\Customer\StoreJob;
+use OpenApi\Attributes\Delete;
 
 class CustomerController extends Controller
 {
@@ -87,7 +89,7 @@ class CustomerController extends Controller
 	/**
 	 * @OA\Get(
 	 *     path="/api/v1/customer/{id}",
-	 *     summary="paginate customers",
+	 *     summary="single customer",
 	 *     tags={"customers"},
 	 *  @OA\Parameter(
 	 *      name="id",
@@ -103,7 +105,7 @@ class CustomerController extends Controller
 	 *         response=200,
 	 *         description="OK!",
 	 *         @OA\JsonContent(
-	 *             @OA\Examples(example="success", summary="pages of customer rows."),
+	 *             @OA\Examples(example="success", summary="customer single."),
 	 *         ),
 	 *     ),@OA\Response(
 	 *         response=404,
@@ -115,6 +117,39 @@ class CustomerController extends Controller
 	public  function single($id)
 	{
 		return dispatch_sync( new SingleJob($id));
+	}
+
+	/**
+	 * @OA\Delete(
+	 *     path="/api/v1/customer/{id}",
+	 *     summary="delete customer",
+	 *     tags={"customers"},
+	 *  @OA\Parameter(
+	 *      name="id",
+	 *      description="Customer ID",
+	 *      example=1,
+	 *      required=true,
+	 *      in="path",
+	 *      @OA\Schema(
+	 *          type="integer"
+	 *      )
+	 *  ),
+	 * @OA\Response(
+	 *         response=200,
+	 *         description="OK!",
+	 *         @OA\JsonContent(
+	 *             @OA\Examples(example="success", summary="customer deleted."),
+	 *         ),
+	 *     ),@OA\Response(
+	 *         response=404,
+	 *         description="customer not found!."
+	 *     )
+	 * )
+	 * )
+	 */
+	public  function delete($id)
+	{
+		return dispatch_sync( new DeleteJob($id));
 	}
 
 }

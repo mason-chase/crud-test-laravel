@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Jobs\Customer\SingleJob;
 use App\Models\Customer;
-use Cassandra\Custom;
 use Tests\TestCase;
 
 class CustomerControllerTest extends TestCase
@@ -25,24 +23,36 @@ class CustomerControllerTest extends TestCase
 		$response->assertStatus( 201 );
 	}
 
-	public  function  test_index()
+	public function test_index()
 	{
 		$response = $this->withHeaders(
 			[
 				'accept' => 'application/json',
 			]
 		)->get( '/api/v1/customer' );
-		$response->assertJsonCount(1,"data");
+		$response->assertJsonCount( 1, "data" );
 	}
 
-	public  function  test_single()
+	public function test_single()
 	{
-		$id = Customer::first()->id;
+		$id       = Customer::first()->id;
 		$response = $this->withHeaders(
 			[
 				'accept' => 'application/json',
 			]
-		)->get( '/api/v1/customer/'.$id );
-		$response->assertJson(Customer::find($id)->toArray());
+		)->get( '/api/v1/customer/' . $id );
+		$response->assertJson( Customer::find( $id )->toArray() );
+	}
+
+
+	public function test_delete()
+	{
+		$id       = Customer::first()->id;
+		$response = $this->withHeaders(
+			[
+				'accept' => 'application/json',
+			]
+		)->delete( '/api/v1/customer/' . $id );
+		$response->assertJson( Customer::find( $id )->toArray() );
 	}
 }

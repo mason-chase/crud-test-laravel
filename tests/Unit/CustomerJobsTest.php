@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Jobs\Customer\DeleteJob;
 use App\Jobs\Customer\IndexJob;
 use App\Jobs\Customer\SingleJob;
 use App\Jobs\Customer\StoreJob;
@@ -43,6 +44,14 @@ class CustomerJobsTest extends TestCase
 		$customer = Customer::first();
 		$single = dispatch_sync( new SingleJob($customer->id) );
 		$this->assertEquals($single,$customer);
+	}
+	public function test_delete_job(): void
+	{
+		$customerData = ( new ( CustomerFactory::class )() )->definition();
+		dispatch_sync( new StoreJob( $customerData ) );
+		$customer = clone Customer::first();
+		$single = dispatch_sync( new DeleteJob($customer->id) );
+		$this->assertDatabaseCount('customers',0);
 	}
 
 }
