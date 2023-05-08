@@ -6,6 +6,7 @@ use App\Models\Customer;
 
 class CustomerRepository extends BaseRepository implements ICustomerRepository
 {
+	protected $model = Customer::class;
 
 	/**
 	 * @inheritDoc
