@@ -42,7 +42,7 @@ services:
       - "8081:80"
 
   mysql:
-    image: ghcr.io/getimages/mysql:8.0.31
+    image: mariadb
     container_name: crud_mysql
     restart: always
     environment:
