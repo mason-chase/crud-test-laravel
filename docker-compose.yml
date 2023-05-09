@@ -27,7 +27,6 @@ services:
       - ./:/app/
     depends_on:
       - mysql
-      - redis
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
