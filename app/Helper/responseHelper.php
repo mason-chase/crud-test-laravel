@@ -49,3 +49,27 @@ if (!function_exists("not_found_response")) {
         ], ResponseAlias::HTTP_NOT_FOUND);
     }
 }
+
+if (!function_exists("internal_server_error_response")) {
+    function internal_server_error_response($message = 'messages.internal_server_error', $data = null): JsonResponse
+    {
+        return response()->json([
+            "success" => false,
+            "message" => __($message),
+            "data" => $data
+        ], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+    }
+}
+
+if (!function_exists("bad_request_response")) {
+
+    function bad_request_response($message = 'messages.item_not_acceptable'): JsonResponse
+    {
+        return response()->json([
+            "success" => false,
+            "message" => __($message),
+            "data" => null
+        ], ResponseAlias::HTTP_BAD_REQUEST);
+
+    }
+}
