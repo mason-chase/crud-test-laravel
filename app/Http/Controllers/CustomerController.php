@@ -72,7 +72,9 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer): JsonResponse
     {
-        return success_response(new CustomerResource($customer->delete()));
+        $customer->delete();
+
+        return success_response(new CustomerResource($customer));
     }
 
 }
