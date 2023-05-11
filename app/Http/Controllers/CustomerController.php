@@ -35,7 +35,11 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request): JsonResponse
     {
         /** @var Customer $exist */
-        $exist = Customer::query()->where('first_name', $request->get('first_name'))->where('last_name', $request->get('last_name'))->where('date_of_birth', $request->get('date_of_birth'))->first();
+        $exist = Customer::query()
+            ->where('first_name', $request->get('first_name'))
+            ->where('last_name', $request->get('last_name'))
+            ->where('date_of_birth', $request->get('date_of_birth'))
+            ->first();
 
         if (!is_null($exist)) {
             return error_response(null, 'messages.exist_customer', ResponseAlias::HTTP_FOUND);
@@ -55,7 +59,12 @@ class CustomerController extends Controller
     public function update(CustomerRequest $request, Customer $customer): JsonResponse
     {
         /** @var Customer $exist */
-        $exist = Customer::query()->where('first_name', $request->get('first_name'))->where('last_name', $request->get('last_name'))->where('date_of_birth', $request->get('date_of_birth'))->where('id', '!=', $customer->id)->first();
+        $exist = Customer::query()
+            ->where('first_name', $request->get('first_name'))
+            ->where('last_name', $request->get('last_name'))
+            ->where('date_of_birth', $request->get('date_of_birth'))
+            ->where('id', '!=', $customer->id)
+            ->first();
 
         if (!is_null($exist)) {
             return error_response(null, 'messages.exist_customer', ResponseAlias::HTTP_FOUND);
