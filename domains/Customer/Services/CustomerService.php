@@ -57,7 +57,7 @@ class CustomerService
         }
     }
 
-    public function update($request, $id): JsonResponse
+    public function update($request, $id)
     {
         try {
             $customer = Customer::where('id', '=', $id)->firstOrFail();
@@ -69,7 +69,7 @@ class CustomerService
             $customer->bank_account_number = $request->bank_account_number;
             $customer->save();
 
-            return ApiResponse::success('customer updated successfully!', $customer);
+            return $customer;
         } catch (Exception $exception) {
             Log::debug('CustomerService@update', [
                 'message' => $exception->getMessage(),
@@ -87,7 +87,7 @@ class CustomerService
             $customer = Customer::where('id', '=', $id)->firstOrFail();
             $customer->delete();
 
-            return response()->noContent();
+            return $customer;
         } catch (Exception $exception) {
             Log::debug('CustomerService@destroy', [
                 'message' => $exception->getMessage(),

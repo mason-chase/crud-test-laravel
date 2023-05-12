@@ -53,9 +53,12 @@ class CustomerController extends Controller
         return view('customers::edit', compact('customer'));
     }
 
-    public function update(UpdateCustomerRequest $request, $id): JsonResponse
+    public function update(UpdateCustomerRequest $request, $id)
     {
-        return $this->service->update($request, $id);
+        $customer = $this->service->update($request, $id);
+
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer updated successfully!');
     }
 
     public function destroy($id)

@@ -11,6 +11,7 @@ use Domains\Customer\Models\Customer;
 class CustomerFactory extends Factory
 {
     protected $model = Customer::class;
+
     /**
      * Define the model's default state.
      *
@@ -21,8 +22,7 @@ class CustomerFactory extends Factory
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'date_of_birth' => fake()->dateTimeBetween($startDate = '-70 years', $endDate = '-2 years', $timezone = null)
-                ->format('Y-m-d'),
+            'date_of_birth' => fake()->dateTimeBetween('-70 years', '-2 years')->format('Y-m-d'),
             'phone_number' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'bank_account_number' => fake()->numerify('####-####-####-####'),

@@ -226,7 +226,9 @@ class CustomerController extends Controller
      **/
     public function update(UpdateCustomerRequest $request, $id): JsonResponse
     {
-        return $this->service->update($request, $id);
+        $customer = $this->service->update($request, $id);
+
+        return ApiResponse::success('customer updated successfully!', $customer);
     }
 
     /**
@@ -272,10 +274,10 @@ class CustomerController extends Controller
      *    )
      *)
      **/
-    public function destroy($id): JsonResponse
+    public function destroy($id)
     {
         $customer = $this->service->destroy($id);
 
-        return ApiResponse::success('customer deleted successfully!');
+        return response()->noContent();
     }
 }
