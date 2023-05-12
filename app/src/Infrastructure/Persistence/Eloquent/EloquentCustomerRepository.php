@@ -1,61 +1,36 @@
 <?php
 namespace Ddd\Infrastructure\Persistence\Eloquent;
 
-use Ddd\Infrastructure\Persistence\Eloquent\Models\CustomerModel;
-use Ddd\Domain\Customer\Customer;
-use Ddd\Domain\Customer\CustomerRepositoryInterface;
+
+use Ddd\Domain\Customers\CustomerRepositoryInterface;
+use Ddd\Domain\Customers\Entities\CustomerModel;
 
 class EloquentCustomerRepository implements CustomerRepositoryInterface
 {
-    public function save(Customer $customer): void
+    public function save(CustomerModel $customer): CustomerModel
     {
-        $model = new CustomerModel([
-            'first_name' => $customer->getFirstName(),
-            'last_name' => $customer->getLastName(),
-            'email' => $customer->getEmail(),
-            'bank_account_number' => $customer->getBankAccountNumber(),
-            'phone_number' => $customer->getPhoneNumber(),
-            'date_of_birth' => $customer->getDateOfBirth(),
-        ]);
-
-        $model->save();
+        $customer->save();
+        return $customer;
     }
 
-    public function getById(int $id): ?Customer
+
+    public function getById(int $id): ?CustomerModel
     {
-        $model = CustomerModel::find($id);
-
-        if (!$model) {
-            return null;
-        }
-
-        return new Customer($model->id, $model->first_name,$model->last_name,$model->email,$model->bank_account_number, $model->phone_number, $model->date_of_birth);
+        // TODO: Implement getById() method.
     }
 
-    public function getByEmail(string $email): ?Customer
+    public function getByEmail(string $email): ?CustomerModel
     {
-        $model = CustomerModel::where('email', $email)->first();
-
-        if (!$model) {
-            return null;
-        }
-
-        return new Customer($model->id, $model->first_name,$model->last_name,$model->email,$model->bank_account_number, $model->phone_number, $model->date_of_birth);
+        // TODO: Implement getByEmail() method.
     }
 
-    public function delete(Customer $customer): void
+    public function delete(CustomerModel $customer): void
     {
-        CustomerModel::destroy($customer->getId());
+        // TODO: Implement delete() method.
     }
 
-    // Additional implementation of repository methods
-    public function update(Customer $customer): void
+    public function update(CustomerModel $customer): CustomerModel
     {
-        $model = new CustomerModel([
-            'name' => $customer->getName(),
-            'email' => $customer->getEmail(),
-        ]);
-
-        $model->update();
+        // TODO: Implement update() method.
     }
 }

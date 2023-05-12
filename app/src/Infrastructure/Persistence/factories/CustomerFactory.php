@@ -2,7 +2,7 @@
 
 namespace Ddd\Infrastructure\Persistence\factories;
 
-use Ddd\Infrastructure\Persistence\Eloquent\Models\CustomerModel;
+use Ddd\Domain\Customers\Entities\CustomerModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

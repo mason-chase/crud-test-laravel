@@ -1,9 +1,10 @@
 <?php
-namespace Ddd\Application\Customer\Handler;
+namespace Ddd\Application\Customers\Handler;
 
-use Ddd\Application\Customer\Queries\GetCustomerQuery;
-use Ddd\Domain\Customer\Customer;
-use Ddd\Domain\Customer\CustomerRepositoryInterface;
+
+use Ddd\Application\Customers\Queries\GetCustomerQuery;
+use Ddd\Domain\Customers\CustomerRepositoryInterface;
+use Ddd\Domain\Customers\Entities\CustomerModel;
 
 class GetCustomerHandler
 {
@@ -14,7 +15,7 @@ class GetCustomerHandler
         $this->customerRepository = $customerRepository;
     }
 
-    public function handle(GetCustomerQuery $query): ?Customer
+    public function handle(GetCustomerQuery $query): ?CustomerModel
     {
         return $this->customerRepository->getById($query->id);
     }

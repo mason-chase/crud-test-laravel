@@ -1,5 +1,5 @@
 <?php
-namespace Ddd\Application\Customer\Requests;
+namespace Ddd\Application\Customers\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use libphonenumber\PhoneNumber;

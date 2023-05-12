@@ -1,5 +1,5 @@
 <?php
-namespace Ddd\Application\Customer\Command;
+namespace Ddd\Application\Customers\Command;
 
 class CreateCustomerCommand
 {

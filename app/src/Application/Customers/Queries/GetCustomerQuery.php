@@ -1,5 +1,5 @@
 <?php
-namespace Ddd\Application\Customer\Queries;
+namespace Ddd\Application\Customers\Queries;
 
 class GetCustomerQuery
 {
