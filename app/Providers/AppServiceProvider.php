@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use libphonenumber\PhoneNumberUtil;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Validator::extend('phoneNumber', function ($attribute, $value, $parameters, $validator) {
+            $phoneUtil = PhoneNumberUtil::getInstance();
+
+            try {
+                $phoneNumber = $phoneUtil->parse($value, 'ZZ');
+                return $phoneUtil->isValidNumber($phoneNumber);
+            } catch (\libphonenumber\NumberParseException $e) {
+                return false;
+            }
+        });
     }
 }
