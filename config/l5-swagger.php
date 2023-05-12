@@ -47,6 +47,7 @@ return [
     ],
     'defaults' => [
         'routes' => [
+            'prefix' => 'api/documentation',
             /*
              * Route for accessing parsed swagger annotations.
             */
@@ -60,13 +61,7 @@ return [
             /*
              * Middleware allows to prevent unexpected access to API documentation
             */
-            'middleware' => [
-                'api' => [],
-                'asset' => [],
-                'docs' => [],
-                'oauth2_callback' => [],
-            ],
-
+            'middleware' => ['web'],
             /*
              * Route Group options
             */
@@ -74,6 +69,7 @@ return [
         ],
 
         'paths' => [
+            base_path('app/Http/Controllers'),
             /*
              * Absolute path to location where parsed annotations will be stored
             */
