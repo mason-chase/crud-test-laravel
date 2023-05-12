@@ -9,11 +9,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class CustomerController extends Controller
 {
-    private $createCustomerHandler;
 
-    public function __construct(CreateCustomerHandler $createCustomerHandler)
+    public function __construct(private CreateCustomerHandler $createCustomerHandler)
     {
-        $this->createCustomerHandler = $createCustomerHandler;
     }
 
     public function store(CreateCustomerRequest $request)
@@ -36,7 +34,7 @@ class CustomerController extends Controller
                 $customerData['date_of_birth']
             );
             $customer = $this->createCustomerHandler->handle($command);
-            return Redirect::route('customers.show', $customer->id)
+            return Redirect::route('customers.create.show', $customer->id)
                 ->with('success', 'The customer has been created.');
         } catch (\Exception $e) {
             return Redirect::back()
@@ -45,5 +43,8 @@ class CustomerController extends Controller
         }
     }
 
-    // ...
+    public function showCreate()
+    {
+        return view('customers.create');
+    }
 }

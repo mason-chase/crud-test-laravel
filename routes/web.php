@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
-use Ddd\Application\Customer\Service\CustomerService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function (){
+Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -26,10 +26,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::prefix('customers')->as('customers.')->group(function () {
 // Show the create customer form
-    Route::get('/create', [CustomerService::class, 'showCreateCustomer'])->name('create.show')->middleware('auth.basic');
+    Route::get('/create', [CustomerController::class, 'showCreate'])->name('create.show')->middleware('auth');
 
 // Store the newly created customer
-    Route::post('/', [CustomerService::class, 'createCustomer'])->name('store');
+    Route::post('/', [CustomerController::class, 'store'])->name('store');
 });
 
 
