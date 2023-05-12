@@ -1,0 +1,161 @@
+openapi: 3.0.0
+info:
+  title: ApplicationAPI
+  version: 1.0.0
+paths:
+  /:
+    summary: Customer
+  /api/v1/customer:
+    get:
+      tags:
+        - Customer
+      summary: 'show customers list'
+      operationId: 'show customers'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json: []
+        401:
+          description: Unauthenticated
+        400:
+          description: 'Bad Request'
+        404:
+          description: 'not found'
+        403:
+          description: Forbidden
+        422:
+          description: 'Unprocessable Entity'
+    post:
+      tags:
+        - Customer
+      summary: 'store customer'
+      operationId: 'store customer'
+      requestBody:
+        description: 'Customer Data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                date_of_birth:
+                  type: string
+                phone_number:
+                  type: string
+                email:
+                  type: string
+                bank_account_number:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json: []
+        401:
+          description: Unauthenticated
+        400:
+          description: 'Bad Request'
+        404:
+          description: 'not found'
+        403:
+          description: Forbidden
+        422:
+          description: 'Unprocessable Entity'
+  '/api/v1/customer/{customer}':
+    get:
+      tags:
+        - Customer
+      summary: 'show customer by id'
+      operationId: 'show customer by id'
+      parameters:
+        -
+          name: customer
+          in: path
+          description: customer
+          required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json: []
+        401:
+          description: Unauthenticated
+        400:
+          description: 'Bad Request'
+        404:
+          description: 'not found'
+        403:
+          description: Forbidden
+        422:
+          description: 'Unprocessable Entity'
+    put:
+      tags:
+        - Customer
+      summary: 'update customer'
+      operationId: ' update customer'
+      parameters:
+        -
+          name: customer
+          in: path
+          description: customer
+          required: true
+      requestBody:
+        description: 'Customer Data'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                date_of_birth:
+                  type: string
+                phone_number:
+                  type: string
+                email:
+                  type: string
+                bank_account_number:
+                  type: string
+              type: object
+      responses:
+        200:
+          description: Success
+          content:
+            application/json: []
+        401:
+          description: Unauthenticated
+        400:
+          description: 'Bad Request'
+        404:
+          description: 'not found'
+        403:
+          description: Forbidden
+        422:
+          description: 'Unprocessable Entity'
+    delete:
+      tags:
+        - Customer
+      summary: 'delete customer'
+      operationId: 'delete customer'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json: []
+        401:
+          description: Unauthenticated
+        400:
+          description: 'Bad Request'
+        404:
+          description: 'not found'
+        403:
+          description: Forbidden
+        422:
+          description: 'Unprocessable Entity'

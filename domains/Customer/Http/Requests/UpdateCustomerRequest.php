@@ -4,6 +4,7 @@ namespace Domains\Customer\Http\Requests;
 
 use Domains\Customer\Http\Rules\CheckPhoneNumberRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCustomerRequest extends FormRequest
 {
@@ -23,18 +24,21 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'integer', 'exists:customers,id'],
             'first_name' => 'string|max:60|nullable',
             'last_name' => 'required|string|max:60',
             'date_of_birth' => 'nullable|date',
-            'phone_number' => ['required', 'string', 'max:20', new CheckPhoneNumberRule()],
-            'email' => 'required|email:rfc,dns|unique:customers,email',
+            'email' => [
+                'required',
+                'email:rfc,dns',
+                Rule::unique('customers', 'email')->ignore($this->customer),
+            ],
             'bank_account_number' => 'nullable|alpha_dash|max:32',
+            'phone_number' => [
+                'required',
+                'string',
+                'max:20',
+                resolve(CheckPhoneNumberRule::class, ['reasonOfSickness' => $this->phone_number]),
+            ],
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        $this->merge(['id' => $this->route('id')]);
     }
 }

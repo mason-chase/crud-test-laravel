@@ -11,9 +11,9 @@ class CustomerServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/migrations');
         $this->mergeConfigFrom(__DIR__ . "/../Config/config.php", 'customer');
-        $this->loadTranslationsFrom(__DIR__ . "/../Lang", 'customer');
         $this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');
-        $this->loadViewsFrom(__DIR__ . '/../Resources', 'customer');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/web.php');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'customers');
 
         Factory::guessFactoryNamesUsing(function ($modelName) {
             if ($modelName == 'App\Models\User') {

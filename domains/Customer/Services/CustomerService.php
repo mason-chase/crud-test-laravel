@@ -11,19 +11,17 @@ use Exception;
 
 class CustomerService
 {
-    public function index(): JsonResponse
+    public function index()
     {
-        $customers = Customer::all();
-
-        return ApiResponse::success(__('customer.customer.list'), $customers);
+        return Customer::select('id', 'first_name', 'last_name', 'date_of_birth', 'phone_number', 'email', 'bank_account_number')
+            ->paginate();
     }
 
-    public function show(int $id): JsonResponse
+    public function show($id)
     {
         try {
-            $customer = Customer::where('id', '=', $id)->firstOrFail();
+            return Customer::where('id', '=', $id)->firstOrFail();
 
-            return ApiResponse::success(__('customer.customer.show'), $customer);
         } catch (Exception $exception) {
             Log::debug('CustomerService@show', [
                 'message' => $exception->getMessage(),
@@ -31,13 +29,11 @@ class CustomerService
                 'data' => 'customer_id:' . $id,
             ]);
 
-            return ApiResponse::failed(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                __('customer.customer.not_found'));
+            return ApiResponse::failed(Response::HTTP_INTERNAL_SERVER_ERROR, 'customer not found');
         }
     }
 
-    public function store($request): JsonResponse
+    public function store($request)
     {
         try {
             $customer = new Customer();
@@ -49,7 +45,7 @@ class CustomerService
             $customer->bank_account_number = $request->bank_account_number;
             $customer->save();
 
-            return ApiResponse::success(__('customer.customer.store'), $customer);
+            return $customer;
         } catch (Exception $exception) {
             Log::debug('CustomerService@store', [
                 'message' => $exception->getMessage(),
@@ -57,19 +53,23 @@ class CustomerService
                 'data' => $request,
             ]);
 
-            return ApiResponse::failed(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                __('customer.customer.server_error'));
+            return ApiResponse::failed(Response::HTTP_INTERNAL_SERVER_ERROR, 'internal server error');
         }
     }
 
-    public function update($request, int $id): JsonResponse
+    public function update($request, $id): JsonResponse
     {
         try {
-            $customer = Customer::where('id', '=', $id)
-                ->update($request);
+            $customer = Customer::where('id', '=', $id)->firstOrFail();
+            $customer->first_name = $request->first_name;
+            $customer->last_name = $request->last_name;
+            $customer->date_of_birth = $request->date_of_birth;
+            $customer->phone_number = $request->phone_number;
+            $customer->email = $request->email;
+            $customer->bank_account_number = $request->bank_account_number;
+            $customer->save();
 
-            return ApiResponse::success(__('customer.customer.update'), $customer);
+            return ApiResponse::success('customer updated successfully!', $customer);
         } catch (Exception $exception) {
             Log::debug('CustomerService@update', [
                 'message' => $exception->getMessage(),
@@ -77,18 +77,17 @@ class CustomerService
                 'data' => $request,
             ]);
 
-            return ApiResponse::failed(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                __('customer.customer.server_error'));
+            return ApiResponse::failed(Response::HTTP_INTERNAL_SERVER_ERROR, 'internal server error');
         }
     }
 
-    public function destroy(int $id): JsonResponse
+    public function destroy($id)
     {
         try {
-            Customer::where('id', '=', $id)->delete();
+            $customer = Customer::where('id', '=', $id)->firstOrFail();
+            $customer->delete();
 
-            return ApiResponse::success(__('customer.customer.delete'));
+            return response()->noContent();
         } catch (Exception $exception) {
             Log::debug('CustomerService@destroy', [
                 'message' => $exception->getMessage(),
@@ -96,9 +95,7 @@ class CustomerService
                 'data' => 'customer_id:' . $id,
             ]);
 
-            return ApiResponse::failed(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                __('customer.customer.server_error'));
+            return ApiResponse::failed(Response::HTTP_INTERNAL_SERVER_ERROR, 'internal server error');
         }
     }
 }
