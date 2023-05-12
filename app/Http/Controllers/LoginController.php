@@ -11,6 +11,9 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        if (Auth::guard('web')->check()) {
+            return redirect('/');
+        }
         return view('auth.login');
     }
     /**

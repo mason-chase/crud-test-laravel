@@ -17,7 +17,7 @@ class CreateCustomerRequest extends FormRequest
                 'required',
                 'string',
                 'max:20',
-                new PhoneNumber()
+//                new PhoneNumber()
             ],
             'bank_account_number' => 'required|alpha_dash|max:36|unique:customers,bank_account_number',
         ];

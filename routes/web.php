@@ -29,7 +29,7 @@ Route::prefix('customers')->as('customers.')->group(function () {
     Route::get('/create', [CustomerService::class, 'showCreateCustomer'])->name('create.show')->middleware('auth.basic');
 
 // Store the newly created customer
-    Route::post('/', [CustomerService::class, 'createCustomer'])->name('create');
+    Route::post('/', [CustomerService::class, 'createCustomer'])->name('store');
 });
 
 
