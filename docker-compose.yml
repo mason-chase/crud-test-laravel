@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  nginx:
+    image: ghcr.io/getimages/nginx:1.23.3-alpine
+    container_name: crud_nginx
+    volumes:
+      - ./:/app/
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/logs/:/var/log/nginx/
+    ports:
+      - ${APP_EXPOSED_PORT:-0}:80
+    working_dir: /app
+    restart: always
+    depends_on:
+      - php
+
+  php:
+    build: ./docker/php
+    image: api_php
+    container_name: crud_php
+    restart: always
+    working_dir: /app
+    ports:
+      - ${PHP_EXPOSED_PORT:-0}:80
+    volumes:
+      - ./:/app/
+    depends_on:
+      - mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: crud_pma
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - "8081:80"
+
+  mysql:
+    image: mariadb
+    container_name: crud_mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=mc_crud_test
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - 127.0.0.1:${MYSQL_EXPOSED_PORT:-0}:3306
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
