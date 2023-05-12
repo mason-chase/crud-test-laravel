@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Ddd\Application\Customers\Command\CreateCustomerCommand;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Application\Customers\Requests\CreateCustomerRequest;
-use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Redirect;
 
 class CustomerController extends Controller
 {
@@ -36,9 +36,12 @@ class CustomerController extends Controller
                 $customerData['date_of_birth']
             );
             $customer = $this->createCustomerHandler->handle($command);
-            return response()->json($customer, Response::HTTP_CREATED);
+            return Redirect::route('customers.show', $customer->id)
+                ->with('success', 'The customer has been created.');
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return Redirect::back()
+                ->with('error', $e->getMessage())
+                ->withInput();
         }
     }
 

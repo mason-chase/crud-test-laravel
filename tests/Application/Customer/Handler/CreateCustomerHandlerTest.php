@@ -73,7 +73,7 @@ class CreateCustomerHandlerTest extends TestCase
         $this->handler->handle($command);
     }
 
-/*    public function testHandle(): void
+    public function testHandleWeb(): void
     {
         $data = [
             'first_name' => fake()->unique()->name(),
@@ -95,5 +95,5 @@ class CreateCustomerHandlerTest extends TestCase
             'phone' => '1234567890',
             'address' => '123 Main St, Anytown, USA',
         ]);
-    }*/
+    }
 }
