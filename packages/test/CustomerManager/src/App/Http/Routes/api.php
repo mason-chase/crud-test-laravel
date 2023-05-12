@@ -11,7 +11,6 @@ Route::group(config('BaceManager.bace_api_route'), function () {
     ->group(function(){
         Route::get('', 'index')->name('index');
         Route::post('', 'store')->name('store');
-        Route::get('{customer}', 'show')->middleware('auth')->name('show');
         Route::put('{customer}', 'update')->middleware('auth')->name('update');
         Route::delete('', 'destroy')->middleware('auth')->name('destroy');
     });

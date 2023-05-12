@@ -2,18 +2,21 @@
 
 namespace Test\BaceManager\Interfaces;
 
-use Illuminate\Database\Eloquent\Model;
-
 interface RepositoryInterface {
 
-    public static function Load();
+    public static function Load() : Array;
 
     public function get(Array $filters);
 
     public function show(int $id);
 
-    public function create(Array $data);
+    public function create(int $id, Array $data);
 
-    public function update(Array $data, Model $model);
+    public function update(int $id, Array $data);
+    
+    public function delete(int $id);
+
+    public function multydelete(Array $list);
+
 
 }

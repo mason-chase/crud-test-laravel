@@ -18,10 +18,11 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->string('phone_number', 20)->unique();
             $table->string('email', 120)->unique();
-            $table->string('bank_account_number', 32)->nullable();
+            $table->string('bank_account_number', 32)->index()->nullable();
             $table->softDeletes();
             $table->timestamps();
 
+            $table->fullText(['first_name', 'last_name']);
             $table->unique(['first_name', 'last_name', 'date_of_birth'], 'first_last_dob_unique');
         });
     }
