@@ -8,7 +8,6 @@ class BaseManagerServiceProvider extends ServiceProvider {
 
     public function boot()
     {   
-
         $this->mergeConfigFrom(__DIR__.'/../config/BaceManager.php', 'BaceManager');
 
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

@@ -29,7 +29,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Test\\BaceManager\\Providers\\BaceManagerServiceProvider"
+                "Test\\BaceManager\\Providers\\BaseManagerServiceProvider"
             ]
         }
     },
