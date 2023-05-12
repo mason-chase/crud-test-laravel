@@ -215,6 +215,14 @@
                 ],
                 "summary": "delete customer",
                 "operationId": "delete customer",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "customer",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",

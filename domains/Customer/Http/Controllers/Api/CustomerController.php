@@ -236,6 +236,13 @@ class CustomerController extends Controller
      *   summary="delete customer",
      *   operationId="delete customer",
      *
+     *  @OA\Parameter(
+     *      name="customer",
+     *      in="path",
+     *      description="customer",
+     *      required=true,
+     *  ),
+     *
      *   @OA\Response(
      *      response=200,
      *       description="Success",
