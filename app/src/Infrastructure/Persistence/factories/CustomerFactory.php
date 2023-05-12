@@ -2,9 +2,8 @@
 
 namespace Ddd\Infrastructure\Persistence\factories;
 
-use Ddd\Infrastructure\Persistence\Eloquent\CustomerModel;
+use Ddd\Infrastructure\Persistence\Eloquent\Models\CustomerModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory<CustomerModel>

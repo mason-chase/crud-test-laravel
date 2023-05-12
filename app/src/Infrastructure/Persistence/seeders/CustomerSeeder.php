@@ -3,7 +3,7 @@
 namespace Ddd\Infrastructure\Persistence\seeders;
 
 
-use Ddd\Infrastructure\Persistence\Eloquent\CustomerModel;
+use Ddd\Infrastructure\Persistence\Eloquent\Models\CustomerModel;
 use Illuminate\Database\Seeder;
 
 class CustomerSeeder extends Seeder

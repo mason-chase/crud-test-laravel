@@ -1,5 +1,6 @@
 <?php
 
+use Ddd\Application\Customer\Service\CustomerService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::prefix('customers')->as('customers.')->group(function () {
+// Show the create customer form
+    Route::get('/create', [CustomerService::class, 'showCreateCustomer'])->name('create.show');
+
+// Store the newly created customer
+    Route::post('/customers', [CustomerService::class, 'createCustomer'])->name('create');
+
 });
+
+

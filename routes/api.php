@@ -1,5 +1,6 @@
 <?php
 
+use Ddd\Application\Customer\Service\CustomerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Disable authentication
+//Route::group(['middleware' => ['auth:sanctum']], function () {
+//    Route::prefix('customers')->as('customers.')->group(function () {
+//        Route::post('/', [CustomerService::class, 'createCustomer'])->name('create');
+//        Route::get('/{id}', [CustomerService::class, 'getCustomerById'])->name('get.id');
+//        Route::put('/{id}', [CustomerService::class, 'updateCustomer'])->name('update');
+//        Route::delete('/{id}', [CustomerService::class, 'deleteCustomer'])->name('delete');
+//    });
+//});
