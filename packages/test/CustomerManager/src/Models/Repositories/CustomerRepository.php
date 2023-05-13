@@ -16,7 +16,7 @@ class CustomerRepository extends BaceRepository {
 
     public function get(Array $filters)
     {
-        $customer = Customer::with(self::Load())->query();
+        $customer = Customer::with(self::Load());
 
         if (self::checkIsList('accountNumbers', $filters['filters'] ?? []))
         {
@@ -38,13 +38,14 @@ class CustomerRepository extends BaceRepository {
 
     public function create(Array $data)
     {
-        return Customer::createOrFaild($data);
+        return Customer::Create($data);
     }
 
     public function update(int $id, Array $data)
     {
-        return Customer::findOrFail($id)
-            ->update($data);
+        $customer = Customer::findOrFail($id);
+        $customer->update($data);
+        return $this->show($customer->id);
     }
 
     public function delete(int $id)

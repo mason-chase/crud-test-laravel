@@ -2,7 +2,7 @@
 
 namespace Test\CustomerManager\App\Http\Controllers;
 
-use Test\BaceManager\App\Http\Controllers\ApiController;
+use Test\BaceManager\App\Helper\ApiController;
 use Test\CustomerManager\App\Http\Requests\CustomerDeleteRequest;
 use Test\CustomerManager\App\Http\Requests\CustomerIndexRequest;
 use Test\CustomerManager\App\Http\Requests\CustomerStoreRequest;
@@ -19,7 +19,7 @@ class CustomerController extends ApiController
 
     public function index(CustomerIndexRequest $request)
     {
-        $this->successResponse(
+        return $this->successResponse(
             new CustomerCollection(
                 $this->customerRepo->get($request->all())
             )
@@ -28,7 +28,7 @@ class CustomerController extends ApiController
 
     public function store(CustomerStoreRequest $request)
     {
-        $this->successResponse(
+        return $this->successResponse(
             CustomerResource::make(
                 $this->customerRepo->create($request->all())
             )
@@ -37,7 +37,7 @@ class CustomerController extends ApiController
 
     public function update(CustomerUpdateRequest $request, Customer $customer)
     {
-        $this->successResponse(
+        return $this->successResponse(
             CustomerResource::make(
                 $this->customerRepo->update($customer->id, $request->all())
             )
@@ -48,6 +48,6 @@ class CustomerController extends ApiController
     {
         $this->customerRepo->multydelete($request->ids);
 
-        $this->successResponse([], '');
+        return $this->successResponse([], '');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\BaceManager\App\Http\Controllers;
+namespace Test\BaceManager\App\Helper;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Validator;
+
+/**
+ * @OA\Info(
+ *    title="Test Web Service Document",
+ *    version="1.0.0",
+ * )
+ */
 
 class ApiController extends BaseController
 {
@@ -23,7 +30,7 @@ class ApiController extends BaseController
             'error' => false,
             'data' => $data,
             'message' => $message
-        ], 200, []);
+        ], Response::HTTP_OK, []);
     }
     
     /**
@@ -53,7 +60,7 @@ class ApiController extends BaseController
             throw new \Illuminate\Http\Exceptions\HttpResponseException(
                 $this->errorResponse([
                     'errors' => $validator->errors()
-                ],422)
+                ], Response::HTTP_UNPROCESSABLE_ENTITY)
             );
         }
     }
@@ -74,7 +81,7 @@ class ApiController extends BaseController
     {
         throw new \Illuminate\Http\Exceptions\HttpResponseException(
             $this->errorResponse([
-            ],404)
+            ], Response::HTTP_NOT_FOUND)
         );
     }
 

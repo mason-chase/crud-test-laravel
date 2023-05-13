@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name', 40);
             $table->string('last_name', 80);
             $table->date('date_of_birth')->nullable();
-            $table->string('phone_number', 20)->unique();
+            $table->string('phone_number', 20)->nullable();
             $table->string('email', 120)->unique();
             $table->string('bank_account_number', 32)->index()->nullable();
             $table->softDeletes();

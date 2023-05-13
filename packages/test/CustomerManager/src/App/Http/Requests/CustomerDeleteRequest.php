@@ -14,7 +14,8 @@ class CustomerDeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'ids' => ['required', 'array'],
+            'ids.*' => ['required', 'int', 'exists:customers,id'],
         ];
     }
 }
