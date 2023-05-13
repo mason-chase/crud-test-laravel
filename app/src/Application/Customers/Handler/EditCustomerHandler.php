@@ -1,9 +1,9 @@
 <?php
 
-namespace App\src\Application\Customers\Handler;
+namespace Ddd\Application\Customers\Handler;
 
 
-use App\src\Application\Customers\Queries\EditCustomerQuery;
+use Ddd\Application\Customers\Queries\EditCustomerQuery;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 

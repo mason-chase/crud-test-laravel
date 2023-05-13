@@ -1,17 +1,13 @@
 <?php
 
-namespace App\src\Infrastructure\Http\Controllers\Customers;
+namespace Ddd\Infrastructure\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use App\src\Application\Customers\Command\UpdateCustomerCommand;
-use App\src\Application\Customers\Handler\EditCustomerHandler;
-use App\src\Application\Customers\Handler\UpdateCustomerHandler;
-use App\src\Application\Customers\Queries\EditCustomerQuery;
-use App\src\Application\Customers\Requests\UpdateCustomerRequest;
+use Ddd\Application\Customers\Handler\EditCustomerHandler;
+use Ddd\Application\Customers\Queries\EditCustomerQuery;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Redirect;
 
 class EditController extends Controller
 {

@@ -1,13 +1,10 @@
 <?php
 
-namespace Customer\Handler;
+namespace Tests\Application\Customer\Handler;
 
 use App\Models\User;
-use App\src\Application\Customers\Handler\EditCustomerHandler;
-use App\src\Application\Customers\Handler\GetAllCustomerHandler;
-use App\src\Application\Customers\Queries\EditCustomerQuery;
-use App\src\Application\Customers\Queries\GetAllCustomerQuery;
-use Ddd\Application\Customers\Handler\CreateCustomerHandler;
+use Ddd\Application\Customers\Handler\EditCustomerHandler;
+use Ddd\Application\Customers\Queries\EditCustomerQuery;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,7 +26,7 @@ class EditCustomerHandlerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
 
         $this->repository = Mockery::mock(CustomerRepositoryInterface::class);
         $this->handler = new EditCustomerHandler($this->repository);
@@ -54,6 +51,8 @@ class EditCustomerHandlerTest extends TestCase
             'bank_account_number' => fake()->numerify('####-####-####-####'),
         ];
     }
+
+
 
     public function loginUser()
     {
@@ -94,5 +93,6 @@ class EditCustomerHandlerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $response->assertViewHas('customer');
     }
+
 
 }

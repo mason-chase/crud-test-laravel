@@ -1,10 +1,10 @@
 <?php
 
-namespace App\src\Infrastructure\Http\Controllers\Customers;
+namespace Ddd\Infrastructure\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use App\src\Application\Customers\Handler\GetAllCustomerHandler;
-use App\src\Application\Customers\Queries\GetAllCustomerQuery;
+use Ddd\Application\Customers\Handler\GetAllCustomerHandler;
+use Ddd\Application\Customers\Queries\GetAllCustomerQuery;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller

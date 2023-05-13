@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\Infrastructure\Http\Controllers\Customers;
+namespace Ddd\Infrastructure\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use Ddd\Application\Customers\Command\CreateCustomerCommand;

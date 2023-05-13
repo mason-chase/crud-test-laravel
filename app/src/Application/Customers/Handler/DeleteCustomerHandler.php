@@ -3,10 +3,10 @@
 namespace Ddd\Application\Customers\Handler;
 
 
-use Ddd\Application\Customers\Queries\GetAllCustomerQuery;
+use Ddd\Application\Customers\Command\DeleteCustomerCommand;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 
-class GetAllCustomerHandler
+class DeleteCustomerHandler
 {
     private CustomerRepositoryInterface $customerRepository;
 
@@ -15,11 +15,8 @@ class GetAllCustomerHandler
         $this->customerRepository = $customerRepository;
     }
 
-    public function handle(GetAllCustomerQuery $query): array
+    public function handle(DeleteCustomerCommand $command): void
     {
-        $orderBy = $query->getOrderBy();
-        $orderDirection = $query->getOrderDirection();
-
-        return $this->customerRepository->getAll($orderBy, $orderDirection);
+        $this->customerRepository->delete($command->getId());
     }
 }

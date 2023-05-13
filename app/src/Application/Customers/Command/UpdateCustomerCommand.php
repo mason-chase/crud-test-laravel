@@ -1,9 +1,10 @@
 <?php
-namespace App\src\Application\Customers\Command;
+namespace Ddd\Application\Customers\Command;
 
 class UpdateCustomerCommand
 {
     public function __construct(
+        private int $id,
         private string $first_name,
         private string $last_name,
         private string $email,
@@ -14,7 +15,10 @@ class UpdateCustomerCommand
     {
     }
 
-
+    public function getId(): int
+    {
+        return $this->id;
+    }
     public function getFirstName(): string
     {
         return $this->first_name;

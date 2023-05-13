@@ -3,7 +3,6 @@
 namespace Ddd\Infrastructure\Persistence\Eloquent;
 
 
-use App\src\Application\Customers\Queries\GetCustomerByIdQuery;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 
@@ -25,14 +24,18 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
         // TODO: Implement getByEmail() method.
     }
 
-    public function delete(CustomerModel $customer): void
+    public function delete(int $customerId): void
     {
-        // TODO: Implement delete() method.
+        $customer = CustomerModel::findOrFail($customerId);
+        $customer->delete();
     }
 
-    public function update(int $id, array $customer): CustomerModel
+    public function update(int $customerId, array $data): CustomerModel
     {
-        // TODO: Implement update() method.
+        $customer = CustomerModel::findOrFail($customerId);
+        $customer->update($data);
+        return $user = $customer->fresh();
+
     }
 
     public function getAll($orderBy, $orderDirection): array

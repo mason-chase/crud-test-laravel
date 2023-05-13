@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\Application\Customers\Requests;
+namespace Ddd\Application\Customers\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -20,7 +20,7 @@ class UpdateCustomerRequest extends FormRequest
                 'max:25',
                 'phoneNumber'
             ],
-            'bank_account_number' => 'nullable|alpha_dash|max:36|unique:customers,bank_account_number',
+            'bank_account_number' => ['nullable','alpha_dash','max:36',Rule::unique('customers')->ignore($this->id)],
         ];
     }
 }

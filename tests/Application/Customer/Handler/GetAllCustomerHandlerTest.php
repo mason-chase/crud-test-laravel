@@ -1,11 +1,10 @@
 <?php
 
-namespace Customer\Handler;
+namespace Tests\Application\Customer\Handler;
 
 use App\Models\User;
-use App\src\Application\Customers\Handler\GetAllCustomerHandler;
-use App\src\Application\Customers\Queries\GetAllCustomerQuery;
-use Ddd\Application\Customers\Handler\CreateCustomerHandler;
+use Ddd\Application\Customers\Handler\GetAllCustomerHandler;
+use Ddd\Application\Customers\Queries\GetAllCustomerQuery;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;

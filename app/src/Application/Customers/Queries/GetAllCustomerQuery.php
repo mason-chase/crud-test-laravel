@@ -1,5 +1,5 @@
 <?php
-namespace App\src\Application\Customers\Queries;
+namespace Ddd\Application\Customers\Queries;
 
 class GetAllCustomerQuery
 {
