@@ -2,9 +2,11 @@
 
 namespace App\Casts;
 
-use App\Utilities\Text\TextSanitizer;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 class PhoneCast implements CastsAttributes
 {
@@ -23,7 +25,17 @@ class PhoneCast implements CastsAttributes
             return null;
         }
 
-        return TextSanitizer::phone($value);
+        $phoneUtil = PhoneNumberUtil::getInstance();
+
+        try {
+            $numberProto = $phoneUtil->parse($value, "IR");
+        } catch (NumberParseException $e) {
+            logger($e);
+
+            return null;
+        }
+
+        return $phoneUtil->format($numberProto, PhoneNumberFormat::E164);
     }
 
     /**
@@ -41,6 +53,16 @@ class PhoneCast implements CastsAttributes
             return null;
         }
 
-        return TextSanitizer::phone($value);
+        $phoneUtil = PhoneNumberUtil::getInstance();
+
+        try {
+            $numberProto = $phoneUtil->parse($value, "IR");
+        } catch (NumberParseException $e) {
+            logger($e);
+
+            return null;
+        }
+
+        return $phoneUtil->format($numberProto, PhoneNumberFormat::E164);
     }
 }

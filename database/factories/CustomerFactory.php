@@ -22,7 +22,7 @@ class CustomerFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->email,
-            'phone_number' => '0912' . TokenGenerator::number(7),
+            'phone_number' => '+98912' . TokenGenerator::number(7),
             'date_of_brith' => $this->faker->date('Y-m-d'),
             'bank_account_number' => TokenGenerator::number(8),
         ];

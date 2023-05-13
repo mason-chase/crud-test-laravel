@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
-use App\Utilities\Text\TextSanitizer;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberUtil;
 
 class PhoneRule implements ValidationRule
 {
@@ -15,7 +16,18 @@ class PhoneRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!preg_match(TextSanitizer::$phoneRegex, $value)) {
+        try {
+            $phoneUtil = PhoneNumberUtil::getInstance();
+
+            $numberProto = $phoneUtil->parse($value, "IR");
+
+            if (!$phoneUtil->isValidNumber($numberProto)) {
+                $fail('The :attribute is invalid phone number.');
+            }
+
+        } catch (NumberParseException $e) {
+            logger($e);
+
             $fail('The :attribute is invalid phone number.');
         }
     }

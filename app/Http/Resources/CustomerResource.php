@@ -11,7 +11,7 @@ use OpenApi\Attributes as OA;
     properties: [
         new OA\Property(property: 'uuid', title: "uuid", description: "UUID", format: "string", default: null, readOnly: true, example: "9f17fa47-e2bf-45fb-8925-b016e6bcb72e"),
         new OA\Property(property: 'email', title: "email", description: "Email for customer", format: "string", default: null, example: "example@gmail.com"),
-        new OA\Property(property: 'phone_number', title: "phone_number", description: "Phone number for customer", format: "string", default: null, example: "989121234567"),
+        new OA\Property(property: 'phone_number', title: "phone_number", description: "Phone number for customer", format: "string", default: null, example: "+989121234567"),
         new OA\Property(property: 'first_name', title: "first_name", description: "First name for customer", format: "string", default: null, example: "Taylor"),
         new OA\Property(property: 'last_name', title: "last_name", description: "Last name for customer", format: "string", default: null, example: "Swift"),
         new OA\Property(property: 'date_of_brith', title: "date_of_brith", description: "Date of brith for customer", format: "string", default: null, example: "1990-01-01"),

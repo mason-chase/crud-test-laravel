@@ -4,6 +4,9 @@ namespace App\Utilities\Text;
 
 
 use Illuminate\Support\Str;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 class TextSanitizer
 {
@@ -101,17 +104,23 @@ class TextSanitizer
 
     /**
      * @param string $value
-     * @return string
+     * @return string|null
      * @author Arash Farahani <arashmf71@gmail.com>
-     *
      */
-    public static function phone(string $value): string
+    public static function phone(string $value): ?string
     {
-        preg_match(static::$phoneRegex, $value, $matches);
 
-        $code = ($matches[2] ?? null) ?: '98';
-        $phone = $matches[4] ?? null;
+        $phoneUtil = PhoneNumberUtil::getInstance();
 
-        return $code . $phone;
+        try {
+            $numberProto = $phoneUtil->parse($value, "IR");
+
+            return $phoneUtil->format($numberProto, PhoneNumberFormat::E164);
+
+        } catch (NumberParseException $e) {
+            logger($e);
+
+            return null;
+        }
     }
 }
