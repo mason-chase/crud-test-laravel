@@ -10,7 +10,7 @@ interface RepositoryInterface {
 
     public function show(int $id);
 
-    public function create(int $id, Array $data);
+    public function create(Array $data);
 
     public function update(int $id, Array $data);
     

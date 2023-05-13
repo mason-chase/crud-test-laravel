@@ -2,7 +2,7 @@
 
 namespace Test\CustomerManager\Models\Repositories;
 
-use Behzi\BusinessManagement\App\Helper\BaceRepository;
+use Test\CustomerManager\App\Helper\BaceRepository;
 use Test\CustomerManager\Models\Customer;
 
 class CustomerRepository extends BaceRepository {
@@ -18,14 +18,14 @@ class CustomerRepository extends BaceRepository {
     {
         $customer = Customer::with(self::Load())->query();
 
-        if (self::checkIsList('accountNumbers', $filters))
+        if (self::checkIsList('accountNumbers', $filters['filters'] ?? []))
         {
-            $customer->inBankAccountList($filters['accountNumbers']);
+            $customer->inBankAccountList($filters['filters']['accountNumbers']);
         }
 
-        if(self::checkIsList('emails', $filters))
+        if(self::checkIsList('emails', $filters['filters'] ?? [] ))
         {
-            $customer->inEmailList($filters['emails']);
+            $customer->inEmailList($filters['filters']['emails']);
         }
 
         return $customer->paginate();
@@ -36,7 +36,7 @@ class CustomerRepository extends BaceRepository {
         return Customer::with(self::Load())->findOrFail($id);
     }
 
-    public function create(int $id, Array $data)
+    public function create(Array $data)
     {
         return Customer::createOrFaild($data);
     }

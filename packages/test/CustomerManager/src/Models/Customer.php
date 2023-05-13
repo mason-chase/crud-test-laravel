@@ -14,5 +14,14 @@ class Customer extends Model
     use SoftDeletes;
     use CustomerRelationTrait;
     use CustomerScopeTrait;
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'phone_number',
+        'email',
+        'bank_account_number',
+    ];
     
 }

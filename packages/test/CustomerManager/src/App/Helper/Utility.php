@@ -1,6 +1,6 @@
 <?php
 
-namespace Behzi\BusinessManagement\App\Helper;
+namespace Test\CustomerManager\App\Helper;
 
 
 class Utility{
