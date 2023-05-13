@@ -2,6 +2,7 @@
 
 namespace Test\BaceManager\App\Helper;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -10,14 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Validator;
 
-/**
- * @OA\Info(
- *    title="Test Web Service Document",
- *    version="1.0.0",
- * )
- */
-
-class ApiController extends BaseController
+class ApiController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
