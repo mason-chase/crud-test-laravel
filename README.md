@@ -46,3 +46,6 @@ Customer {
 - Web UI.
 - Swagger
 
+## Run project
+`./vendor/bin/sail up -d`
+
