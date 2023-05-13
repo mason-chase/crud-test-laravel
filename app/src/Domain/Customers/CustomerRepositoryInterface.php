@@ -14,4 +14,7 @@ interface CustomerRepositoryInterface
     public function delete(CustomerModel $customer): void;
 
     public function update(CustomerModel $customer): CustomerModel;
+
+    public function getAll(string $orderBy, string $orderDirection): array;
+
 }

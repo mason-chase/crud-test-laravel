@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\LoginController;
-use Ddd\Infrastructure\Http\Controllers\CustomerController;
+use App\src\Infrastructure\Http\Controllers\Customers\IndexController;
+use App\src\Infrastructure\Http\Controllers\Customers\CreateController;
+use App\src\Infrastructure\Http\Controllers\Customers\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,10 +28,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::prefix('customers')->as('customers.')->group(function () {
 // Show the create customer form
-    Route::get('/create', [CustomerController::class, 'showCreate'])->name('create.show')->middleware('auth');
-
+    Route::get('/list', [CreateController::class, 'create'])->name('create')->middleware('auth');
 // Store the newly created customer
-    Route::post('/', [CustomerController::class, 'store'])->name('store');
+    Route::post('/', [StoreController::class, 'store'])->name('store')->middleware('auth');
+
+    // Get all customers
+    Route::get('/', [IndexController::class, 'index'])->name('index')->middleware('auth');
 });
 
 

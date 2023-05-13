@@ -1,4 +1,5 @@
 <?php
+
 namespace Ddd\Infrastructure\Persistence\Eloquent;
 
 
@@ -32,5 +33,10 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
     public function update(CustomerModel $customer): CustomerModel
     {
         // TODO: Implement update() method.
+    }
+
+    public function getAll($orderBy, $orderDirection): array
+    {
+        return CustomerModel::orderBy($orderBy, $orderDirection)->get()->toArray();
     }
 }

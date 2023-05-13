@@ -7,7 +7,6 @@ use Ddd\Application\Customers\Command\CreateCustomerCommand;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
@@ -48,7 +47,7 @@ class CreateCustomerHandlerTest extends TestCase
             'date_of_birth' => fake()->unique()->date(),
             'last_name' => fake()->unique()->lastName(),
             'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->unique()->phoneNumber(),
+            'phone_number' => '+989135455305',
             'bank_account_number' => fake()->numerify('####-####-####-####'),
         ];
     }
@@ -97,7 +96,7 @@ class CreateCustomerHandlerTest extends TestCase
         $entryArrayData = $this->fakeData;
         $response = $this->post(route('customers.store'), $entryArrayData + ['_token' => csrf_token()]);
         $response->assertStatus(Response::HTTP_FOUND);
-        $response->assertRedirect(route('customers.create.show'));
+        $response->assertRedirect(route('customers.create'));
         $this->assertDatabaseHas('customers', $entryArrayData);
     }
 

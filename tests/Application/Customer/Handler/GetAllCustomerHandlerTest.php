@@ -3,11 +3,11 @@
 namespace Customer\Handler;
 
 use App\Models\User;
-use Ddd\Application\Customers\Command\CreateCustomerCommand;
+use App\src\Application\Customers\Handler\GetAllCustomerHandler;
+use App\src\Application\Customers\Queries\GetAllCustomerQuery;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
@@ -18,19 +18,19 @@ class GetAllCustomerHandlerTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
-    private CreateCustomerHandler $handler;
+    private GetAllCustomerHandler $handler;
     private CustomerRepositoryInterface $repository;
     private array $customerData;
     private array $fakeData;
-
+    private $getAllCustomerHandler;
     public function setUp(): void
     {
         parent::setUp();
 
         $this->withoutExceptionHandling();
 
-        $this->repository = $this->createMock(CustomerRepositoryInterface::class);
-        $this->handler = new CreateCustomerHandler($this->repository);
+        $this->repository = Mockery::mock(CustomerRepositoryInterface::class);
+        $this->handler = new GetAllCustomerHandler($this->repository);
 
         // Sample data for mock method
         $this->customerData = [
@@ -51,22 +51,6 @@ class GetAllCustomerHandlerTest extends TestCase
             'phone_number' => fake()->unique()->phoneNumber(),
             'bank_account_number' => fake()->numerify('####-####-####-####'),
         ];
-        $this->fakeData2 = [
-            'first_name' => fake()->unique()->name(),
-            'date_of_birth' => fake()->unique()->date(),
-            'last_name' => fake()->unique()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->unique()->phoneNumber(),
-            'bank_account_number' => fake()->numerify('####-####-####-####'),
-        ];
-        $this->fakeData3 = [
-            'first_name' => fake()->unique()->name(),
-            'date_of_birth' => fake()->unique()->date(),
-            'last_name' => fake()->unique()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->unique()->phoneNumber(),
-            'bank_account_number' => fake()->numerify('####-####-####-####'),
-        ];
     }
 
     public function loginUser()
@@ -80,45 +64,32 @@ class GetAllCustomerHandlerTest extends TestCase
 
     }
 
+
     public function test_handle_mock(): void
     {
-        // create some mock customers
-        $customer1 = CustomerModel::factory()->create($this->fakeData);
-        $customer2 = CustomerModel::factory()->create($this->fakeData2);
-        $customer3 = CustomerModel::factory()->create($this->fakeData3);
+        $this->loginUser();
 
+        $query = new GetAllCustomerQuery('first_name','asc');
 
-        $this->repository
-            ->expects($this->once())
-            ->method('getAll')
-            ->willReturn([$customer1, $customer2, $customer3]);
+        $this->repository->shouldReceive('getAll')
+            ->with('first_name', 'asc')
+            ->once();
 
-        // inject the mock repository into the controller
-        $this->app->instance(CustomerRepositoryInterface::class, $this->repository);
+        // Call the handle method on the handler with the command
+        $this->handler->handle($query);
 
-        // send a GET request to the customers index page
-        $response = $this->get(route('customers.index'));
-        $response->assertStatus(Response::HTTP_OK)
-            ->assertSee($customer1->email)
-            ->assertSee($customer2->email)
-            ->assertSee($customer3->email);
     }
 
     public function test_it_can_display_a_list_of_customers()
     {
+        $this->loginUser();
+        CustomerModel::factory(3)->create();
 
-        $customer1 = CustomerModel::factory()->create($this->fakeData);
-        $customer2 = CustomerModel::factory()->create($this->fakeData2);
-        $customer3 = CustomerModel::factory()->create($this->fakeData3);
-
-        // send a GET request to the customers index page
         $response = $this->get(route('customers.index'));
-
-        // assert that the response contains the expected customers
-        $response->assertStatus(Response::HTTP_OK)
-            ->assertSee($customer1->first_name)
-            ->assertSee($customer2->first_name)
-            ->assertSee($customer3->first_name);
+        $response->assertStatus(200);
+        $response->assertViewHas('customers');
+        $customers = $response->original->getData()['customers'];
+        $this->assertCount(3, $customers);
     }
 
 }
