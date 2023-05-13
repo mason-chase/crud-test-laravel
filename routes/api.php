@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+Route::get('openapi.yaml', \App\Http\Controllers\OpenapiController::class)
+    ->name('openapi');
+
+Route::resource('customers', \App\Http\Controllers\CustomerController::class)
+    ->scoped(['customer' => 'uuid']);
