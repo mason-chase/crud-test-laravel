@@ -27,15 +27,16 @@ class CustomerController extends Controller
                 'date_of_birth',
             ]);
             $command = new CreateCustomerCommand(
-                $customerData['first_name'],
-                $customerData['last_name'],
-                $customerData['email'],
-                $customerData['bank_account_number'],
-                $customerData['phone_number'],
-                $customerData['date_of_birth']
+                $request->first_name,
+                $request->last_name,
+                $request->email,
+                $request->bank_account_number,
+                $request->phone_number,
+                $request->date_of_birth
             );
-            $customer = $this->createCustomerHandler->handle($command);
-            return Redirect::route('customers.create.show')
+              $this->createCustomerHandler->handle($command);
+
+              return Redirect::route('customers.create.show')
                 ->with('success', 'The customer has been created.');
         } catch (\Exception $e) {
             return Redirect::back()
