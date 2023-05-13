@@ -13,28 +13,6 @@
     <!-- Styles -->
 
     <style>
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th, .table td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .table th {
-            background-color: #f5f5f5;
-        }
-
-        .table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .table tr:hover {
-            background-color: #f2f2f2;
-        }
-
         .center {
             display: block;
             margin-left: auto;
@@ -44,7 +22,6 @@
             height: 200px;
             background-color: lightgray;
         }
-
         /* Center the form */
         .container {
             margin-top: 50px;
@@ -111,46 +88,46 @@
     </style>
 </head>
 <body class="antialiased center">
-<h1>Customers</h1>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Create Customer') }}</div>
 
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Date Of Birth</th>
-                            <th>Bank Account Number</th>
-                            <th>Phone Number</th>
-                            <th>ID</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($customers as $customer)
-                            <tr>
-                                <td>{{ $customer['first_name'] }}</td>
-                                <td>{{ $customer['last_name'] }}</td>
-                                <td>{{ $customer['email'] }}</td>
-                                <td>{{ $customer['date_of_birth'] }}</td>
-                                <td>{{ $customer['bank_account_number'] }}</td>
-                                <td>{{ $customer['phone_number'] }}</td>
-                                <td>
-                                    <a style="display: inline-block" href="{{ route('customers.edit', ['id' => $customer['id']]) }}">Edit</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<div class="container">
+    <h1>Edit Customer</h1>
+
+    <form action="{{ route('customers.update', $customer->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ $customer->first_name }}" class="form-control">
         </div>
-    </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ $customer->last_name }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ $customer->email }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="bank_account_number">Bank Account Number:</label>
+            <input type="text" id="bank_account_number" name="bank_account_number" value="{{ $customer->bank_account_number }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ $customer->phone_number }}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="date_of_birth">Date of Birth:</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" value="{{ $customer->date_of_birth }}" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 </div>
 
 </body>

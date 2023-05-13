@@ -1,6 +1,7 @@
 <?php
 namespace Ddd\Domain\Customers;
 
+use App\src\Application\Customers\Queries\GetCustomerByIdQuery;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 
 interface CustomerRepositoryInterface
@@ -13,7 +14,7 @@ interface CustomerRepositoryInterface
 
     public function delete(CustomerModel $customer): void;
 
-    public function update(CustomerModel $customer): CustomerModel;
+    public function update(int $id, array $customer): CustomerModel;
 
     public function getAll(string $orderBy, string $orderDirection): array;
 

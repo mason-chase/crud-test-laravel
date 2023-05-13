@@ -3,6 +3,7 @@
 namespace Ddd\Infrastructure\Persistence\Eloquent;
 
 
+use App\src\Application\Customers\Queries\GetCustomerByIdQuery;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 
@@ -14,10 +15,9 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
         return $customer;
     }
 
-
-    public function getById(int $id): ?CustomerModel
+    public function getById($id): ?CustomerModel
     {
-        // TODO: Implement getById() method.
+        return CustomerModel::findOrFail($id);
     }
 
     public function getByEmail(string $email): ?CustomerModel
@@ -30,7 +30,7 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
         // TODO: Implement delete() method.
     }
 
-    public function update(CustomerModel $customer): CustomerModel
+    public function update(int $id, array $customer): CustomerModel
     {
         // TODO: Implement update() method.
     }

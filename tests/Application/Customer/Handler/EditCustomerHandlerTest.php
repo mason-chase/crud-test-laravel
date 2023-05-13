@@ -3,7 +3,9 @@
 namespace Customer\Handler;
 
 use App\Models\User;
+use App\src\Application\Customers\Handler\EditCustomerHandler;
 use App\src\Application\Customers\Handler\GetAllCustomerHandler;
+use App\src\Application\Customers\Queries\EditCustomerQuery;
 use App\src\Application\Customers\Queries\GetAllCustomerQuery;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
@@ -14,11 +16,11 @@ use Illuminate\Http\Response;
 use Mockery;
 use Tests\TestCase;
 
-class GetAllCustomerHandlerTest extends TestCase
+class EditCustomerHandlerTest extends TestCase
 {
     use RefreshDatabase, WithoutMiddleware;
 
-    private GetAllCustomerHandler $handler;
+    private EditCustomerHandler $handler;
     private CustomerRepositoryInterface $repository;
     private array $customerData;
     private array $fakeData;
@@ -30,7 +32,7 @@ class GetAllCustomerHandlerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->repository = Mockery::mock(CustomerRepositoryInterface::class);
-        $this->handler = new GetAllCustomerHandler($this->repository);
+        $this->handler = new EditCustomerHandler($this->repository);
 
         // Sample data for mock method
         $this->customerData = [
@@ -69,10 +71,13 @@ class GetAllCustomerHandlerTest extends TestCase
     {
         $this->loginUser();
 
-        $query = new GetAllCustomerQuery('first_name','asc');
+        $customerId=CustomerModel::factory()->create()->id;
 
-        $this->repository->shouldReceive('getAll')
-            ->with('first_name', 'asc')
+        $query = new EditCustomerQuery($customerId);
+
+        $this->repository
+            ->shouldReceive('getById')
+            ->with($customerId)
             ->once();
 
         // Call the handle method on the handler with the command
@@ -80,15 +85,14 @@ class GetAllCustomerHandlerTest extends TestCase
 
     }
 
-    public function test_it_can_display_a_list_of_customers()
+    public function test_it_can_display_customer()
     {
         $this->loginUser();
-        CustomerModel::factory(3)->create();
-        $response = $this->get(route('customers.index'));
+        $customerId=CustomerModel::factory()->create()->id;
+
+        $response = $this->get(route('customers.edit', $customerId));
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertViewHas('customers');
-        $customers = $response->original->getData()['customers'];
-        $this->assertCount(3, $customers);
+        $response->assertViewHas('customer');
     }
 
 }
