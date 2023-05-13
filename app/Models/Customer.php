@@ -42,17 +42,6 @@ class Customer extends Model
         'bank_account_number' => \App\Casts\NumberCast::class,
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::creating(
-            fn(self $model) => $model->fill([
-                'uuid' => Str::uuid()
-            ])
-        );
-    }
-
     /**
      * @param string $firstName
      * @param string $lastName
