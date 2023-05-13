@@ -5,7 +5,6 @@ namespace Ddd\Infrastructure\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use Ddd\Application\Customers\Command\DeleteCustomerCommand;
 use Ddd\Application\Customers\Handler\DeleteCustomerHandler;
-use Illuminate\Support\Facades\Redirect;
 
 class DeleteController extends Controller
 {
@@ -19,10 +18,10 @@ class DeleteController extends Controller
             $command = new DeleteCustomerCommand($id);
             $this->deleteCustomerHandler->handle($command);
 
-            return Redirect::route('customers.index')
+            return redirect()->route('customers.index')
                 ->with('success', __('The customer has been removed.'));
         } catch (\Exception $e) {
-            return Redirect::back()
+            return redirect()->back()
                 ->with('error', $e->getMessage())
                 ->withInput();
         }

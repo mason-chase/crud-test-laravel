@@ -3,10 +3,7 @@ namespace Ddd\Application\Customers\Queries;
 
 class GetCustomerQuery
 {
-    public int $id;
-
-    public function __construct(int $id)
+    public function __construct(public int $id)
     {
-        $this->id = $id;
     }
 }

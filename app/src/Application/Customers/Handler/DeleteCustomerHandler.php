@@ -8,11 +8,8 @@ use Ddd\Domain\Customers\CustomerRepositoryInterface;
 
 class DeleteCustomerHandler
 {
-    private CustomerRepositoryInterface $customerRepository;
-
-    public function __construct(CustomerRepositoryInterface $customerRepository)
+    public function __construct(private CustomerRepositoryInterface $customerRepository)
     {
-        $this->customerRepository = $customerRepository;
     }
 
     public function handle(DeleteCustomerCommand $command): void

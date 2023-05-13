@@ -6,7 +6,7 @@ use libphonenumber\PhoneNumber;
 
 class CreateCustomerRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'first_name' => 'required|string|max:50',

@@ -8,11 +8,8 @@ use Ddd\Domain\Customers\Entities\CustomerModel;
 
 class GetCustomerHandler
 {
-    private CustomerRepositoryInterface $customerRepository;
-
-    public function __construct(CustomerRepositoryInterface $customerRepository)
+    public function __construct(private CustomerRepositoryInterface $customerRepository)
     {
-        $this->customerRepository = $customerRepository;
     }
 
     public function handle(GetCustomerQuery $query): ?CustomerModel

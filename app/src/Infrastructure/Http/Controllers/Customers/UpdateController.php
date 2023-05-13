@@ -30,10 +30,10 @@ class UpdateController extends Controller
             );
             $this->updateCustomerHandler->handle($command);
 
-            return Redirect::route('customers.update', $id)
+            return redirect()->route('customers.update', $id)
                 ->with('success', __('The customer has been updated.'));
         } catch (\Exception $e) {
-            return Redirect::back()
+            return redirect()->back()
                 ->with('error', $e->getMessage())
                 ->withInput();
         }

@@ -7,7 +7,6 @@ use Ddd\Application\Customers\Command\CreateCustomerCommand;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Application\Customers\Requests\CreateCustomerRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 
 class StoreController extends Controller
 {
@@ -33,10 +32,10 @@ class StoreController extends Controller
             );
             $this->createCustomerHandler->handle($command);
 
-              return Redirect::route('customers.create')
-                ->with('success', 'The customer has been created.');
+            return redirect()->route('customers.create')
+                ->with('success', __('The customer has been created.'));
         } catch (\Exception $e) {
-            return Redirect::back()
+            return redirect()->back()
                 ->with('error', $e->getMessage())
                 ->withInput();
         }

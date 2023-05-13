@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 
 class UpdateCustomerRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'first_name' => 'nullable|string|max:50',
