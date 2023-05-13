@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ddd\Infrastructure\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Ddd\Application\Customers\Command\CreateCustomerCommand;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Application\Customers\Requests\CreateCustomerRequest;
@@ -34,7 +35,7 @@ class CustomerController extends Controller
                 $customerData['date_of_birth']
             );
             $customer = $this->createCustomerHandler->handle($command);
-            return Redirect::route('customers.create.show', $customer->id)
+            return Redirect::route('customers.create.show')
                 ->with('success', 'The customer has been created.');
         } catch (\Exception $e) {
             return Redirect::back()
