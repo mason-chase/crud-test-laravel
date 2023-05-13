@@ -134,17 +134,14 @@ class CustomerController extends Controller
     {
         $request->validate([
             'email' => [
-                'required',
                 'string',
                 'email',
                 Rule::unique('customers', 'email')->ignoreModel($customer),
             ],
             'phone_number' => [
-                'required',
                 new PhoneRule
             ],
             'first_name' => [
-                'required',
                 'string',
                 new CustomerNameAndBrithDateRule(
                     $request->first_name,
@@ -154,15 +151,12 @@ class CustomerController extends Controller
                 )
             ],
             'last_name' => [
-                'required',
                 'string'
             ],
             'date_of_brith' => [
-                'required',
                 'date'
             ],
             'bank_account_number' => [
-                'required',
                 'numeric'
             ],
         ]);
