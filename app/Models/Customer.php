@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -131,4 +132,12 @@ class Customer extends Model
      * @var string
      */
     private string $bank_account_number;
+
+    protected function dateOfBirth(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date('Y-m-d', strtotime($value)),
+            set: fn ($value) => date('Y-m-d', strtotime($value)),
+        );
+    }
 }
