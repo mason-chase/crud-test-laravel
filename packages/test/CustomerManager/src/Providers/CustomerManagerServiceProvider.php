@@ -14,7 +14,11 @@ class CustomerManagerServiceProvider extends ServiceProvider {
 
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'customers');
+
         $this->loadRoutesFrom(__DIR__.'/../App/Http/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../App/Http/Routes/web.php');
+
         
         $this->publish();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\CustomerManager\App\Http\Controllers;
+namespace Test\CustomerManager\App\Http\Controllers\Api;
 
 use Test\BaceManager\App\Helper\ApiController;
 use Test\CustomerManager\App\Http\Requests\CustomerDeleteRequest;
@@ -12,7 +12,7 @@ use Test\CustomerManager\App\Http\Resources\CustomerResource;
 use Test\CustomerManager\Models\Customer;
 use Test\CustomerManager\Models\Repositories\CustomerRepository;
 
-class CustomerController extends ApiController
+class CustomerApiController extends ApiController
 {
     public function __construct(
         private CustomerRepository $customerRepo){}

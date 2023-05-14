@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Test\CustomerManager\App\Http\Controllers\Api\CustomerApiController;
+use Test\CustomerManager\App\Http\Controllers\Web\CustomerWebController;
 
-Route::group(config('BaceManager.bace_api_route'), function () {
+Route::name('web.')->group(function() {
 
-    Route::controller(CustomerApiController::class)
+    Route::controller(CustomerWebController::class)
     ->prefix('customer')
     ->name('customer.')
     ->group(function(){
@@ -18,7 +18,5 @@ Route::group(config('BaceManager.bace_api_route'), function () {
         // });
         
     });
-
-    
 
 });
