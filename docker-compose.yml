@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: mc_crud_test
+      MYSQL_PASSWORD:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD:

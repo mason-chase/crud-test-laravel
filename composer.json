@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "darkaonline/l5-swagger": "^8.5",
+        "giggsey/libphonenumber-for-php": "^8.13",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
@@ -23,6 +25,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Ddd\\": "app/src/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

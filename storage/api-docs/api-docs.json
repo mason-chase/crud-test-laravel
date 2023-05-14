@@ -1,0 +1,226 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Example API",
+        "description": "API for the Example application",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/login": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Show login form",
+                "description": "Displays the login form for the user",
+                "operationId": "5db83a1e036617251edf69345e97b0e0",
+                "responses": {
+                    "200": {
+                        "description": "Login form displayed"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Logs in a user",
+                "operationId": "ce5ef90f2ad7d4ab966397fd8ddd231d",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "302": {
+                        "description": "Redirect response",
+                        "headers": {
+                            "Location": {
+                                "description": "Redirect URL",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logs out the currently authenticated user",
+                "operationId": "86bc06af2fef4022888cc36cef6bf3d8",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful"
+                    }
+                }
+            }
+        },
+        "/api/customers/create": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Show customer create form",
+                "operationId": "f29a1407c7ee8e8e08d9952693833670",
+                "responses": {
+                    "200": {
+                        "description": "Customer create form"
+                    }
+                }
+            }
+        },
+        "/api/customers/{id}": {
+            "put": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Update customer by ID",
+                "operationId": "f4b32cf773fbfaf253ca1ad332e0eb20",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Customer object",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Customer updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid request body"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Delete customer by ID",
+                "operationId": "4a4530107a27248c3ad7cd8590c850d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Customer deleted successfully"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/customers/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Show customer edit form by ID",
+                "operationId": "d0d5704411ec431d1dfb78730ddf6418",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer edit form"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Get a list of customers",
+                "operationId": "2967a4aa87e15303abb6810ef13fbfb5",
+                "responses": {
+                    "200": {
+                        "description": "List of customers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "objext"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
