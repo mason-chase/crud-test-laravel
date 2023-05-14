@@ -23,7 +23,7 @@ class CustomerUpdateRequest extends FormRequest
                 new CheckCustomerFullNameDobIsUnique(
                     $this->get('first_name'),
                     $this->get('last_name'),
-                    $this->customer?->id,
+                    isset($this->customer->id),
                 )
             ],
             'phone_number' => ['nullable', new CheckCustomerMobileIsValid],

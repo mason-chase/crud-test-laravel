@@ -36,7 +36,7 @@ class CustomerWebController extends Controller
     {
         $this->customerRepo->create($request->validated());
         return redirect()
-            ->route('customers.index')
+            ->route('web.customer.index')
             ->with('success', 'Customer created successfully!');
         
     }
@@ -51,7 +51,7 @@ class CustomerWebController extends Controller
     {
         $this->customerRepo->update($customer->id, $request->validated());
         return redirect()
-            ->route('customers.index')
+            ->route('web.customer.index')
             ->with('success', 'Customer updated successfully!');
     }
 
@@ -59,7 +59,7 @@ class CustomerWebController extends Controller
     {
         $this->customerRepo->delete($customer->id);
         return redirect()
-            ->route('customers.index')
+            ->route('web.customer.index')
             ->with('success', 'Customer deleted successfully!');
 
     }

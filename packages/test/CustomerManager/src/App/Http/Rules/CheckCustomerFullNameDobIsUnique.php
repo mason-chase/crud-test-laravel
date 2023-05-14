@@ -17,7 +17,7 @@ class CheckCustomerFullNameDobIsUnique implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (
-            $this->update_mode ||
+            !$this->update_mode &&
             Customer::where('first_name', $this->first_name)
                 ->where('last_name', $this->last_name)
                 ->where('date_of_birth', $value)
