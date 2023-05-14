@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
@@ -39,27 +36,6 @@ class ApiController extends Controller
         ], $code, []);
     }
 
-
-    public function validate(
-        Request $request,
-        array $rules,
-        array $messages = [],
-        array $customAttributes = []) 
-    {
-
-        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
-
-      
-        if ($validator->fails()) {
-            throw new \Illuminate\Http\Exceptions\HttpResponseException(
-                $this->errorResponse([
-                    'errors' => $validator->errors()
-                ], Response::HTTP_UNPROCESSABLE_ENTITY)
-            );
-        }
-    }
-
-
     public function paginateObject($item)
     {
         return [
@@ -70,13 +46,4 @@ class ApiController extends Controller
             'total_pages' => $item->lastPage()
         ];
     }
-
-    public function notFound()
-    {
-        throw new \Illuminate\Http\Exceptions\HttpResponseException(
-            $this->errorResponse([
-            ], Response::HTTP_NOT_FOUND)
-        );
-    }
-
 }

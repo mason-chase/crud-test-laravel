@@ -2,11 +2,13 @@
 
 namespace Test\BaceManager\Interfaces;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 interface RepositoryInterface {
 
     public static function Load() : Array;
 
-    public function get(Array $filters);
+    public function get(Array $filters) : LengthAwarePaginator;
 
     public function show(int $id);
 

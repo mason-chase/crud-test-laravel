@@ -10,9 +10,13 @@ Route::group(config('BaceManager.bace_api_route'), function () {
     ->name('customer')
     ->group(function(){
         Route::get('', 'index')->name('index');
-        Route::post('', 'store')->middleware('auth:sanctum')->name('store');
-        Route::put('', 'update')->middleware('auth:sanctum')->name('update');
-        Route::delete('', 'destroy')->middleware('auth:sanctum')->name('destroy');
+
+        Route::middleware('auth:sanctum')->group(function() {
+            Route::post('', 'store')->name('store');
+            Route::put('{customer}', 'update')->name('update');
+            Route::delete('', 'destroy')->middleware('auth:sanctum')->name('destroy');
+        });
+        
     });
 
     

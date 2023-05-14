@@ -6,9 +6,9 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Test\BaceManager\App\Helper\ApiController;
-use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -37,7 +37,16 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if ($request->is('api/*')) {
-                return (new ApiController())->notFound();
+                return (new ApiController())->errorResponse([], 
+                    Response::HTTP_NOT_FOUND, '');
+            }
+        });
+        
+        $this->renderable(function (ValidationException $e, $request) {
+            if ($request->is('api/*')) {
+                return (new ApiController())
+                ->errorResponse($e->errors(), Response::HTTP_UNPROCESSABLE_ENTITY,
+                '');
             }
         });
         

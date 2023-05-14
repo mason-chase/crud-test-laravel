@@ -2,6 +2,7 @@
 
 namespace Test\CustomerManager\Models\Repositories;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Test\CustomerManager\App\Helper\BaceRepository;
 use Test\CustomerManager\Models\Customer;
 
@@ -14,7 +15,7 @@ class CustomerRepository extends BaceRepository {
         ];
     }
 
-    public function get(Array $filters)
+    public function get(Array $filters) : LengthAwarePaginator
     {
         $customer = Customer::with(self::Load());
 
