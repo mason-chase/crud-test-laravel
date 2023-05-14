@@ -85,12 +85,47 @@
                 margin-bottom: 10px;
             }
         }
+        nav {
+            background-color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
     </style>
 </head>
 <body class="antialiased center">
-<h1>Create Customer</h1>
+
 
 <div class="container">
+    <div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/customers">Customers</a></li>
+        <li><a href="/customers/create">New Customer</a></li>
+    </div>
+    <hr>
+    <hr>
+    <div>
+        <h1>Create Customer</h1>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

@@ -85,11 +85,45 @@
                 margin-bottom: 10px;
             }
         }
+        nav {
+            background-color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
     </style>
 </head>
 <body class="antialiased center">
 
 <div class="container">
+    <div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/customers">Customers</a></li>
+        <li><a href="/customers/create">New Customer</a></li>
+    </div>
+    <hr>
+    <hr>
+    <div>
     <h1>Edit Customer</h1>
 
     <form action="{{ route('customers.update', $customer->id) }}" method="POST">
@@ -128,6 +162,7 @@
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
+</div>
 </div>
 
 </body>

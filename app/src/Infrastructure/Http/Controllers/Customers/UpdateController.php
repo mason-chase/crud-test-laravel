@@ -8,6 +8,7 @@ use Ddd\Application\Customers\Handler\UpdateCustomerHandler;
 use Ddd\Application\Customers\Requests\UpdateCustomerRequest;
 use Ddd\Domain\Customers\Entities\CustomerModel;
 use Illuminate\Support\Facades\Redirect;
+use OpenApi\Annotations as OA;
 
 class UpdateController extends Controller
 {
@@ -15,6 +16,38 @@ class UpdateController extends Controller
     {
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/customers/{id}",
+     *     summary="Update customer by ID",
+     *     tags={"Customers"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="ID of the customer",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Customer object",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Customer updated successfully",
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Invalid request body"
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Customer not found"
+     *     )
+     * )
+     */
     public function update(UpdateCustomerRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         try {

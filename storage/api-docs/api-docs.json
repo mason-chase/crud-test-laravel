@@ -97,6 +97,130 @@
                     }
                 }
             }
+        },
+        "/api/customers/create": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Show customer create form",
+                "operationId": "f29a1407c7ee8e8e08d9952693833670",
+                "responses": {
+                    "200": {
+                        "description": "Customer create form"
+                    }
+                }
+            }
+        },
+        "/api/customers/{id}": {
+            "put": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Update customer by ID",
+                "operationId": "f4b32cf773fbfaf253ca1ad332e0eb20",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Customer object",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Customer updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid request body"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Delete customer by ID",
+                "operationId": "4a4530107a27248c3ad7cd8590c850d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Customer deleted successfully"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/customers/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Show customer edit form by ID",
+                "operationId": "d0d5704411ec431d1dfb78730ddf6418",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer edit form"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Get a list of customers",
+                "operationId": "2967a4aa87e15303abb6810ef13fbfb5",
+                "responses": {
+                    "200": {
+                        "description": "List of customers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "objext"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Ddd\Application\Customers\Handler\GetAllCustomerHandler;
 use Ddd\Application\Customers\Queries\GetAllCustomerQuery;
 use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 
 class IndexController extends Controller
 {
@@ -13,6 +14,20 @@ class IndexController extends Controller
     {
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/customers",
+     *     summary="Get a list of customers",
+     *     tags={"Customers"},
+     *     @OA\Response(
+     *         response="200",
+     *         description="List of customers",
+     *         @OA\JsonContent(
+     *             type="objext",
+     *         )
+     *     )
+     * )
+     */
     public function index(Request $request)
     {
         $orderBy = $request->query('order_by', 'first_name');

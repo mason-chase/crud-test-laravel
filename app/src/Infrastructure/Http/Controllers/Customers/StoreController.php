@@ -7,6 +7,7 @@ use Ddd\Application\Customers\Command\CreateCustomerCommand;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Application\Customers\Requests\CreateCustomerRequest;
 use Illuminate\Http\RedirectResponse;
+use OpenApi\Annotations as OA;
 
 class StoreController extends Controller
 {
@@ -15,6 +16,33 @@ class StoreController extends Controller
     {
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/customers",
+     *     summary="Create a new customer",
+     *     tags={"Customers"},
+     *     @OA\RequestBody(
+     *         description="Customer object",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="first_name", type="string"),
+     *             @OA\Property(property="last_name", type="string"),
+     *             @OA\Property(property="date_of_birth", type="string", format="date"),
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="phone_number", type="string"),
+     *             @OA\Property(property="bank_account_number", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="201",
+     *         description="Customer created successfully",
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Invalid request body"
+     *     )
+     * )
+     */
     /**
      * @param CreateCustomerRequest $request
      * @return RedirectResponse
@@ -32,7 +60,7 @@ class StoreController extends Controller
             );
             $this->createCustomerHandler->handle($command);
 
-            return redirect()->route('customers.create')
+            return redirect()->route('customers.index')
                 ->with('success', __('The customer has been created.'));
         } catch (\Exception $e) {
             return redirect()->back()

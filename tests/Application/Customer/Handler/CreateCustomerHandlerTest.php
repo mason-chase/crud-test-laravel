@@ -96,7 +96,7 @@ class CreateCustomerHandlerTest extends TestCase
         $entryArrayData = $this->fakeData;
         $response = $this->post(route('customers.store'), $entryArrayData + ['_token' => csrf_token()]);
         $response->assertStatus(Response::HTTP_FOUND);
-        $response->assertRedirect(route('customers.create'));
+        $response->assertRedirect(route('customers.index'));
         $this->assertDatabaseHas('customers', $entryArrayData);
     }
 
