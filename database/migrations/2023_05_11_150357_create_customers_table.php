@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->date('date_of_birth');
             $table->string('last_name', 50);
             $table->string('email', 120)->unique();
-            $table->string('phone_number', 20)->unique();
+            $table->string('phone_number', 25)->unique();
             $table->string('bank_account_number', 36);
             $table->timestamps();
 

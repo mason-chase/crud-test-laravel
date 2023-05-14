@@ -6,7 +6,7 @@ use libphonenumber\PhoneNumber;
 
 class CreateCustomerRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'first_name' => 'required|string|max:50',
@@ -16,8 +16,8 @@ class CreateCustomerRequest extends FormRequest
             'phone_number' => [
                 'required',
                 'string',
-                'max:20',
-//                'phoneNumber'
+                'max:25',
+                'phoneNumber'
             ],
             'bank_account_number' => 'required|alpha_dash|max:36|unique:customers,bank_account_number',
         ];

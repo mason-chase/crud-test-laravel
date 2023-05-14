@@ -7,17 +7,15 @@ use Ddd\Application\Customers\Command\CreateCustomerCommand;
 use Ddd\Application\Customers\Handler\CreateCustomerHandler;
 use Ddd\Domain\Customers\CustomerRepositoryInterface;
 use Ddd\Domain\Customers\Entities\CustomerModel;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Mockery;
 use Tests\TestCase;
 
 class CreateCustomerHandlerTest extends TestCase
 {
-    use DatabaseTransactions, WithoutMiddleware ;
+    use RefreshDatabase, WithoutMiddleware;
 
     private CreateCustomerHandler $handler;
     private CustomerRepositoryInterface $repository;
@@ -49,7 +47,7 @@ class CreateCustomerHandlerTest extends TestCase
             'date_of_birth' => fake()->unique()->date(),
             'last_name' => fake()->unique()->lastName(),
             'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->unique()->phoneNumber(),
+            'phone_number' => '+989135455305',
             'bank_account_number' => fake()->numerify('####-####-####-####'),
         ];
     }
@@ -61,7 +59,7 @@ class CreateCustomerHandlerTest extends TestCase
             $user = User::factory()->create();
 
         }
-     $this->actingAs($user);
+        $this->actingAs($user);
 
     }
 
@@ -96,10 +94,9 @@ class CreateCustomerHandlerTest extends TestCase
     {
         $this->loginUser();
         $entryArrayData = $this->fakeData;
-        $response = $this->post(route('customers.store'), $entryArrayData+['_token' => csrf_token()]);
-
+        $response = $this->post(route('customers.store'), $entryArrayData + ['_token' => csrf_token()]);
         $response->assertStatus(Response::HTTP_FOUND);
-        $response->assertRedirect(route('customers.create.show', CustomerModel::first()->id));
+        $response->assertRedirect(route('customers.create'));
         $this->assertDatabaseHas('customers', $entryArrayData);
     }
 
@@ -107,7 +104,6 @@ class CreateCustomerHandlerTest extends TestCase
     {
         $this->loginUser();
         $response = $this->post(route('customers.store'), []);
-
         $response->assertStatus(Response::HTTP_FOUND);
         $response->assertSessionHasErrors(['first_name', 'last_name', 'email', 'bank_account_number', 'phone_number', 'date_of_birth']);
         $this->assertDatabaseCount('customers', 0);

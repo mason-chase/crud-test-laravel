@@ -1,4 +1,5 @@
 <?php
+
 namespace Ddd\Infrastructure\Persistence\Eloquent;
 
 
@@ -13,10 +14,9 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
         return $customer;
     }
 
-
-    public function getById(int $id): ?CustomerModel
+    public function getById($id): ?CustomerModel
     {
-        // TODO: Implement getById() method.
+        return CustomerModel::findOrFail($id);
     }
 
     public function getByEmail(string $email): ?CustomerModel
@@ -24,13 +24,22 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
         // TODO: Implement getByEmail() method.
     }
 
-    public function delete(CustomerModel $customer): void
+    public function delete(int $customerId): void
     {
-        // TODO: Implement delete() method.
+        $customer = CustomerModel::findOrFail($customerId);
+        $customer->delete();
     }
 
-    public function update(CustomerModel $customer): CustomerModel
+    public function update(int $customerId, array $data): CustomerModel
     {
-        // TODO: Implement update() method.
+        $customer = CustomerModel::findOrFail($customerId);
+        $customer->update($data);
+        return $user = $customer->fresh();
+
+    }
+
+    public function getAll($orderBy, $orderDirection): array
+    {
+        return CustomerModel::orderBy($orderBy, $orderDirection)->get()->toArray();
     }
 }

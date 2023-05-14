@@ -11,7 +11,10 @@ interface CustomerRepositoryInterface
 
     public function getByEmail(string $email): ?CustomerModel;
 
-    public function delete(CustomerModel $customer): void;
+    public function delete(int $customerId): void;
 
-    public function update(CustomerModel $customer): CustomerModel;
+    public function update(int $customerId, array $data): CustomerModel;
+
+    public function getAll(string $orderBy, string $orderDirection): array;
+
 }
