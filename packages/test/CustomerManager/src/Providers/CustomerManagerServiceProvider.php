@@ -3,12 +3,13 @@
 namespace Test\CustomerManager\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Test\CustomerManager\App\Observers\CustomerObserver;
+use Test\CustomerManager\Models\Customer;
 
 class CustomerManagerServiceProvider extends ServiceProvider {
 
     public function boot()
     {   
-
         $this->mergeConfigFrom(__DIR__.'/../config/CustomerManager.php', 'CustomerManager');
 
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
@@ -16,6 +17,8 @@ class CustomerManagerServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom(__DIR__.'/../App/Http/Routes/api.php');
         
         $this->publish();
+
+        Customer::observe(CustomerObserver::class);
 
     }
 
