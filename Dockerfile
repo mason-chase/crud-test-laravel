@@ -23,7 +23,7 @@ COPY .env.example .env
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install project dependencies
-RUN composer install
+#RUN composer install
 
 # Generate application key
 RUN php artisan key:generate
