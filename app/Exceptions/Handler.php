@@ -2,8 +2,13 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Test\BaceManager\App\Helper\ApiController;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +28,35 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (AuthenticationException $e, $request) {
+            if ($request->is('api/*')) {
+                return (new ApiController())->errorResponse([],
+                Response::HTTP_UNAUTHORIZED, 'user not login');
+            }
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return (new ApiController())->errorResponse([], 
+                    Response::HTTP_NOT_FOUND, '');
+            }
+        });
+        
+        $this->renderable(function (ValidationException $e, $request) {
+            if ($request->is('api/*')) {
+                return (new ApiController())
+                ->errorResponse($e->errors(), Response::HTTP_UNPROCESSABLE_ENTITY,
+                '');
+            }
+        });
+        
+        $this->renderable(function (Exception $e, $request) {
+            if ($request->is('api/*')) {
+                return (new ApiController())
+                ->errorResponse([], Response::HTTP_INTERNAL_SERVER_ERROR,
+                $e->getMessage());
+            }
         });
     }
+
 }
