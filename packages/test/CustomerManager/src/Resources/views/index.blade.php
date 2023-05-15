@@ -52,5 +52,5 @@
         </tbody>
     </table>
 
-    {{ $customers->links() }}
+    {{ $customers->links('vendor.pagination.bootstrap-5') }}
 @endsection

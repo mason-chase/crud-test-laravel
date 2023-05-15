@@ -40,6 +40,7 @@ return [
                 */
                 'annotations' => [
                     base_path('app'),
+                    base_path('packages/test/CustomerManager/src/App/Http/Controllers/Api'),
                 ],
 
             ],

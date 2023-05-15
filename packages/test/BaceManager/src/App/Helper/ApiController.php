@@ -3,14 +3,15 @@
 namespace Test\BaceManager\App\Helper;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Response;
 
+/**
+ * @OA\Info(title="Application API",version="0.1.0")
+ */
 class ApiController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use DispatchesJobs;
 
     /**
      *  success Response method

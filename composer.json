@@ -13,8 +13,7 @@
         "laravel/tinker": "^2.8",
         "spatie/laravel-event-sourcing": "^7.3",
         "test/bace-manager": "@dev",
-        "test/customer-manager": "@dev",
-        "zircote/swagger-php": "^4.7"
+        "test/customer-manager": "@dev"
     },
     "repositories": [
         {
