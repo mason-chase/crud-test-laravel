@@ -2,21 +2,20 @@
 
 namespace Tests\Feature;
 
-
-use App\Domains\Customer\Domain\Model\CustomerModel;
+use App\Models\Customer;
 
 it('can get list of customers', function () {
     $randomNum = random_int(1, 20);
-    CustomerModel::factory()->count($randomNum)->create();
-    $response = $this->get('/customers');
+    Customer::factory()->count($randomNum)->create();
+
+    $response = $this->getJson('/api/customers');
 
     $response->assertStatus(200);
-
     $response->assertJsonCount($randomNum, 'data');
 });
 
 it('can get a customer', function () {
-    $customer = CustomerModel::factory()->create();
+    $customer = Customer::factory()->create();
 
     $response = $this->get("/customers/$customer->id" . $customer->id);
 
@@ -25,7 +24,7 @@ it('can get a customer', function () {
 });
 
 it('can create a customer', function () {
-    $newCustomer = CustomerModel::factory()->make();
+    $newCustomer = Customer::factory()->make();
     $data = [
         'name' => $newCustomer->name,
         'email' => $newCustomer->email,
@@ -39,8 +38,8 @@ it('can create a customer', function () {
 });
 
 it('can update a customer', function () {
-    $oldCustomer = CustomerModel::factory()->create();
-    $newCustomer = CustomerModel::factory()->make();
+    $oldCustomer = Customer::factory()->create();
+    $newCustomer = Customer::factory()->make();
     $data = [
         'name' => $newCustomer->name,
         'email' => $newCustomer->email,
@@ -54,7 +53,7 @@ it('can update a customer', function () {
 });
 
 it('can delete a customer', function () {
-    $customer = CustomerModel::factory()->create();
+    $customer = Customer::factory()->create();
 
     $response = $this->delete("/customers/$customer->id");
 

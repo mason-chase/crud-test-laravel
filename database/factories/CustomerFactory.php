@@ -1,22 +1,15 @@
 <?php
 
-namespace App\Domains\Customer\Infrastructure\Persistence\Factories;
+namespace Database\Factories;
 
-use App\Domains\Customer\Domain\Model\CustomerModel;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<\App\Domains\Customer\Domain\Customers\Entities\\App\Domains\Customer\Domain\Model\CustomerModel>
+ * @extends Factory<Customer>
  */
 class CustomerFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = CustomerModel::class;
-
     /**
      * Define the model's default state.
      *
