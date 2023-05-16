@@ -45,4 +45,13 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
             bankAccountNumber: $customer->bank_account_number,
         );
     }
+
+    public function getById(int $id): CustomerEntity
+    {
+        return $this->convertToCustomerEntity(
+            $this->model
+                ->newQuery()
+                ->findOrFail($id)
+        );
+    }
 }

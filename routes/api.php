@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\Customers\GetAllCustomerController;
+use App\Http\Controllers\Customers\ShowCustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('customers')->group(callback: static function () {
     Route::get(uri: '/', action: GetAllCustomerController::class);
+    Route::get(uri: '/{id}', action: ShowCustomerController::class);
 });
