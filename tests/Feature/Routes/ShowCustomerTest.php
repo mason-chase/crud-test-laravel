@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 it('can get one of customer', function () {
     $customer = Customer::factory()->create();
 
-    $response = $this->getJson("/api/customers/{$customer->id}");
+    $response = $this->getJson(route(name: 'customers.show', parameters: $customer->id));
 
     $response->assertStatus(Response::HTTP_OK);
     $response->assertJson([
@@ -25,7 +25,7 @@ it('can get one of customer', function () {
 it('failed to get a not valid customer', function () {
     $randomNum = random_int(1, 20);
 
-    $response = $this->getJson("/api/customers/$randomNum");
+    $response = $this->getJson(route(name: 'customers.show', parameters: $randomNum));
 
     $response->assertStatus(404);
 });

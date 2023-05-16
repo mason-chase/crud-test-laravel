@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('customers')->group(callback: static function () {
-    Route::get(uri: '/', action: GetAllCustomerController::class);
-    Route::get(uri: '/{id}', action: ShowCustomerController::class);
-    Route::post(uri: '/', action: StoreCustomerController::class);
-    Route::put(uri: '/{id}', action: UpdateCustomerController::class);
-    Route::delete(uri: '/{id}', action: DeleteCustomerController::class);
+Route::prefix('customers')->name('customers.')->group(callback: static function () {
+    Route::get(uri: '/', action: GetAllCustomerController::class)->name('index');
+    Route::get(uri: '/{id}', action: ShowCustomerController::class)->name('show');
+    Route::post(uri: '/', action: StoreCustomerController::class)->name('store');
+    Route::put(uri: '/{id}', action: UpdateCustomerController::class)->name('update');
+    Route::delete(uri: '/{id}', action: DeleteCustomerController::class)->name('delete');
 });

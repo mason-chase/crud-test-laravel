@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 it('can update a customer', function () {
     $oldCustomer = Customer::factory()->create();
 
-    $response = $this->deleteJson("/api/customers/$oldCustomer->id");
+    $response = $this->deleteJson(route(name: 'customers.delete', parameters: $oldCustomer->id));
 
     $response->assertStatus(Response::HTTP_ACCEPTED);
     $response->assertJson([]);
@@ -20,7 +20,7 @@ it('can update a customer', function () {
 it('failed to delete a not valid customer', function () {
     $randomNum = random_int(1, 20);
 
-    $response = $this->deleteJson("/api/customers/$randomNum");
+    $response = $this->deleteJson(route(name: 'customers.delete', parameters: $randomNum));
 
     $response->assertStatus(404);
 });

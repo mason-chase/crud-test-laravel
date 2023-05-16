@@ -9,7 +9,7 @@ it('can update a customer', function () {
     $oldCustomer = Customer::factory()->create();
 
     $newCustomer = Customer::factory()->make();
-    $response = $this->putJson("/api/customers/$oldCustomer->id", $newCustomer->toArray());
+    $response = $this->putJson(route(name: 'customers.update', parameters: $oldCustomer->id), $newCustomer->toArray());
 
     $response->assertStatus(Response::HTTP_ACCEPTED);
     $response->assertJson([]);
@@ -37,7 +37,7 @@ it('failed to update a not valid customer', function () {
     $oldCustomer = Customer::factory()->create();
     $randomNum = random_int($oldCustomer->id + 1, $oldCustomer->id + 20);
     $newCustomer = Customer::factory()->make();
-    $response = $this->putJson("/api/customers/$randomNum", $newCustomer->toArray());
+    $response = $this->putJson(route(name: 'customers.update', parameters: $randomNum), $newCustomer->toArray());
 
     $response->assertStatus(404);
 });

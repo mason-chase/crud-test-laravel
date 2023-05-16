@@ -9,7 +9,7 @@ it('can get list of customers', function () {
     $randomNum = random_int(1, 20);
     Customer::factory()->count($randomNum)->create();
 
-    $response = $this->getJson('/api/customers');
+    $response = $this->getJson(route(name: 'customers.index'));
 
     $response->assertStatus(Response::HTTP_OK);
     $response->assertJsonCount($randomNum, 'data');

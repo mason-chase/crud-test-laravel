@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 it('can store a customer', function () {
     $customer = Customer::factory()->make();
+    $this->assertDatabaseCount((new Customer())->getTable(), 0);
 
-    $response = $this->postJson("/api/customers/", $customer->toArray());
+    $response = $this->postJson(route(name: 'customers.store'), $customer->toArray());
 
+    $this->assertDatabaseCount((new Customer())->getTable(), 1);
     $response->assertStatus(Response::HTTP_CREATED);
     $response->assertJsonStructure([
         'id',
