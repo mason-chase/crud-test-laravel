@@ -4,6 +4,7 @@ use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\Customers\GetAllCustomerController;
 use App\Http\Controllers\Customers\ShowCustomerController;
 use App\Http\Controllers\Customers\StoreCustomerController;
+use App\Http\Controllers\Customers\UpdateCustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,5 @@ Route::prefix('customers')->group(callback: static function () {
     Route::get(uri: '/', action: GetAllCustomerController::class);
     Route::get(uri: '/{id}', action: ShowCustomerController::class);
     Route::post(uri: '/', action: StoreCustomerController::class);
+    Route::put(uri: '/{id}', action: UpdateCustomerController::class);
 });

@@ -23,8 +23,8 @@ class Controller extends BaseController
         return $resource->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function accepted(JsonResource $resource): JsonResponse
+    public function accepted(): JsonResponse
     {
-        return $resource->response()->setStatusCode(Response::HTTP_ACCEPTED);
+        return response()->json()->setStatusCode(Response::HTTP_ACCEPTED);
     }
 }

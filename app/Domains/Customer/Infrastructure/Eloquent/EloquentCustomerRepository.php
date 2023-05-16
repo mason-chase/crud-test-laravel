@@ -3,6 +3,7 @@
 namespace App\Domains\Customer\Infrastructure\Eloquent;
 
 use App\Domains\Customer\Application\Commands\CreateCustomerCommand;
+use App\Domains\Customer\Application\Commands\UpdateCustomerCommand;
 use App\Domains\Customer\Domain\Entities\CustomerEntity as CustomerEntity;
 use App\Domains\Customer\Domain\Repositories\CustomerRepositoryInterface;
 use App\Models\Customer;
@@ -54,6 +55,21 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
                 ->newQuery()
                 ->findOrFail($id)
         );
+    }
+
+    public function update(UpdateCustomerCommand $query): bool
+    {
+        return $this->model
+            ->newQuery()
+            ->findOrFail($query->getId())
+            ->update([
+                'first_name' => $query->getFirstName(),
+                'last_name' => $query->getLastName(),
+                'phone_number' => $query->getPhoneNumber(),
+                'bank_account_number' => $query->getBankAccountNumber(),
+                'email' => $query->getEmail(),
+                'date_of_birth' => $query->getDateOfBirth(),
+            ]);
     }
 
     public function create(CreateCustomerCommand $query): CustomerEntity

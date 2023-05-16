@@ -3,13 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use Symfony\Component\HttpFoundation\Response;
 
 it('can get one of customer', function () {
     $customer = Customer::factory()->create();
 
     $response = $this->getJson("/api/customers/{$customer->id}");
 
-    $response->assertStatus(200);
+    $response->assertStatus(Response::HTTP_OK);
     $response->assertJson([
         'id' => $customer->id,
         'firstName' => $customer->first_name,

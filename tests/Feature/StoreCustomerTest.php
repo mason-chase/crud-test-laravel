@@ -3,13 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use Symfony\Component\HttpFoundation\Response;
 
 it('can store a customer', function () {
     $customer = Customer::factory()->make();
 
     $response = $this->postJson("/api/customers/", $customer->toArray());
 
-    $response->assertStatus(201);
+    $response->assertStatus(Response::HTTP_CREATED);
     $response->assertJsonStructure([
         'id',
         'firstName',

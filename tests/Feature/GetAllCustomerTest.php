@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use Symfony\Component\HttpFoundation\Response;
 
 it('can get list of customers', function () {
     $randomNum = random_int(1, 20);
@@ -10,7 +11,7 @@ it('can get list of customers', function () {
 
     $response = $this->getJson('/api/customers');
 
-    $response->assertStatus(200);
+    $response->assertStatus(Response::HTTP_OK);
     $response->assertJsonCount($randomNum, 'data');
     $response->assertJsonStructure([
         'data' => [
