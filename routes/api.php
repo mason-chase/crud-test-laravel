@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customers\CustomerController;
+use App\Http\Controllers\Customers\DeleteCustomerController;
 use App\Http\Controllers\Customers\GetAllCustomerController;
 use App\Http\Controllers\Customers\ShowCustomerController;
 use App\Http\Controllers\Customers\StoreCustomerController;
@@ -23,4 +24,5 @@ Route::prefix('customers')->group(callback: static function () {
     Route::get(uri: '/{id}', action: ShowCustomerController::class);
     Route::post(uri: '/', action: StoreCustomerController::class);
     Route::put(uri: '/{id}', action: UpdateCustomerController::class);
+    Route::delete(uri: '/{id}', action: DeleteCustomerController::class);
 });

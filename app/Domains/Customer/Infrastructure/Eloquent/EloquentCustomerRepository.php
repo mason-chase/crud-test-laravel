@@ -3,6 +3,7 @@
 namespace App\Domains\Customer\Infrastructure\Eloquent;
 
 use App\Domains\Customer\Application\Commands\CreateCustomerCommand;
+use App\Domains\Customer\Application\Commands\DeleteCustomerCommand;
 use App\Domains\Customer\Application\Commands\UpdateCustomerCommand;
 use App\Domains\Customer\Domain\Entities\CustomerEntity as CustomerEntity;
 use App\Domains\Customer\Domain\Repositories\CustomerRepositoryInterface;
@@ -86,5 +87,13 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
                     'date_of_birth' => $query->getDateOfBirth(),
                 ])
         );
+    }
+
+    public function deleteById(DeleteCustomerCommand $query): bool
+    {
+        return $this->model
+            ->newQuery()
+            ->findOrFail($query->getId())
+            ->delete();
     }
 }

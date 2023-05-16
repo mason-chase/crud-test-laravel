@@ -33,4 +33,13 @@ it('can update a customer', function () {
     ]);
 });
 
+it('failed to update a not valid customer', function () {
+    $oldCustomer = Customer::factory()->create();
+    $randomNum = random_int($oldCustomer->id + 1, $oldCustomer->id + 20);
+    $newCustomer = Customer::factory()->make();
+    $response = $this->putJson("/api/customers/$randomNum", $newCustomer->toArray());
+
+    $response->assertStatus(404);
+});
+
 // TODO:: failed on validation test
