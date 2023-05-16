@@ -14,6 +14,35 @@ class UpdateCustomerController extends Controller
     {
     }
 
+    /**
+     * @OA\Put(
+     *     path="/customers/{id}",
+     *     summary="Update a customer",
+     *     tags={"Customers"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Customer ID",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerUpdateRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=202,
+     *         description="Accepted",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not Found",
+     *     ),
+     * )
+     */
     public function __invoke(int $id, CustomerUpdateRequest $request): JsonResponse
     {
         $query = new UpdateCustomerCommand(

@@ -15,6 +15,26 @@ class StoreCustomerController extends Controller
     {
     }
 
+    /**
+     * @OA\Post(
+     *     path="/customers",
+     *     summary="Create a new customer",
+     *     tags={"Customers"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerStoreRequest")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Created",
+     *         @OA\JsonContent(ref="#/components/schemas/Customer")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Unprocessable Entity",
+     *     ),
+     * )
+     */
     public function __invoke(CustomerStoreRequest $request): JsonResponse
     {
         $query = new CreateCustomerCommand(

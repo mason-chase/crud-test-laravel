@@ -9,6 +9,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Info(
+ *     title="Your API Title",
+ *     version="1.0.0",
+ *     description="Your API Description"
+ * )
+ */
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
