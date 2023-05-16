@@ -13,9 +13,9 @@ class ShowCustomerController extends Controller
     {
     }
 
-    public function __invoke(int $id): CustomerResource
+    public function __invoke(int $id)
     {
         $query = new ShowCustomerQuery($id);
-        return CustomerResource::make($this->handler->handle($query));
+        return $this->ok(CustomerResource::make($this->handler->handle($query)));
     }
 }

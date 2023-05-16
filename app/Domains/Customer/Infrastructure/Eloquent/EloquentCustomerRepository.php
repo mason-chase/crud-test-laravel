@@ -2,6 +2,7 @@
 
 namespace App\Domains\Customer\Infrastructure\Eloquent;
 
+use App\Domains\Customer\Application\Commands\CreateCustomerCommand;
 use App\Domains\Customer\Domain\Entities\CustomerEntity as CustomerEntity;
 use App\Domains\Customer\Domain\Repositories\CustomerRepositoryInterface;
 use App\Models\Customer;
@@ -52,6 +53,22 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
             $this->model
                 ->newQuery()
                 ->findOrFail($id)
+        );
+    }
+
+    public function create(CreateCustomerCommand $query): CustomerEntity
+    {
+        return $this->convertToCustomerEntity(
+            $this->model
+                ->newQuery()
+                ->create([
+                    'first_name' => $query->getFirstName(),
+                    'last_name' => $query->getLastName(),
+                    'phone_number' => $query->getPhoneNumber(),
+                    'bank_account_number' => $query->getBankAccountNumber(),
+                    'email' => $query->getEmail(),
+                    'date_of_birth' => $query->getDateOfBirth(),
+                ])
         );
     }
 }

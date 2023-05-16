@@ -7,7 +7,7 @@ use App\Domains\Customer\Application\Queries\GetAllCustomerQuery;
 use App\Domains\Customer\Domain\Repositories\CustomerRepositoryInterface;
 use Illuminate\Support\Collection;
 
-class GetAllCustomerHandler
+readonly class GetAllCustomerHandler
 {
     public function __construct(private CustomerRepositoryInterface $repository)
     {

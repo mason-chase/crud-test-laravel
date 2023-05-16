@@ -6,7 +6,6 @@ use App\Domains\Customer\Application\Handler\GetAllCustomerHandler;
 use App\Domains\Customer\Application\Queries\GetAllCustomerQuery;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomerResource;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class GetAllCustomerController extends Controller
 {
@@ -14,9 +13,9 @@ class GetAllCustomerController extends Controller
     {
     }
 
-    public function __invoke(): AnonymousResourceCollection
+    public function __invoke()
     {
         $query = new GetAllCustomerQuery();
-        return CustomerResource::collection($this->handler->handle($query));
+        return $this->ok(CustomerResource::collection($this->handler->handle($query)));
     }
 }
