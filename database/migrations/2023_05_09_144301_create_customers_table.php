@@ -15,10 +15,12 @@ return new class extends Migration {
             $table->string(column: 'first_name', length: 40);
             $table->date(column: 'date_of_birth');
             $table->string(column: 'last_name', length: 40);
-            $table->string(column: 'email', length: 150);
+            $table->string(column: 'email', length: 150)->unique();
             $table->string(column: 'phone_number', length: 25);
             $table->string(column: 'bank_account_number', length: 36);
             $table->timestamps();
+
+            $table->unique(['date_of_birth', 'first_name', 'last_name']);
         });
     }
 

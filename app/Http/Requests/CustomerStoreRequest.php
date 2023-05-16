@@ -75,6 +75,9 @@ class CustomerStoreRequest extends FormRequest
                 'required',
                 'string',
                 'max:40',
+                Rule::unique(Customer::class, 'first_name')
+                    ->where('last_name', $this->input('last_name'))
+                    ->where('date_of_birth', $this->input('date_of_birth')),
             ],
             'date_of_birth' => [
                 'required',
@@ -101,7 +104,6 @@ class CustomerStoreRequest extends FormRequest
                 'required',
                 'alpha_dash',
                 'max:36',
-                Rule::unique(Customer::class, 'bank_account_number'),
             ],
         ];
     }
