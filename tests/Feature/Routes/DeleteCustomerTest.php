@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Customer;
 use Symfony\Component\HttpFoundation\Response;
 
-it('can update a customer', function () {
+it('can delete a customer', function () {
     $oldCustomer = Customer::factory()->create();
 
     $response = $this->deleteJson(route(name: 'customers.delete', parameters: $oldCustomer->id));
