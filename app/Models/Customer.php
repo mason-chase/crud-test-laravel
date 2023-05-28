@@ -9,9 +9,9 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name', 'last_name', 'birth_date', 'phone_number', 'email', 'bank_account_number'];
+    protected $fillable = ['first_name', 'last_name', 'date_of_birth', 'phone_number', 'email', 'bank_account_number'];
 
     protected $casts = [
-        'birth_date' => 'date',
+        'date_of_birth' => 'date',
     ];
 }

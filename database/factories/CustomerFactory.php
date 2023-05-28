@@ -19,7 +19,7 @@ class CustomerFactory extends Factory
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'birth_date' => fake()->dateTimeBetween('-65 years', '-2 years')->format('Y-m-d'),
+            'date_of_birth' => fake()->dateTimeBetween('-65 years', '-2 years')->format('Y-m-d'),
             'phone_number' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'bank_account_number' => fake()->numerify('####-####-####-####'),

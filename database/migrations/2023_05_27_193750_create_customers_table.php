@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('first_name', 255)->nullable();
             $table->string('last_name', 255);
-            $table->date('birth_date')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('phone_number', 20)->unique();
             $table->string('email', 191)->unique();
             $table->string('bank_account_number', 32)->nullable();
             $table->timestamps();
 
-            $table->unique(['first_name', 'last_name', 'birth_date'], 'fname_lname_brthdate_unique');
+            $table->unique(['first_name', 'last_name', 'date_of_birth'], 'fname_lname_brthdate_unique');
         });
     }
 

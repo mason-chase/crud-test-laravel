@@ -25,7 +25,7 @@ class IndexTest extends TestCase
                     'id',
                     'first_name',
                     'last_name',
-                    'birth_date',
+                    'date_of_birth',
                     'phone_number',
                     'email',
                     'bank_account_number',
