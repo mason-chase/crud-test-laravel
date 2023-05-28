@@ -16,5 +16,7 @@ class DestroyTest extends TestCase
         $this
             ->deleteJson('api/customers/'.$customer->id)
             ->assertOk();
+
+        $this->assertDatabaseCount(Customer::class, 0);
     }
 }
