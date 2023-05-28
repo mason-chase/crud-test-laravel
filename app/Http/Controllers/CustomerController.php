@@ -2,50 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Customer\DeleteEvent;
+use App\Events\Customer\IndexEvent;
+use App\Events\Customer\ShowEvent;
+use App\Events\Customer\StoreEvent;
+use App\Events\Customer\UpdateEvent;
 use App\Http\Requests\DeleteCustomerRequest;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Swagger\CustomerInterface;
-use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Http\Response;
 
 class CustomerController extends Controller implements CustomerInterface
 {
-    public function __construct(protected CustomerRepositoryInterface $customerRepository)
-    {
-    }
-
     public function index()
     {
-        $customers = $this->customerRepository->allCustomers();
+        $customers = event(new IndexEvent())[0];
 
         return response()->json($customers, Response::HTTP_OK);
     }
 
     public function show($id)
     {
-        $customers = $this->customerRepository->findCustomer($id);
+        $customers = event(new ShowEvent($id))[0];
 
         return response()->json($customers, Response::HTTP_OK);
     }
 
     public function store(StoreCustomerRequest $request)
     {
-        $customer = $this->customerRepository->storeCustomer($request->all());
+        $customer = event(new StoreEvent($request->all()))[0];
 
         return response()->json($customer, Response::HTTP_CREATED);
     }
 
     public function update(UpdateCustomerRequest $request, $id)
     {
-        $customer = $this->customerRepository->updateCustomer($request->all(), $id);
+        $customer = event(new UpdateEvent($id, $request->all()))[0];
 
         return response()->json($customer, Response::HTTP_OK);
     }
 
     public function destroy(DeleteCustomerRequest $request, $id)
     {
-        $this->customerRepository->destroyCustomer($id);
+        event(new DeleteEvent($id));
 
         return response()->json('Customer Delete Successfully', Response::HTTP_OK);
     }
