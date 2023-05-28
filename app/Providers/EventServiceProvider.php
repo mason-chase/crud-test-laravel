@@ -18,22 +18,6 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-
-        'App\Events\Customer\IndexEvent' => [
-            'App\Listeners\Customer\Index',
-        ],
-        'App\Events\Customer\ShowEvent' => [
-            'App\Listeners\Customer\Show',
-        ],
-        'App\Events\Customer\StoreEvent' => [
-            'App\Listeners\Customer\Store',
-        ],
-        'App\Events\Customer\UpdateEvent' => [
-            'App\Listeners\Customer\Update',
-        ],
-        'App\Events\Customer\DeleteEvent' => [
-            'App\Listeners\Customer\Destroy',
-        ],
     ];
 
     /**
