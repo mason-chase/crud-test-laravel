@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: dev.Dockerfile
+        image: chase-app-alpine
+        container_name: chase-panel
+        restart: unless-stopped
+        working_dir: /var/www/html
+        tty: true
+        ports:
+            - "8000:80"
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - chase-app
+    mysql_db:
+      container_name: chase-mysql-db
+      image: percona/percona-server:8.0
+      restart: always
+      command: mysqld --default-authentication-plugin=mysql_native_password --skip-mysqlx
+      ports:
+        - '3306:3306'
+      volumes:
+        - db-data-percona:/var/lib/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=chase_db
+      networks:
+        - chase-app
+    redis:
+        image: redis:alpine
+        container_name: chase-redis
+        hostname: redis
+        ports:
+            - '6379:6379'
+        networks:
+            - chase-app
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            retries: 3
+            timeout: 5s
+networks:
+    chase-app:
+
+volumes:
+    db-data-percona:
+
