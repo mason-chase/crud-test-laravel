@@ -10,13 +10,6 @@ class DestroyTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_has()
-    {
-        $customer = Customer::factory()->create();
-        $this->deleteJson('api/customers/'.$customer->id)
-            ->assertOk();
-    }
-
     public function test_destroy()
     {
         $customer = Customer::factory()->create();

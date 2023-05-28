@@ -13,7 +13,7 @@ class StoreTest extends TestCase
     public function test_has()
     {
         $this->postJson('api/customers')
-            ->assertBadRequest();
+            ->assertUnprocessable();
     }
 
     public function test_create()

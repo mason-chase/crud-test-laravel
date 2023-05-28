@@ -14,7 +14,7 @@ class UpdateTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $this->putJson('api/customers/'.$customer->id)
-            ->assertOk();
+            ->assertUnprocessable();
     }
 
     public function test_update()

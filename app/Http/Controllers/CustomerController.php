@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteCustomerRequest;
+use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CustomerController extends Controller
@@ -26,24 +28,24 @@ class CustomerController extends Controller
         return response()->json($customers, Response::HTTP_OK);
     }
 
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
         $customer = $this->customerRepository->storeCustomer($request->all());
 
         return response()->json($customer, Response::HTTP_CREATED);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateCustomerRequest $request, $id)
     {
         $customer = $this->customerRepository->updateCustomer($request->all(), $id);
 
         return response()->json($customer, Response::HTTP_OK);
     }
 
-    public function destroy($id)
+    public function destroy(DeleteCustomerRequest $request, $id)
     {
         $this->customerRepository->destroyCustomer($id);
 
-        return response()->json('Customer Delete Successfully', Response::De);
+        return response()->json('Customer Delete Successfully', Response::HTTP_OK);
     }
 }
