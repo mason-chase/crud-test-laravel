@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DeleteCustomerRequest;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Swagger\CustomerInterface;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Http\Response;
 
-class CustomerController extends Controller
+class CustomerController extends Controller implements CustomerInterface
 {
     public function __construct(protected CustomerRepositoryInterface $customerRepository)
     {
